@@ -1,979 +1,727 @@
-/* =====================================================
-   AABF MAIN STYLE
-   ===================================================== */
-
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-    font-family: "Noto Sans Bengali", sans-serif;
-    background: #ffffff;
-    color: #20232d;
-    overflow: hidden;
+  font-family: "Noto Sans Bengali", sans-serif;
+  background: #ffffff;
+  color: #24242a;
+}
+
+button {
+  font-family: inherit;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 
-/* =====================================================
+/* =========================
    APP
-   ===================================================== */
+========================= */
 
 .app {
-    width: 100%;
-    max-width: 720px;
-    height: 100vh;
-    min-height: 650px;
-    margin: 0 auto;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
 
-    padding: 18px 32px 10px;
+  padding: 14px 28px 8px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background: #ffffff;
+  background: #ffffff;
+
+  overflow: hidden;
 }
 
 
-/* =====================================================
+/* =========================
    HEADER
-   ===================================================== */
+========================= */
 
 .top-header {
-    width: 100%;
+  width: 100%;
+  height: 86px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    margin-bottom: 14px;
+  flex-shrink: 0;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
+.logo-box {
+  width: 92px;
+  height: 76px;
 
-/* AABF LOGO */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.org-logo {
-    width: 78px;
-    height: 78px;
-
-    object-fit: contain;
-    display: block;
-
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
+.logo-box img {
+  width: 76px;
+  height: 76px;
 
-/* Brand Text */
+  object-fit: contain;
+
+  display: block;
+}
 
 .brand-text {
-    min-width: 0;
+  margin-left: 10px;
+  min-width: 0;
 }
 
 .brand-text h1 {
-    color: #a7193d;
+  color: #a8173e;
 
-    font-size: clamp(21px, 4.5vw, 32px);
-    font-weight: 800;
+  font-size: clamp(21px, 4.7vw, 32px);
+  font-weight: 800;
 
-    line-height: 1.15;
+  line-height: 1.15;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .brand-text p {
-    color: #85858b;
+  margin-top: 4px;
 
-    font-size: 17px;
-    font-weight: 500;
+  color: #7c7d84;
 
-    margin-top: 4px;
+  font-size: clamp(13px, 3vw, 19px);
+  font-weight: 500;
 }
 
-
-/* =====================================================
-   PROFILE
-   ===================================================== */
 
 .profile-btn {
-    border: 0;
-    background: transparent;
+  width: 72px;
+  height: 78px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background: transparent;
 
-    gap: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    cursor: pointer;
+  color: #a8173e;
 
-    color: #7e233b;
-
-    font-family: inherit;
-
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
-.profile-circle {
-    width: 58px;
-    height: 58px;
+.profile-btn i {
+  width: 52px;
+  height: 52px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: #fff5f7;
+  background: #fff4f6;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 27px;
 }
 
-.profile-icon {
-    font-family: Arial, sans-serif;
-
-    font-size: 38px;
-    line-height: 1;
-
-    color: #b71942;
-}
-
-.profile-btn > span:last-child {
-    font-size: 14px;
-    font-weight: 600;
+.profile-btn span {
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 
-/* =====================================================
+/* =========================
    USER CARD
-   ===================================================== */
+========================= */
 
 .user-card {
-    width: 100%;
+  width: 100%;
+  height: 112px;
 
-    min-height: 118px;
+  flex-shrink: 0;
 
-    border: 1px solid #eadde1;
-    border-radius: 30px;
+  margin-bottom: 14px;
 
-    background: #ffffff;
+  padding: 14px 24px;
 
-    box-shadow:
-        0 7px 22px rgba(70, 40, 50, 0.07);
+  border: 1px solid #e8dfe2;
+  border-radius: 30px;
 
-    display: flex;
-    align-items: center;
+  background: #ffffff;
 
-    padding: 16px 24px;
+  box-shadow: 0 5px 18px rgba(90, 40, 55, 0.07);
 
-    margin-bottom: 16px;
+  display: flex;
+  align-items: center;
 }
 
+.user-icon {
+  width: 76px;
+  height: 76px;
 
-/* User Avatar */
+  border-radius: 24px;
 
-.user-avatar {
-    width: 104px;
-    height: 104px;
+  background: #fff0f3;
 
-    border-radius: 25px;
+  color: #c7194c;
 
-    background: #fff0f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #c71743;
-
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
-.user-avatar > span:first-child {
-    font-family: Arial, sans-serif;
-
-    font-size: 39px;
-    line-height: 22px;
+.user-icon i {
+  font-size: 38px;
 }
-
-.avatar-body {
-    width: 54px;
-    height: 31px;
-
-    border-radius: 35px 35px 8px 8px;
-
-    background: #c71743;
-
-    margin-top: 3px;
-}
-
-
-/* User Info */
 
 .user-info {
-    flex: 1;
-
-    margin-left: 20px;
-
-    min-width: 0;
+  margin-left: 22px;
+  min-width: 0;
 }
 
-.welcome {
-    color: #98989d;
-
-    font-size: 15px;
-    font-weight: 500;
-
-    margin-bottom: 1px;
+.user-info span {
+  color: #85858b;
+  font-size: 14px;
 }
 
 .user-info h2 {
-    font-size: 29px;
-    font-weight: 800;
+  margin-top: 0;
 
-    line-height: 1.15;
+  font-size: 28px;
+  line-height: 1.15;
 
-    color: #20222a;
+  font-weight: 800;
 }
 
-.member-id {
-    color: #85858b;
+.user-info p {
+  margin-top: 2px;
 
-    font-size: 17px;
-    font-weight: 500;
+  color: #7f8086;
 
-    margin-top: 2px;
+  font-size: 16px;
 }
 
-.member-id strong {
-    color: #a91b3e;
-    font-weight: 800;
+.user-info b {
+  color: #a8173e;
 }
 
+.round-arrow {
+  width: 54px;
+  height: 54px;
 
-/* User Arrow */
+  margin-left: auto;
 
-.user-arrow {
-    width: 58px;
-    height: 58px;
+  border-radius: 50%;
 
-    border: 0;
-    border-radius: 50%;
+  background: #fff2f4;
 
-    background: #fff3f5;
+  color: #b21b45;
 
-    color: #b31b40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    font-family: Arial, sans-serif;
-    font-size: 34px;
-
-    cursor: pointer;
-
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
-
-/* =====================================================
-   MAIN MENU GRID
-   ===================================================== */
-
-.menu-grid {
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 14px;
-
-    flex: 1;
-
-    min-height: 0;
+.round-arrow i {
+  font-size: 23px;
 }
 
 
-/* =====================================================
-   MENU CARD
-   ===================================================== */
+/* =========================
+   MAIN GRID
+========================= */
 
-.menu-card {
-    position: relative;
+.button-grid {
+  width: 100%;
 
-    min-height: 150px;
+  flex: 1 1 auto;
+  min-height: 0;
 
-    border-radius: 27px;
+  display: grid;
 
-    border: 1px solid transparent;
+  grid-template-columns: 1fr 1fr;
 
-    padding: 18px 20px;
+  grid-template-rows: 1fr 1fr;
 
-    text-align: left;
+  gap: 12px;
 
-    font-family: inherit;
-
-    cursor: pointer;
-
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: space-between;
-
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.menu-card:hover {
-    transform: translateY(-2px);
-}
-
-.menu-card:active {
-    transform: scale(0.98);
+  margin-bottom: 12px;
 }
 
 
-/* Decorative Circle */
+.action-card {
+  position: relative;
 
-.menu-card::after {
-    content: "";
+  min-width: 0;
+  min-height: 0;
 
-    position: absolute;
+  overflow: hidden;
 
-    width: 130px;
-    height: 130px;
+  border-radius: 28px;
 
-    border-radius: 50%;
+  padding: 18px;
 
-    right: -35px;
-    top: -45px;
+  text-align: left;
 
-    background: rgba(255,255,255,0.38);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
 
-    pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+
+  transition: transform .15s ease;
+}
+
+.action-card:active {
+  transform: scale(.98);
 }
 
 
-/* =====================================================
-   ICON BOX
-   ===================================================== */
+/* decorative circle */
 
-.icon-box {
-    width: 72px;
-    height: 72px;
+.action-card::after {
+  content: "";
 
-    border-radius: 22px;
+  position: absolute;
 
-    background: rgba(255,255,255,0.82);
+  width: 150px;
+  height: 150px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  border-radius: 50%;
 
-    box-shadow:
-        0 8px 18px rgba(0,0,0,0.06);
+  right: -45px;
+  top: -65px;
 
-    position: relative;
-    z-index: 2;
+  background: rgba(255,255,255,.40);
 
-    flex-shrink: 0;
+  pointer-events: none;
 }
 
 
-/* Icons */
+/* icons */
 
-.icon {
-    font-family: Arial, sans-serif;
+.card-icon {
+  position: relative;
+  z-index: 2;
 
-    font-size: 38px;
-    font-weight: 700;
+  width: 64px;
+  height: 64px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,.88);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,.06);
+
+  flex-shrink: 0;
 }
 
-.blood-icon {
-    font-family: Arial, sans-serif;
-
-    font-size: 42px;
-    font-weight: 700;
-}
-
-.register-icon {
-    font-family: Arial, sans-serif;
-
-    font-size: 29px;
-    font-weight: 700;
-}
-
-.relief-icon {
-    font-family: Arial, sans-serif;
-
-    font-size: 45px;
-    font-weight: 700;
+.card-icon i {
+  font-size: 28px;
 }
 
 
-/* =====================================================
-   CARD CONTENT
-   ===================================================== */
+/* text */
 
 .card-content {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 
-    padding-right: 40px;
+  min-width: 0;
+
+  padding-right: 45px;
 }
 
 .card-content h3 {
-    font-size: 22px;
-    font-weight: 800;
+  font-size: clamp(18px, 4.4vw, 25px);
 
-    line-height: 1.25;
+  font-weight: 800;
 
-    margin-bottom: 2px;
+  line-height: 1.25;
 }
 
 .card-content p {
-    font-size: 14px;
-    font-weight: 500;
+  margin-top: 3px;
 
-    line-height: 1.35;
+  font-size: clamp(11px, 2.8vw, 15px);
 
-    opacity: 0.68;
+  line-height: 1.35;
+
+  opacity: .65;
 }
 
 
-/* Card Arrow */
+/* arrow */
 
 .card-arrow {
-    position: absolute;
+  position: absolute;
+  z-index: 3;
 
-    right: 16px;
-    bottom: 16px;
+  right: 15px;
+  bottom: 15px;
 
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,.82);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    font-family: Arial, sans-serif;
-
-    font-size: 28px;
-    font-weight: 400;
-
-    z-index: 3;
+.card-arrow i {
+  font-size: 20px;
 }
 
 
-/* =====================================================
-   CARD COLORS
-   ===================================================== */
+/* COLORS */
 
-/* পরিচিতি */
-
-.card-profile {
-    background: linear-gradient(
-        135deg,
-        #fff4f5,
-        #ffdfe5
-    );
-
-    border-color: #f1c9d1;
-
-    color: #aa1b40;
+.card-pink {
+  background: linear-gradient(135deg, #fff3f5, #ffdce4);
+  color: #a8173e;
 }
 
-.card-profile .icon {
-    color: #b51c43;
+.card-green {
+  background: linear-gradient(135deg, #f0fffc, #d2f7f1);
+  color: #078b80;
 }
 
-.card-profile .card-arrow {
-    color: #b51c43;
+.card-blue {
+  background: linear-gradient(135deg, #f1f7ff, #d9e9ff);
+  color: #28699d;
+}
+
+.card-purple {
+  background: linear-gradient(135deg, #faf4ff, #ead8ff);
+  color: #7b3caf;
 }
 
 
-/* রক্তের আবেদন */
+/* =========================
+   RELIEF
+========================= */
 
-.card-blood-request {
-    background: linear-gradient(
-        135deg,
-        #effffb,
-        #d0f5ee
-    );
+.relief-card {
+  width: 100%;
+  height: 92px;
 
-    border-color: #b9e4dd;
+  flex-shrink: 0;
 
-    color: #078a80;
+  margin-bottom: 10px;
+
+  padding: 12px 20px;
+
+  border-radius: 26px;
+
+  background: linear-gradient(135deg, #fff9e9, #ffebbd);
+
+  border: 1px solid #f0d998;
+
+  color: #bd7a00;
+
+  display: flex;
+  align-items: center;
+
+  text-align: left;
+
+  position: relative;
+  overflow: hidden;
 }
 
-.card-blood-request .blood-icon {
-    color: #008f85;
+.relief-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  border-radius: 50%;
+
+  right: -40px;
+  top: -80px;
+
+  background: rgba(255,255,255,.42);
 }
 
-.card-blood-request .card-arrow {
-    color: #078a80;
+.relief-icon {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,.8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  position: relative;
+  z-index: 2;
 }
 
-
-/* আবেদনগুলি দেখুন */
-
-.card-blood-list {
-    background: linear-gradient(
-        135deg,
-        #f1f7ff,
-        #d8e8ff
-    );
-
-    border-color: #bfd4ef;
-
-    color: #216096;
+.relief-icon i {
+  font-size: 25px;
 }
 
-.card-blood-list .icon {
-    color: #2875b8;
+.relief-content {
+  margin-left: 18px;
+
+  position: relative;
+  z-index: 2;
 }
 
-.card-blood-list .card-arrow {
-    color: #2875b8;
+.relief-content h3 {
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
 }
 
-
-/* সদস্য নিবন্ধন */
-
-.card-register {
-    background: linear-gradient(
-        135deg,
-        #fbf3ff,
-        #ead9ff
-    );
-
-    border-color: #d6c1ed;
-
-    color: #7035a0;
+.relief-content p {
+  font-size: 13px;
+  opacity: .65;
 }
 
-.card-register .register-icon {
-    color: #783cb1;
-}
+.relief-arrow {
+  margin-left: auto;
 
-.card-register .card-arrow {
-    color: #783cb1;
-}
+  width: 50px;
+  height: 50px;
 
+  border-radius: 50%;
 
-/* ত্রাণ */
+  background: rgba(255,255,255,.82);
 
-.card-relief {
-    grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    min-height: 112px;
+  position: relative;
+  z-index: 3;
 
-    background: linear-gradient(
-        135deg,
-        #fffaf0,
-        #ffedc3
-    );
-
-    border-color: #eed69c;
-
-    color: #ae6900;
-
-    flex-direction: row;
-    align-items: center;
-
-    gap: 20px;
-}
-
-.card-relief .card-content {
-    flex: 1;
-}
-
-.card-relief .relief-icon {
-    color: #d58b00;
-}
-
-.card-relief .card-arrow {
-    right: 18px;
-    bottom: 50%;
-    transform: translateY(50%);
+  flex-shrink: 0;
 }
 
 
-/* =====================================================
+/* =========================
    EMERGENCY
-   ===================================================== */
+========================= */
 
 .emergency-btn {
-    width: 100%;
+  width: 100%;
+  height: 70px;
 
-    min-height: 72px;
+  flex-shrink: 0;
 
-    margin-top: 14px;
+  margin: 0;
 
-    border: 0;
-    border-radius: 25px;
+  padding: 8px 18px;
 
-    background: linear-gradient(
-        100deg,
-        #d90e3d,
-        #ec1748
-    );
+  border-radius: 25px;
 
-    color: #ffffff;
+  background: linear-gradient(135deg, #ed1748, #d7083c);
 
-    display: flex;
-    align-items: center;
+  color: #ffffff;
 
-    padding: 10px 18px;
+  box-shadow: 0 9px 22px rgba(215, 8, 60, .20);
 
-    font-family: inherit;
+  display: flex;
+  align-items: center;
 
-    cursor: pointer;
+  text-align: left;
 
-    box-shadow:
-        0 10px 25px rgba(214, 20, 62, 0.20);
-
-    flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .emergency-icon {
-    width: 54px;
-    height: 54px;
+  width: 52px;
+  height: 52px;
 
-    border-radius: 18px;
+  border-radius: 17px;
 
-    background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,.18);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    font-family: Arial, sans-serif;
+  flex-shrink: 0;
+}
 
-    font-size: 30px;
-
-    flex-shrink: 0;
+.emergency-icon i {
+  font-size: 25px;
 }
 
 .emergency-text {
-    text-align: left;
+  margin-left: 15px;
 
-    margin-left: 16px;
-
-    flex: 1;
+  min-width: 0;
 }
 
 .emergency-text h3 {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 
-    font-size: 23px;
-    font-weight: 800;
+  font-size: 21px;
+  font-weight: 800;
 
-    line-height: 1.1;
+  line-height: 1.1;
 }
 
 .emergency-text p {
-    font-size: 14px;
-
-    opacity: 0.85;
-
-    margin-top: 2px;
+  font-size: 12px;
+  opacity: .85;
 }
 
 .emergency-arrow {
-    font-family: Arial, sans-serif;
+  margin-left: auto;
 
-    font-size: 35px;
+  font-size: 24px;
 
-    margin-left: 10px;
+  padding-right: 5px;
+
+  flex-shrink: 0;
 }
 
 
-/* =====================================================
+/* =========================
    FOOTER
-   ===================================================== */
+========================= */
 
 footer {
-    text-align: center;
+  height: 18px;
 
-    color: #aaaab0;
+  flex-shrink: 0;
 
-    font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    padding-top: 6px;
-}
+  gap: 9px;
 
-footer b {
-    margin: 0 8px;
-}
+  color: #a4a5aa;
 
+  font-family: Arial, sans-serif;
 
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 600px) {
-
-    .app {
-        padding:
-            14px
-            14px
-            7px;
-
-        min-height: 600px;
-    }
-
-    .top-header {
-        margin-bottom: 10px;
-    }
-
-    .org-logo {
-        width: 72px;
-        height: 72px;
-    }
-
-    .brand {
-        gap: 10px;
-    }
-
-    .brand-text h1 {
-        font-size: 22px;
-    }
-
-    .brand-text p {
-        font-size: 14px;
-    }
-
-    .profile-circle {
-        width: 50px;
-        height: 50px;
-    }
-
-    .profile-icon {
-        font-size: 32px;
-    }
-
-    .profile-btn > span:last-child {
-        font-size: 12px;
-    }
-
-    .user-card {
-        min-height: 98px;
-
-        border-radius: 25px;
-
-        padding: 12px 16px;
-
-        margin-bottom: 12px;
-    }
-
-    .user-avatar {
-        width: 72px;
-        height: 72px;
-
-        border-radius: 20px;
-    }
-
-    .user-avatar > span:first-child {
-        font-size: 29px;
-    }
-
-    .avatar-body {
-        width: 42px;
-        height: 25px;
-    }
-
-    .user-info {
-        margin-left: 12px;
-    }
-
-    .welcome {
-        font-size: 12px;
-    }
-
-    .user-info h2 {
-        font-size: 23px;
-    }
-
-    .member-id {
-        font-size: 14px;
-    }
-
-    .user-arrow {
-        width: 48px;
-        height: 48px;
-
-        font-size: 28px;
-    }
-
-    .menu-grid {
-        gap: 10px;
-    }
-
-    .menu-card {
-        min-height: 142px;
-
-        border-radius: 23px;
-
-        padding: 13px 14px;
-    }
-
-    .icon-box {
-        width: 58px;
-        height: 58px;
-
-        border-radius: 18px;
-    }
-
-    .icon {
-        font-size: 31px;
-    }
-
-    .blood-icon {
-        font-size: 34px;
-    }
-
-    .register-icon {
-        font-size: 23px;
-    }
-
-    .relief-icon {
-        font-size: 36px;
-    }
-
-    .card-content h3 {
-        font-size: 18px;
-    }
-
-    .card-content p {
-        font-size: 11px;
-    }
-
-    .card-arrow {
-        width: 42px;
-        height: 42px;
-
-        right: 11px;
-        bottom: 11px;
-
-        font-size: 25px;
-    }
-
-    .card-relief {
-        min-height: 92px;
-
-        gap: 12px;
-    }
-
-    .card-relief .card-arrow {
-        right: 12px;
-    }
-
-    .emergency-btn {
-        min-height: 65px;
-
-        margin-top: 10px;
-
-        border-radius: 22px;
-
-        padding: 8px 13px;
-    }
-
-    .emergency-icon {
-        width: 48px;
-        height: 48px;
-
-        border-radius: 16px;
-
-        font-size: 26px;
-    }
-
-    .emergency-text {
-        margin-left: 12px;
-    }
-
-    .emergency-text h3 {
-        font-size: 20px;
-    }
-
-    .emergency-text p {
-        font-size: 11px;
-    }
-
-    .emergency-arrow {
-        font-size: 30px;
-    }
-
-    footer {
-        font-size: 10px;
-        padding-top: 4px;
-    }
+  font-size: 11px;
 }
 
 
-/* =====================================================
-   VERY SMALL PHONES
-   ===================================================== */
+/* =========================
+   SMALL PHONE
+========================= */
 
-@media (max-height: 700px) {
+@media (max-height: 720px) {
 
-    .app {
-        padding-top: 9px;
-    }
+  .app {
+    padding-top: 8px;
+    padding-bottom: 5px;
+  }
 
-    .org-logo {
-        width: 62px;
-        height: 62px;
-    }
+  .top-header {
+    height: 70px;
+  }
 
-    .brand-text h1 {
-        font-size: 20px;
-    }
+  .logo-box {
+    width: 72px;
+    height: 62px;
+  }
 
-    .brand-text p {
-        font-size: 12px;
-    }
+  .logo-box img {
+    width: 62px;
+    height: 62px;
+  }
 
-    .user-card {
-        min-height: 88px;
-    }
+  .user-card {
+    height: 94px;
+    margin-bottom: 9px;
+  }
 
-    .user-avatar {
-        width: 62px;
-        height: 62px;
-    }
+  .user-icon {
+    width: 62px;
+    height: 62px;
+  }
 
-    .user-info h2 {
-        font-size: 20px;
-    }
+  .button-grid {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
 
-    .menu-card {
-        min-height: 125px;
-    }
+  .action-card {
+    padding: 13px;
+    border-radius: 22px;
+  }
 
-    .card-relief {
-        min-height: 78px;
-    }
+  .card-icon {
+    width: 53px;
+    height: 53px;
+  }
 
-    .emergency-btn {
-        min-height: 58px;
-    }
+  .card-icon i {
+    font-size: 23px;
+  }
+
+  .card-arrow {
+    width: 42px;
+    height: 42px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .relief-card {
+    height: 72px;
+    margin-bottom: 7px;
+  }
+
+  .relief-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .emergency-btn {
+    height: 60px;
+  }
+
+  .emergency-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  footer {
+    height: 14px;
+  }
 }
