@@ -1,149 +1,116 @@
-/* =========================================
-   AABF HOME SCREEN
-========================================= */
+/* =====================================================
+   AABF APPLICATION SCRIPT
+   ===================================================== */
 
 
-/* -----------------------------------------
-   Login data
------------------------------------------ */
-
-function loadUser() {
-
-    const savedUser = localStorage.getItem("aabfUser");
-
-    if (savedUser) {
-
-        try {
-
-            const user = JSON.parse(savedUser);
-
-            if (user.name) {
-                document.getElementById("userName").textContent = user.name;
-            }
-
-            if (user.aabfId) {
-
-                const idElement = document.getElementById("aabfId");
-
-                idElement.textContent = user.aabfId;
-                idElement.style.color = "#b91638";
-
-            }
-
-        } catch (error) {
-
-            console.log("User data error:", error);
-
-        }
-
-    }
-
-}
-
-
-/* -----------------------------------------
-   Login
------------------------------------------ */
+/* ================= LOGIN ================= */
 
 function login() {
 
-    /*
-       এখন Login screen-এর URL তোমার project
-       অনুযায়ী পরিবর্তন করবে।
+    const currentId = localStorage.getItem("aabfID");
 
-       যেমন:
+    if (currentId) {
+        document.getElementById("userAabfId").textContent = currentId;
+        return;
+    }
 
-       window.location.href = "login.html";
-    */
+    const aabfId = prompt("আপনার AABF ID লিখুন:");
 
-    window.location.href = "login.html";
+    if (!aabfId) {
+        return;
+    }
+
+    localStorage.setItem("aabfID", aabfId.trim());
+
+    document.getElementById("userAabfId").textContent = aabfId.trim();
 }
 
 
-/* -----------------------------------------
-   Profile
------------------------------------------ */
+/* ================= PROFILE ================= */
 
 function openProfile() {
 
-    /*
-       Profile page তৈরি করলে:
+    const currentId = localStorage.getItem("aabfID");
 
-       window.location.href = "profile.html";
-    */
+    if (!currentId) {
+        login();
+        return;
+    }
 
-    window.location.href = "profile.html";
+    alert(
+        "AABF ID: " +
+        currentId +
+        "\n\nপ্রোফাইল অপশন শীঘ্রই যুক্ত করা হবে।"
+    );
 }
 
 
-/* -----------------------------------------
-   Main buttons
------------------------------------------ */
+/* ================= MAIN MENU ================= */
 
 function openPage(page) {
 
-    const pages = {
+    switch (page) {
 
-        "profile": "profile.html",
+        case "profile":
+            alert("পরিচিতি পেজ");
+            break;
 
-        "blood-request": "blood-request.html",
+        case "blood-request":
+            alert("রক্তের আবেদন করুন");
+            break;
 
-        "blood-list": "blood-list.html",
+        case "blood-list":
+            alert("রক্তের আবেদনগুলি দেখুন");
+            break;
 
-        "registration": "registration.html",
+        case "register":
+            alert("সদস্য নিবন্ধন");
+            break;
 
-        "relief": "relief.html"
+        case "relief":
+            alert("ত্রাণ সহায়তা");
+            break;
 
-    };
-
-    if (pages[page]) {
-
-        window.location.href = pages[page];
-
-    } else {
-
-        console.log("Page not found:", page);
-
+        default:
+            console.log("Unknown page:", page);
     }
-
 }
 
 
-/* -----------------------------------------
-   Emergency
------------------------------------------ */
+/* ================= EMERGENCY ================= */
 
-function emergencyCall() {
+function emergency() {
+
+    const confirmed = confirm(
+        "আপনি কি জরুরি সহায়তা নিতে চান?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
 
     /*
-       এখানে তোমার Emergency number বসাবে।
-
-       উদাহরণ:
-
-       window.location.href = "tel:01XXXXXXXXX";
+      এখানে পরে Emergency নম্বর
+      যুক্ত করা যাবে।
     */
 
-    const emergencyNumber = "";
-
-    if (emergencyNumber !== "") {
-
-        window.location.href = "tel:" + emergencyNumber;
-
-    } else {
-
-        alert("জরুরি সহায়তার জন্য Emergency নম্বরে যোগাযোগ করুন।");
-
-    }
-
+    window.location.href = "tel:999";
 }
 
 
-/* -----------------------------------------
-   Load user when page opens
------------------------------------------ */
+/* ================= LOAD USER ================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    loadUser();
+    const savedId = localStorage.getItem("aabfID");
+
+    if (savedId) {
+        const idElement =
+            document.getElementById("userAabfId");
+
+        if (idElement) {
+            idElement.textContent = savedId;
+        }
+    }
 
 });
