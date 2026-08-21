@@ -1,95 +1,207 @@
-/* ================================
-   AABF HOME SCREEN
-================================ */
+/* =========================================
+   AABF MAIN SCRIPT
+========================================= */
 
 
-/* LOGIN / PROFILE */
+/* =========================================
+   LOGIN
+========================================= */
 
-function openProfile() {
+function openLogin() {
 
-  /*
-    পরে এখানে Firebase login/profile page
-    connect করা যাবে।
-  */
+  const modal = document.getElementById("loginModal");
 
-  window.location.href = "login.html";
-}
+  modal.classList.add("show");
 
+  setTimeout(() => {
 
-/* MENU NAVIGATION */
+    document.getElementById("loginId").focus();
 
-function openPage(page) {
-
-  window.location.href = page;
+  }, 100);
 
 }
 
 
-/* EMERGENCY */
+function closeLogin() {
 
-function emergencyCall() {
+  document
+    .getElementById("loginModal")
+    .classList.remove("show");
 
-  /*
-    এখানে AABF-এর Emergency Number বসাবে।
-    
-    উদাহরণ:
-    window.location.href = "tel:01XXXXXXXXX";
-  */
+}
 
-  const emergencyNumber = "01XXXXXXXXX";
 
-  if (emergencyNumber !== "01XXXXXXXXX") {
+/* =========================================
+   USER LOGIN
+========================================= */
 
-    window.location.href = "tel:" + emergencyNumber;
+function loginUser() {
 
-  } else {
+  const id =
+    document
+      .getElementById("loginId")
+      .value
+      .trim();
 
-    alert("জরুরি সহায়তার নম্বর এখনো সেট করা হয়নি।");
+  const name =
+    document
+      .getElementById("loginName")
+      .value
+      .trim();
+
+
+  if (!id) {
+
+    alert("দয়া করে আপনার AABF ID লিখুন।");
+
+    return;
+
+  }
+
+
+  const finalName =
+    name || "AABF সদস্য";
+
+
+  /* Save user information */
+
+  localStorage.setItem(
+    "aabf_id",
+    id
+  );
+
+  localStorage.setItem(
+    "aabf_name",
+    finalName
+  );
+
+
+  /* Update screen */
+
+  document
+    .getElementById("userId")
+    .textContent = id;
+
+  document
+    .getElementById("userName")
+    .textContent = finalName;
+
+
+  closeLogin();
+
+}
+
+
+/* =========================================
+   LOAD SAVED USER
+========================================= */
+
+function loadUser() {
+
+  const savedId =
+    localStorage.getItem("aabf_id");
+
+  const savedName =
+    localStorage.getItem("aabf_name");
+
+
+  if (savedId) {
+
+    document
+      .getElementById("userId")
+      .textContent = savedId;
+
+  }
+
+
+  if (savedName) {
+
+    document
+      .getElementById("userName")
+      .textContent = savedName;
 
   }
 
 }
 
 
-/* ================================
-   AABF ID
-================================ */
+/* =========================================
+   BUTTON ACTION
+========================================= */
 
-function setAABFID(id) {
+function openPage(pageName) {
 
-  const element = document.getElementById("aabfId");
+  /*
+    এখানে পরবর্তীতে প্রতিটি অপশনের
+    আলাদা GitHub page / HTML page
+    অথবা Firebase screen যুক্ত করা যাবে।
+  */
 
-  if (element && id) {
+  console.log(
+    "Selected:",
+    pageName
+  );
 
-    element.textContent = id;
 
-  }
+  /*
+    আপাতত testing-এর জন্য।
+    পরে এই alert সরিয়ে আসল page
+    navigation বসানো হবে।
+  */
+
+  alert(pageName + " অপশনটি খোলা হবে।");
 
 }
 
 
-/*
-   আপাতত Demo:
+/* =========================================
+   EMERGENCY
+========================================= */
 
-   পরে Firebase থেকে login করা
-   user's AABF ID এখানে বসবে।
-
-   উদাহরণ:
-
-   setAABFID("AABF-1025");
-*/
-
-
-/* ================================
-   PAGE LOAD
-================================ */
-
-document.addEventListener("DOMContentLoaded", function () {
+function openEmergency() {
 
   /*
-    Firebase login system connect করার
-    পর এখানে current user's AABF ID
-    automatically বসবে।
+    এখানে পরে Emergency screen,
+    ফোন কল অথবা Firebase emergency
+    system যুক্ত করা যাবে।
   */
 
-});
+  alert(
+    "Emergency সহায়তার জন্য পরবর্তী ব্যবস্থা এখানে যুক্ত করা হবে।"
+  );
+
+}
+
+
+/* =========================================
+   MODAL OUTSIDE CLICK
+========================================= */
+
+document
+  .getElementById("loginModal")
+  .addEventListener(
+    "click",
+    function (event) {
+
+      if (event.target === this) {
+
+        closeLogin();
+
+      }
+
+    }
+  );
+
+
+/* =========================================
+   START APP
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    loadUser();
+
+  }
+);
