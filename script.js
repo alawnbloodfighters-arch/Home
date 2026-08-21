@@ -1,276 +1,235 @@
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-  getDatabase,
-  ref,
-  get
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+/*
+  ==========================================
+  AABF HOME SCREEN
+  ==========================================
+*/
 
 
-/* ================================
-   FIREBASE CONFIG
-   ================================ */
+/* =========================
+   USER DATA
+========================= */
 
-const firebaseConfig = {
-
-  apiKey: "YOUR_API_KEY",
-
-  authDomain:
-    "YOUR_PROJECT.firebaseapp.com",
-
-  databaseURL:
-    "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-
-  projectId:
-    "YOUR_PROJECT_ID",
-
-  storageBucket:
-    "YOUR_PROJECT.appspot.com",
-
-  messagingSenderId:
-    "YOUR_SENDER_ID",
-
-  appId:
-    "YOUR_APP_ID"
-
+let user = {
+  name: "ব্যবহারকারী",
+  aabfId: ""
 };
 
 
-/* Firebase শুরু */
+/*
+  LocalStorage থেকে user data নেওয়া
+*/
 
-const app =
-  initializeApp(firebaseConfig);
+function loadUser() {
 
-const auth =
-  getAuth(app);
+  const savedUser = localStorage.getItem("aabfUser");
 
-const database =
-  getDatabase(app);
-
-
-/* HTML elements */
-
-const aabfID =
-  document.getElementById("aabfID");
-
-const profileAABFID =
-  document.getElementById("profileAABFID");
-
-const status =
-  document.getElementById("status");
-
-
-/* ================================
-   LOGIN USER
-   ================================ */
-
-onAuthStateChanged(
-  auth,
-  async (user) => {
-
-    /* Login করা নেই */
-
-    if (!user) {
-
-      aabfID.innerText =
-        "Login করুন";
-
-      profileAABFID.innerText =
-        "Login করুন";
-
-      status.innerText =
-        "User login করা নেই";
-
-      return;
-    }
-
-
-    /* ================================
-       UID দিয়ে AABF ID খোঁজা
-       
-       users
-          UID
-             aabfid
-       ================================ */
+  if (savedUser) {
 
     try {
 
-      const snapshot =
-        await get(
-          ref(
-            database,
-            "users/" +
-            user.uid +
-            "/aabfid"
-          )
-        );
+      user = JSON.parse(savedUser);
 
+    } catch (error) {
 
-      if (snapshot.exists()) {
-
-        const id =
-          snapshot.val();
-
-
-        /* Main screen */
-
-        aabfID.innerText =
-          id;
-
-
-        /* Profile */
-
-        profileAABFID.innerText =
-          id;
-
-
-        status.innerText =
-          "";
-
-      }
-
-      else {
-
-        aabfID.innerText =
-          "পাওয়া যায়নি";
-
-        profileAABFID.innerText =
-          "পাওয়া যায়নি";
-
-        status.innerText =
-          "Database-এ AABF ID নেই";
-
-      }
-
-    }
-
-    catch(error) {
-
-      console.error(error);
-
-      aabfID.innerText =
-        "Error";
-
-      status.innerText =
-        "Firebase থেকে তথ্য পাওয়া যায়নি";
+      console.log("User data error");
 
     }
 
   }
-);
+
+  updateProfile();
+}
 
 
-/* ================================
-   PROFILE MENU
-   ================================ */
+/* =========================
+   PROFILE UPDATE
+========================= */
 
-const profileButton =
-  document.getElementById(
-    "profileButton"
-  );
+function updateProfile() {
 
-const profileBox =
-  document.getElementById(
-    "profileBox"
-  );
+  const nameElement =
+    document.getElementById("userName");
+
+  const idElement =
+    document.getElementById("aabfId");
+
+  const initialElement =
+    document.getElementById("profileInitial");
+
+  const modalName =
+    document.getElementById("modalName");
+
+  const modalId =
+    document.getElementById("modalAabfId");
+
+  const modalInitial =
+    document.getElementById("modalInitial");
 
 
-profileButton.addEventListener(
-  "click",
-  function(event) {
+  let name = user.name || "ব্যবহারকারী";
 
-    event.stopPropagation();
+  let id = user.aabfId || "Login করুন";
 
-    profileBox
-      .classList
-      .toggle("show");
+
+  nameElement.textContent = name;
+
+  idElement.textContent = id;
+
+  modalName.textContent = name;
+
+  modalId.textContent = id;
+
+
+  let firstLetter = "A";
+
+  if (name && name !== "ব্যবহারকারী") {
+
+    firstLetter = name.charAt(0);
 
   }
-);
 
 
-document.addEventListener(
-  "click",
-  function() {
+  initialElement.textContent = firstLetter;
 
-    profileBox
-      .classList
-      .remove("show");
-
-  }
-);
+  modalInitial.textContent = firstLetter;
+}
 
 
-/* ================================
-   LOGOUT
-   ================================ */
+/* =========================
+   PROFILE MODAL
+========================= */
 
-document
-  .getElementById("logoutButton")
-  .addEventListener(
-    "click",
-    async () => {
+function openProfile() {
 
-      await signOut(auth);
+  const modal =
+    document.getElementById("profileModal");
 
-    }
+  modal.classList.add("active");
+}
+
+
+function closeProfile() {
+
+  const modal =
+    document.getElementById("profileModal");
+
+  modal.classList.remove("active");
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser() {
+
+  /*
+    এখন temporary login system।
+
+    পরে Firebase Authentication
+    দিয়ে এটাকে replace করা যাবে।
+  */
+
+  const name = prompt(
+    "আপনার নাম লিখুন:"
   );
 
-
-/* ================================
-   OTHER PAGES
-   ================================ */
-
-window.openPage =
-  function(page) {
-
-    const pages = {
-
-      porichiti:
-        "porichiti.html",
-
-      "blood-request":
-        "blood-request.html",
-
-      "member-registration":
-        "member-registration.html",
-
-      relief:
-        "relief.html"
-
-    };
+  if (!name) {
+    return;
+  }
 
 
-    if (pages[page]) {
+  const aabfId = prompt(
+    "আপনার AABF ID লিখুন:"
+  );
 
-      window.location.href =
-        pages[page];
+  if (!aabfId) {
+    return;
+  }
 
-    }
 
+  user = {
+    name: name.trim(),
+    aabfId: aabfId.trim()
   };
 
 
-/* ================================
+  localStorage.setItem(
+    "aabfUser",
+    JSON.stringify(user)
+  );
+
+
+  updateProfile();
+
+  closeProfile();
+
+}
+
+
+/* =========================
+   OPEN PAGE
+========================= */
+
+function openPage(page) {
+
+  /*
+    এখানে আপনার GitHub Pages-এর
+    আলাদা HTML page-এর নাম বসবে।
+  */
+
+  window.location.href = page;
+}
+
+
+/* =========================
    EMERGENCY
-   ================================ */
+========================= */
+
+function emergencyCall() {
+
+  const number = "999";
+
+  const confirmed =
+    confirm(
+      "আপনি কি Emergency Call করতে চান?"
+    );
+
+  if (confirmed) {
+
+    window.location.href =
+      "tel:" + number;
+
+  }
+}
+
+
+/* =========================
+   MODAL OUTSIDE CLICK
+========================= */
 
 document
-  .getElementById("emergencyButton")
-  .addEventListener(
-    "click",
-    function() {
+  .getElementById("profileModal")
+  .addEventListener("click", function(event) {
 
-      window.location.href =
-        "emergency.html";
+    if (event.target === this) {
+
+      closeProfile();
 
     }
-  );
+
+  });
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadUser();
+
+  }
+);
