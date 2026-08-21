@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>আল-আওন ব্লাড ফাইটার্স AABF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans Bengali", sans-serif;
+      background: #eeeeee;
+    }
+
+    .app {
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ================= TOP BAR ================= */
+
+    .topbar {
+      height: 90px;
+      background: #4053b5;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 18px 0 24px;
+
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .title {
+      font-size: 26px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .menu-button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 38px;
+      cursor: pointer;
+    }
+
+    /* ================= PROFILE ================= */
+
+    .profile-box {
+      display: none;
+
+      position: absolute;
+      right: 12px;
+      top: 75px;
+
+      width: 240px;
+
+      background: white;
+      color: #111;
+
+      border-radius: 12px;
+
+      padding: 18px;
+
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+
+      z-index: 100;
+    }
+
+    .profile-box.show {
+      display: block;
+    }
+
+    .profile-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .profile-id {
+      margin-bottom: 15px;
+    }
+
+    .logout {
+      width: 100%;
+      border: none;
+      background: #333;
+      color: white;
+
+      padding: 10px;
+
+      border-radius: 7px;
+
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ================= CONTENT ================= */
+
+    .content {
+      min-height: calc(100vh - 90px);
+
+      padding: 20px 20px 100px;
+
+      background:
+        radial-gradient(
+          circle at 5% 15%,
+          rgba(215,25,32,0.12) 0 25px,
+          transparent 26px
+        ),
+        radial-gradient(
+          circle at 95% 35%,
+          rgba(215,25,32,0.10) 0 35px,
+          transparent 36px
+        ),
+        #ffffff;
+    }
+
+    /* ================= AABF ID ================= */
+
+    .aabf-id {
+      text-align: center;
+
+      font-size: 38px;
+      font-weight: 800;
+
+      margin-bottom: 10px;
+    }
+
+    #aabfID {
+      color: #111;
+    }
+
+    .status {
+      text-align: center;
+
+      color: #777;
+
+      font-size: 13px;
+
+      min-height: 20px;
+
+      margin-bottom: 12px;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .buttons {
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      gap: 16px;
+    }
+
+    .main-button {
+      width: 350px;
+      max-width: 100%;
+
+      min-height: 145px;
+
+      background: white;
+
+      border: 4px solid #d71920;
+
+      border-radius: 28px;
+
+      color: #d71920;
+
+      font-family: inherit;
+
+      cursor: pointer;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      transition: 0.15s;
+    }
+
+    .main-button:active {
+      transform: scale(0.97);
+    }
+
+    .icon {
+      font-size: 55px;
+
+      margin-bottom: 7px;
+    }
+
+    .button-text {
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .line {
+      width: 315px;
+      max-width: 90%;
+
+      border: 0;
+
+      border-top: 1px solid #999;
+
+      margin: 0;
+    }
+
+    /* ================= EMERGENCY ================= */
+
+    .emergency {
+      position: fixed;
+
+      right: 20px;
+      bottom: 25px;
+
+      width: 78px;
+      height: 78px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background: #0caf08;
+
+      color: white;
+
+      font-size: 36px;
+
+      cursor: pointer;
+
+      box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+
+      z-index: 20;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media(max-width:380px) {
+
+      .topbar {
+        height: 76px;
+        padding-left: 15px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .aabf-id {
+        font-size: 29px;
+      }
+
+      .main-button {
+        min-height: 125px;
+      }
+
+      .button-text {
+        font-size: 25px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- ================= TOP BAR ================= -->
+
+  <header class="topbar">
+
+    <div class="title">
+      আল-আওন ব্লাড ফাইটার্স AABF
+    </div>
+
+    <button
+      class="menu-button"
+      id="profileButton">
+      ⋮
+    </button>
+
+  </header>
+
+
+  <!-- ================= PROFILE ================= -->
+
+  <div
+    class="profile-box"
+    id="profileBox">
+
+    <div class="profile-title">
+      👤 প্রোফাইল
+    </div>
+
+    <div class="profile-id">
+      AABF ID:
+      <strong id="profileAABFID">
+        Loading...
+      </strong>
+    </div>
+
+    <button
+      class="logout"
+      id="logoutButton">
+      লগআউট
+    </button>
+
+  </div>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+
+  <section class="content">
+
+    <!-- AABF ID -->
+
+    <div class="aabf-id">
+
+      AABF ID :
+      <span id="aabfID">
+        Loading...
+      </span>
+
+    </div>
+
+
+    <div
+      class="status"
+      id="status">
+      User information loading...
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+
+      <!-- পরিচিতি -->
+
+      <button
+        class="main-button"
+        onclick="openPage('porichiti')">
+
+        <div class="icon">
+          🪪
+        </div>
+
+        <div class="button-text">
+          পরিচিতি
+        </div>
+
+      </button>
+
+
+      <hr class="line">
+
+
+      <!-- রক্তের আবেদন -->
+
+      <button
+        class="main-button"
+        onclick="openPage('blood-request')">
+
+        <div class="icon">
+          🩸
+        </div>
+
+        <div class="button-text">
+          রক্তের আবেদন
+        </div>
+
+      </button>
+
+
+      <hr class="line">
+
+
+      <!-- সদস্য নিবন্ধন -->
+
+      <button
+        class="main-button"
+        onclick="openPage('member-registration')">
+
+        <div class="icon">
+          👤
+        </div>
+
+        <div class="button-text">
+          সদস্য নিবন্ধন
+        </div>
+
+      </button>
+
+
+      <hr class="line">
+
+
+      <!-- ত্রাণ সহায়তা -->
+
+      <button
+        class="main-button"
+        onclick="openPage('relief')">
+
+        <div class="icon">
+          🤲
+        </div>
+
+        <div class="button-text">
+          ত্রাণ সহায়তা
+        </div>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= EMERGENCY ================= -->
+
+  <button
+    class="emergency"
+    id="emergencyButton">
+
+    ☎
+
+  </button>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!--                    FIREBASE                           -->
+<!-- ===================================================== -->
+
+<script type="module">
+
+  import {
+    initializeApp
+  }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+  import {
+    getDatabase,
+    ref,
+    get
+  }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+  /* =====================================================
+       এখানে পরে তোমার Firebase Config বসবে
+     ===================================================== */
+
+  const firebaseConfig = {
+
+    apiKey:
+      "YOUR_API_KEY",
+
+    authDomain:
+      "YOUR_PROJECT.firebaseapp.com",
+
+    databaseURL:
+      "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+
+    projectId:
+      "YOUR_PROJECT_ID",
+
+    storageBucket:
+      "YOUR_PROJECT.appspot.com",
+
+    messagingSenderId:
+      "YOUR_SENDER_ID",
+
+    appId:
+      "YOUR_APP_ID"
+
+  };
+
+
+  /* Firebase শুরু */
+
+  const app =
+    initializeApp(firebaseConfig);
+
+
+  const auth =
+    getAuth(app);
+
+
+  const database =
+    getDatabase(app);
+
+
+  /* HTML elements */
+
+  const aabfID =
+    document.getElementById("aabfID");
+
+  const profileAABFID =
+    document.getElementById("profileAABFID");
+
+  const status =
+    document.getElementById("status");
+
+
+  /* =====================================================
+       LOGIN USER CHECK
+     ===================================================== */
+
+  onAuthStateChanged(
+    auth,
+    async (user) => {
+
+      /* Login করা নেই */
+
+      if (!user) {
+
+        aabfID.innerText =
+          "Login করুন";
+
+        profileAABFID.innerText =
+          "Login করুন";
+
+        status.innerText =
+          "User login করা নেই";
+
+        return;
+      }
+
+
+      /* =================================================
+           Firebase Database
+
+           users
+              UID
+                 aabfid
+         ================================================= */
+
+      try {
+
+        const snapshot =
+          await get(
+            ref(
+              database,
+              "users/" +
+              user.uid +
+              "/aabfid"
+            )
+          );
+
+
+        if (snapshot.exists()) {
+
+          const id =
+            snapshot.val();
+
+
+          /* Screen-এ AABF ID */
+
+          aabfID.innerText =
+            id;
+
+
+          /* Profile-এর ভিতরেও */
+
+          profileAABFID.innerText =
+            id;
+
+
+          status.innerText =
+            "";
+
+        }
+
+        else {
+
+          aabfID.innerText =
+            "পাওয়া যায়নি";
+
+          profileAABFID.innerText =
+            "পাওয়া যায়নি";
+
+          status.innerText =
+            "Database-এ AABF ID নেই";
+
+        }
+
+      }
+
+      catch(error) {
+
+        console.error(error);
+
+        aabfID.innerText =
+          "Error";
+
+        status.innerText =
+          "Firebase থেকে তথ্য পাওয়া যায়নি";
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+       LOGOUT
+     ===================================================== */
+
+  document
+    .getElementById("logoutButton")
+    .addEventListener(
+      "click",
+      async () => {
+
+        await signOut(auth);
+
+      }
+    );
+
+</script>
+
+
+<script>
+
+  /* =====================================================
+       PROFILE MENU
+     ===================================================== */
+
+  const profileButton =
+    document.getElementById(
+      "profileButton"
+    );
+
+
+  const profileBox =
+    document.getElementById(
+      "profileBox"
+    );
+
+
+  profileButton
+    .addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+        profileBox
+          .classList
+          .toggle("show");
+
+      }
+    );
+
+
+  document.addEventListener(
+    "click",
+    function() {
+
+      profileBox
+        .classList
+        .remove("show");
+
+    }
+  );
+
+
+  /* =====================================================
+       BUTTON PAGE
+     ===================================================== */
+
+  function openPage(page) {
+
+    const pages = {
+
+      porichiti:
+        "porichiti.html",
+
+      "blood-request":
+        "blood-request.html",
+
+      "member-registration":
+        "member-registration.html",
+
+      relief:
+        "relief.html"
+
+    };
+
+
+    if (pages[page]) {
+
+      window.location.href =
+        pages[page];
+
+    }
+
+  }
+
+
+  /* =====================================================
+       EMERGENCY
+     ===================================================== */
+
+  document
+    .getElementById("emergencyButton")
+    .addEventListener(
+      "click",
+      function() {
+
+        window.location.href =
+          "emergency.html";
+
+      }
+    );
+
+</script>
+
+</body>
+</html>
