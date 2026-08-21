@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans Bengali", sans-serif;
+  background: #eeeeee;
+}
+
+.app {
+  max-width: 520px;
+  min-height: 100vh;
+  margin: auto;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TOP BAR */
+
+.topbar {
+  height: 90px;
+  background: #4053b5;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px 0 24px;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 38px;
+  cursor: pointer;
+}
+
+/* PROFILE */
+
+.profile-box {
+  display: none;
+
+  position: absolute;
+  right: 12px;
+  top: 75px;
+
+  width: 240px;
+
+  background: white;
+  color: #111;
+
+  border-radius: 12px;
+
+  padding: 18px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+
+  z-index: 100;
+}
+
+.profile-box.show {
+  display: block;
+}
+
+.profile-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.profile-id {
+  margin-bottom: 15px;
+}
+
+.logout {
+  width: 100%;
+  border: none;
+  background: #333;
+  color: white;
+
+  padding: 10px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* CONTENT */
+
+.content {
+  min-height: calc(100vh - 90px);
+
+  padding: 20px 20px 100px;
+
+  background:
+    radial-gradient(
+      circle at 5% 15%,
+      rgba(215,25,32,0.12) 0 25px,
+      transparent 26px
+    ),
+    radial-gradient(
+      circle at 95% 35%,
+      rgba(215,25,32,0.10) 0 35px,
+      transparent 36px
+    ),
+    #ffffff;
+}
+
+/* AABF ID */
+
+.aabf-id {
+  text-align: center;
+
+  font-size: 38px;
+  font-weight: 800;
+
+  margin-bottom: 10px;
+}
+
+#aabfID {
+  color: #111;
+}
+
+.status {
+  text-align: center;
+
+  color: #777;
+
+  font-size: 13px;
+
+  min-height: 20px;
+
+  margin-bottom: 12px;
+}
+
+/* BUTTONS */
+
+.buttons {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 16px;
+}
+
+.main-button {
+  width: 350px;
+  max-width: 100%;
+
+  min-height: 145px;
+
+  background: white;
+
+  border: 4px solid #d71920;
+
+  border-radius: 28px;
+
+  color: #d71920;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  transition: 0.15s;
+}
+
+.main-button:active {
+  transform: scale(0.97);
+}
+
+.icon {
+  font-size: 55px;
+  margin-bottom: 7px;
+}
+
+.button-text {
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.line {
+  width: 315px;
+  max-width: 90%;
+
+  border: 0;
+
+  border-top: 1px solid #999;
+
+  margin: 0;
+}
+
+/* EMERGENCY */
+
+.emergency {
+  position: fixed;
+
+  right: 20px;
+  bottom: 25px;
+
+  width: 78px;
+  height: 78px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #0caf08;
+
+  color: white;
+
+  font-size: 36px;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+
+  z-index: 20;
+}
+
+/* MOBILE */
+
+@media(max-width:380px) {
+
+  .topbar {
+    height: 76px;
+    padding-left: 15px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .aabf-id {
+    font-size: 29px;
+  }
+
+  .main-button {
+    min-height: 125px;
+  }
+
+  .button-text {
+    font-size: 25px;
+  }
+
+}
