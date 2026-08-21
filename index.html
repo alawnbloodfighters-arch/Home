@@ -4,159 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>আল-আওন ব্লাড ফাইটার্স AABF</title>
+    <title>আল-আওন ব্লাড ফাইটার্স</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Bengali Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <main class="app">
 
-        <!-- Header -->
+        <!-- ================= HEADER ================= -->
         <header class="top-header">
 
             <div class="brand">
+
+                <!-- Organization Logo -->
                 <img
-                    src="Logo.png"
-                    alt="AABF Logo"
+                    src="logo.png"
                     class="org-logo"
+                    alt="AABF Logo"
                 >
 
                 <div class="brand-text">
                     <h1>আল-আওন ব্লাড ফাইটার্স</h1>
                     <p>AABF • Feni + Cumilla</p>
                 </div>
+
             </div>
 
             <!-- Profile -->
             <button class="profile-btn" onclick="openProfile()">
-                <span class="profile-icon">♙</span>
+                <div class="profile-circle">
+                    <span class="profile-icon">♙</span>
+                </div>
                 <span>প্রোফাইল</span>
             </button>
 
         </header>
 
 
-        <!-- User Card -->
+        <!-- ================= USER CARD ================= -->
         <section class="user-card">
 
             <div class="user-avatar">
                 <span>●</span>
+                <span class="avatar-body"></span>
             </div>
 
             <div class="user-info">
                 <p class="welcome">স্বাগতম</p>
 
-                <h2 id="userName">
-                    ব্যবহারকারী
-                </h2>
+                <h2>ব্যবহারকারী</h2>
 
-                <p class="aabf-id">
+                <p class="member-id">
                     AABF ID :
                     <strong id="userAabfId">Login করুন</strong>
                 </p>
             </div>
 
-            <button class="round-arrow" onclick="loginUser()">
+            <button class="user-arrow" onclick="login()">
                 →
             </button>
 
         </section>
 
 
-        <!-- Main Buttons -->
+        <!-- ================= MAIN BUTTONS ================= -->
         <section class="menu-grid">
 
             <!-- পরিচিতি -->
-            <button class="menu-card identity" onclick="openPage('identity')">
+            <button class="menu-card card-profile" onclick="openPage('profile')">
 
-                <div class="menu-icon">
-                    🪪
+                <div class="icon-box">
+                    <span class="icon">▣</span>
                 </div>
 
-                <div class="menu-content">
+                <div class="card-content">
                     <h3>পরিচিতি</h3>
                     <p>সদস্যের বিস্তারিত তথ্য দেখুন</p>
                 </div>
 
-                <span class="menu-arrow">→</span>
+                <span class="card-arrow">→</span>
 
             </button>
 
 
             <!-- রক্তের আবেদন করুন -->
-            <button class="menu-card blood-request" onclick="openPage('blood-request')">
+            <button class="menu-card card-blood-request" onclick="openPage('blood-request')">
 
-                <div class="menu-icon">
-                    🩸
+                <div class="icon-box">
+                    <span class="blood-icon">♧</span>
                 </div>
 
-                <div class="menu-content">
+                <div class="card-content">
                     <h3>রক্তের আবেদন করুন</h3>
                     <p>জরুরি রক্তের জন্য আবেদন করুন</p>
                 </div>
 
-                <span class="menu-arrow">→</span>
+                <span class="card-arrow">→</span>
 
             </button>
 
 
             <!-- রক্তের আবেদনগুলি দেখুন -->
-            <button class="menu-card blood-list" onclick="openPage('blood-list')">
+            <button class="menu-card card-blood-list" onclick="openPage('blood-list')">
 
-                <div class="menu-icon">
-                    📋
+                <div class="icon-box">
+                    <span class="icon">▤</span>
                 </div>
 
-                <div class="menu-content">
+                <div class="card-content">
                     <h3>রক্তের আবেদনগুলি দেখুন</h3>
                     <p>সকল রক্তের আবেদন দেখুন</p>
                 </div>
 
-                <span class="menu-arrow">→</span>
+                <span class="card-arrow">→</span>
 
             </button>
 
 
             <!-- সদস্য নিবন্ধন -->
-            <button class="menu-card registration" onclick="openPage('registration')">
+            <button class="menu-card card-register" onclick="openPage('register')">
 
-                <div class="menu-icon">
-                    👤
+                <div class="icon-box">
+                    <span class="register-icon">♙+</span>
                 </div>
 
-                <div class="menu-content">
+                <div class="card-content">
                     <h3>সদস্য নিবন্ধন</h3>
                     <p>AABF-এর নতুন সদস্য হন</p>
                 </div>
 
-                <span class="menu-arrow">→</span>
+                <span class="card-arrow">→</span>
 
             </button>
 
 
             <!-- ত্রাণ সহায়তা -->
-            <button class="menu-card relief" onclick="openPage('relief')">
+            <button class="menu-card card-relief" onclick="openPage('relief')">
 
-                <div class="menu-icon">
-                    🤝
+                <div class="icon-box">
+                    <span class="relief-icon">♢</span>
                 </div>
 
-                <div class="menu-content">
+                <div class="card-content">
                     <h3>ত্রাণ সহায়তা</h3>
                     <p>সহায়তার জন্য আবেদন করুন</p>
                 </div>
 
-                <span class="menu-arrow">→</span>
+                <span class="card-arrow">→</span>
 
             </button>
 
         </section>
 
 
-        <!-- Emergency -->
-        <button class="emergency-btn" onclick="emergencyCall()">
+        <!-- ================= EMERGENCY ================= -->
+        <button class="emergency-btn" onclick="emergency()">
 
             <div class="emergency-icon">
                 ☎
@@ -174,11 +183,11 @@
         </button>
 
 
-        <!-- Footer -->
+        <!-- ================= FOOTER ================= -->
         <footer>
-            Al-Awn Blood Fighters
-            <span>•</span>
-            AABF
+            <span>Al-Awn Blood Fighters</span>
+            <b>•</b>
+            <span>AABF</span>
         </footer>
 
     </main>
