@@ -2,57 +2,55 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Al-Awn Blood Fighters AABF</title>
+  <title>আল-আওন ব্লাড ফাইটার্স AABF</title>
 
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <main class="app">
 
-    <!-- Top Profile -->
-    <section class="top-section">
+    <!-- TOP HEADER -->
+    <header class="top-header">
 
       <div class="brand">
-        <div class="brand-mark">A</div>
+        <div class="brand-logo">
+          <img src="logo.png" alt="AABF Logo">
+        </div>
 
-        <div>
+        <div class="brand-text">
           <h1>আল-আওন ব্লাড ফাইটার্স</h1>
-          <span>AABF • Feni + Cumilla</span>
+          <p>AABF • Feni + Cumilla</p>
         </div>
       </div>
 
-      <button class="profile-button" onclick="openProfile()">
-        <div class="profile-icon">
-          <span>♙</span>
-        </div>
-        <span>প্রোফাইল</span>
-      </button>
+      <!-- Organization Logo -->
+      <div class="org-logo">
+        <img src="logo.png" alt="AABF">
+      </div>
 
-    </section>
+    </header>
 
 
-    <!-- Profile Information -->
-    <section class="profile-card" id="profileCard">
+    <!-- PROFILE CARD -->
+    <section class="profile-card">
 
       <div class="profile-avatar">
-        <span id="profileInitial">A</span>
+        <span>👤</span>
       </div>
 
       <div class="profile-info">
 
         <small>স্বাগতম</small>
 
-        <h2 id="userName">ব্যবহারকারী</h2>
+        <h2>ব্যবহারকারী</h2>
 
         <p>
           AABF ID :
@@ -62,24 +60,23 @@
       </div>
 
       <button class="profile-arrow" onclick="openProfile()">
-        ›
+        →
       </button>
 
     </section>
 
 
-    <!-- Main Actions -->
-    <section class="actions">
+    <!-- MAIN BUTTONS -->
+    <section class="menu-grid">
 
       <!-- পরিচিতি -->
-      <button class="action-card identity"
-              onclick="openPage('profile.html')">
+      <button class="menu-card identity" onclick="openPage('porichiti.html')">
 
-        <div class="action-icon">
-          <span>◉</span>
+        <div class="icon-box">
+          <span>🪪</span>
         </div>
 
-        <div class="action-text">
+        <div class="menu-content">
           <h3>পরিচিতি</h3>
           <p>সদস্যের বিস্তারিত তথ্য দেখুন</p>
         </div>
@@ -90,14 +87,13 @@
 
 
       <!-- রক্তের আবেদন -->
-      <button class="action-card blood"
-              onclick="openPage('blood-request.html')">
+      <button class="menu-card blood" onclick="openPage('blood-request.html')">
 
-        <div class="action-icon">
-          <span>♥</span>
+        <div class="icon-box">
+          <span>🩸</span>
         </div>
 
-        <div class="action-text">
+        <div class="menu-content">
           <h3>রক্তের আবেদন</h3>
           <p>জরুরি রক্তের জন্য আবেদন করুন</p>
         </div>
@@ -108,14 +104,13 @@
 
 
       <!-- সদস্য নিবন্ধন -->
-      <button class="action-card member"
-              onclick="openPage('member-register.html')">
+      <button class="menu-card registration" onclick="openPage('registration.html')">
 
-        <div class="action-icon">
-          <span>+</span>
+        <div class="icon-box">
+          <span>👥</span>
         </div>
 
-        <div class="action-text">
+        <div class="menu-content">
           <h3>সদস্য নিবন্ধন</h3>
           <p>AABF-এর নতুন সদস্য হন</p>
         </div>
@@ -126,14 +121,13 @@
 
 
       <!-- ত্রাণ সহায়তা -->
-      <button class="action-card relief"
-              onclick="openPage('relief.html')">
+      <button class="menu-card relief" onclick="openPage('relief.html')">
 
-        <div class="action-icon">
-          <span>✦</span>
+        <div class="icon-box">
+          <span>🤝</span>
         </div>
 
-        <div class="action-text">
+        <div class="menu-content">
           <h3>ত্রাণ সহায়তা</h3>
           <p>সহায়তার জন্য আবেদন করুন</p>
         </div>
@@ -145,59 +139,33 @@
     </section>
 
 
-    <!-- Emergency -->
-    <button class="emergency-button" onclick="emergencyCall()">
+    <!-- EMERGENCY -->
+    <button class="emergency" onclick="emergencyCall()">
 
       <div class="emergency-icon">
         ☎
       </div>
 
-      <div>
+      <div class="emergency-text">
         <strong>Emergency</strong>
-        <small>জরুরি সহায়তা</small>
+        <span>জরুরি সহায়তা</span>
+      </div>
+
+      <div class="emergency-arrow">
+        →
       </div>
 
     </button>
 
 
-    <!-- Footer -->
-    <div class="footer">
+    <!-- FOOTER -->
+    <footer>
       <span>Al-Awn Blood Fighters</span>
-      <span>•</span>
+      <b>•</b>
       <span>AABF</span>
-    </div>
+    </footer>
 
   </main>
-
-
-  <!-- Profile Modal -->
-  <div class="modal" id="profileModal">
-
-    <div class="modal-box">
-
-      <button class="close-modal" onclick="closeProfile()">
-        ×
-      </button>
-
-      <div class="modal-avatar">
-        <span id="modalInitial">A</span>
-      </div>
-
-      <h2 id="modalName">ব্যবহারকারী</h2>
-
-      <div class="id-box">
-        <small>AABF MEMBER ID</small>
-        <strong id="modalAabfId">Login করুন</strong>
-      </div>
-
-      <button class="login-button" onclick="loginUser()">
-        Login / Account
-      </button>
-
-    </div>
-
-  </div>
-
 
   <script src="script.js"></script>
 
