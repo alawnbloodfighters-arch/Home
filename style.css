@@ -725,3 +725,184 @@ footer {
     height: 14px;
   }
 }
+/* ================================
+   FINAL EMERGENCY BUTTON FIX
+   ================================ */
+
+/* পুরো স্ক্রিনের height ঠিকভাবে হিসাব করবে */
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Main screen */
+.app {
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    flex-shrink: 0;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    min-height: 0;
+    height: auto !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+    padding-bottom: 8px;
+}
+
+/* User/Login card */
+.user-card {
+    flex-shrink: 0;
+}
+
+/* 5টি main button */
+.menu-grid {
+    flex-shrink: 0;
+}
+
+/* Emergency যেন কখনো কেটে না যায় */
+.emergency-btn {
+    position: relative !important;
+    bottom: auto !important;
+    margin: 10px 0 4px 0 !important;
+    width: 100% !important;
+    min-height: 72px !important;
+    height: 72px !important;
+    max-height: 72px !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Emergency-এর ভিতরের লেখা/আইকন */
+.emergency-btn .emergency-icon {
+    flex-shrink: 0;
+}
+
+.emergency-btn .emergency-content {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.emergency-btn .emergency-arrow {
+    flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+    flex-shrink: 0;
+    height: 22px;
+    min-height: 22px;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   MOBILE SCREEN — সবকিছু এক স্ক্রিনে
+   ================================ */
+
+@media (max-width: 600px) {
+
+    .app {
+        height: 100dvh;
+        max-height: 100dvh;
+    }
+
+    .main-content {
+        padding: 0 12px 4px 12px !important;
+    }
+
+    .header {
+        padding: 10px 14px !important;
+    }
+
+    .user-card {
+        margin: 8px 0 !important;
+        min-height: 100px !important;
+    }
+
+    .menu-grid {
+        gap: 10px !important;
+    }
+
+    .menu-card {
+        min-height: 145px !important;
+        height: 145px !important;
+    }
+
+    /* ৫ম বাটন */
+    .menu-card-wide {
+        height: 92px !important;
+        min-height: 92px !important;
+    }
+
+    .emergency-btn {
+        height: 68px !important;
+        min-height: 68px !important;
+        max-height: 68px !important;
+        margin-top: 8px !important;
+        margin-bottom: 2px !important;
+    }
+
+    .footer {
+        height: 18px;
+        min-height: 18px;
+        font-size: 11px;
+    }
+}
+
+
+/* ছোট height-এর ফোনে আরও compact */
+@media (max-height: 750px) {
+
+    .header {
+        padding: 7px 12px !important;
+    }
+
+    .user-card {
+        min-height: 82px !important;
+        margin: 5px 0 !important;
+    }
+
+    .menu-grid {
+        gap: 7px !important;
+    }
+
+    .menu-card {
+        height: 125px !important;
+        min-height: 125px !important;
+    }
+
+    .menu-card-wide {
+        height: 78px !important;
+        min-height: 78px !important;
+    }
+
+    .emergency-btn {
+        height: 60px !important;
+        min-height: 60px !important;
+        max-height: 60px !important;
+        margin-top: 6px !important;
+    }
+
+    .footer {
+        display: none;
+    }
+}
