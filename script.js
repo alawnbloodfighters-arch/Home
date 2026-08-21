@@ -1,207 +1,149 @@
 /* =========================================
-   AABF MAIN SCRIPT
+   AABF HOME SCREEN
 ========================================= */
 
 
-/* =========================================
-   LOGIN
-========================================= */
-
-function openLogin() {
-
-  const modal = document.getElementById("loginModal");
-
-  modal.classList.add("show");
-
-  setTimeout(() => {
-
-    document.getElementById("loginId").focus();
-
-  }, 100);
-
-}
-
-
-function closeLogin() {
-
-  document
-    .getElementById("loginModal")
-    .classList.remove("show");
-
-}
-
-
-/* =========================================
-   USER LOGIN
-========================================= */
-
-function loginUser() {
-
-  const id =
-    document
-      .getElementById("loginId")
-      .value
-      .trim();
-
-  const name =
-    document
-      .getElementById("loginName")
-      .value
-      .trim();
-
-
-  if (!id) {
-
-    alert("দয়া করে আপনার AABF ID লিখুন।");
-
-    return;
-
-  }
-
-
-  const finalName =
-    name || "AABF সদস্য";
-
-
-  /* Save user information */
-
-  localStorage.setItem(
-    "aabf_id",
-    id
-  );
-
-  localStorage.setItem(
-    "aabf_name",
-    finalName
-  );
-
-
-  /* Update screen */
-
-  document
-    .getElementById("userId")
-    .textContent = id;
-
-  document
-    .getElementById("userName")
-    .textContent = finalName;
-
-
-  closeLogin();
-
-}
-
-
-/* =========================================
-   LOAD SAVED USER
-========================================= */
+/* -----------------------------------------
+   Login data
+----------------------------------------- */
 
 function loadUser() {
 
-  const savedId =
-    localStorage.getItem("aabf_id");
+    const savedUser = localStorage.getItem("aabfUser");
 
-  const savedName =
-    localStorage.getItem("aabf_name");
+    if (savedUser) {
 
+        try {
 
-  if (savedId) {
+            const user = JSON.parse(savedUser);
 
-    document
-      .getElementById("userId")
-      .textContent = savedId;
+            if (user.name) {
+                document.getElementById("userName").textContent = user.name;
+            }
 
-  }
+            if (user.aabfId) {
 
+                const idElement = document.getElementById("aabfId");
 
-  if (savedName) {
+                idElement.textContent = user.aabfId;
+                idElement.style.color = "#b91638";
 
-    document
-      .getElementById("userName")
-      .textContent = savedName;
+            }
 
-  }
+        } catch (error) {
 
-}
+            console.log("User data error:", error);
 
-
-/* =========================================
-   BUTTON ACTION
-========================================= */
-
-function openPage(pageName) {
-
-  /*
-    এখানে পরবর্তীতে প্রতিটি অপশনের
-    আলাদা GitHub page / HTML page
-    অথবা Firebase screen যুক্ত করা যাবে।
-  */
-
-  console.log(
-    "Selected:",
-    pageName
-  );
-
-
-  /*
-    আপাতত testing-এর জন্য।
-    পরে এই alert সরিয়ে আসল page
-    navigation বসানো হবে।
-  */
-
-  alert(pageName + " অপশনটি খোলা হবে।");
-
-}
-
-
-/* =========================================
-   EMERGENCY
-========================================= */
-
-function openEmergency() {
-
-  /*
-    এখানে পরে Emergency screen,
-    ফোন কল অথবা Firebase emergency
-    system যুক্ত করা যাবে।
-  */
-
-  alert(
-    "Emergency সহায়তার জন্য পরবর্তী ব্যবস্থা এখানে যুক্ত করা হবে।"
-  );
-
-}
-
-
-/* =========================================
-   MODAL OUTSIDE CLICK
-========================================= */
-
-document
-  .getElementById("loginModal")
-  .addEventListener(
-    "click",
-    function (event) {
-
-      if (event.target === this) {
-
-        closeLogin();
-
-      }
+        }
 
     }
-  );
+
+}
 
 
-/* =========================================
-   START APP
-========================================= */
+/* -----------------------------------------
+   Login
+----------------------------------------- */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
+function login() {
+
+    /*
+       এখন Login screen-এর URL তোমার project
+       অনুযায়ী পরিবর্তন করবে।
+
+       যেমন:
+
+       window.location.href = "login.html";
+    */
+
+    window.location.href = "login.html";
+}
+
+
+/* -----------------------------------------
+   Profile
+----------------------------------------- */
+
+function openProfile() {
+
+    /*
+       Profile page তৈরি করলে:
+
+       window.location.href = "profile.html";
+    */
+
+    window.location.href = "profile.html";
+}
+
+
+/* -----------------------------------------
+   Main buttons
+----------------------------------------- */
+
+function openPage(page) {
+
+    const pages = {
+
+        "profile": "profile.html",
+
+        "blood-request": "blood-request.html",
+
+        "blood-list": "blood-list.html",
+
+        "registration": "registration.html",
+
+        "relief": "relief.html"
+
+    };
+
+    if (pages[page]) {
+
+        window.location.href = pages[page];
+
+    } else {
+
+        console.log("Page not found:", page);
+
+    }
+
+}
+
+
+/* -----------------------------------------
+   Emergency
+----------------------------------------- */
+
+function emergencyCall() {
+
+    /*
+       এখানে তোমার Emergency number বসাবে।
+
+       উদাহরণ:
+
+       window.location.href = "tel:01XXXXXXXXX";
+    */
+
+    const emergencyNumber = "";
+
+    if (emergencyNumber !== "") {
+
+        window.location.href = "tel:" + emergencyNumber;
+
+    } else {
+
+        alert("জরুরি সহায়তার জন্য Emergency নম্বরে যোগাযোগ করুন।");
+
+    }
+
+}
+
+
+/* -----------------------------------------
+   Load user when page opens
+----------------------------------------- */
+
+document.addEventListener("DOMContentLoaded", function () {
 
     loadUser();
 
-  }
-);
+});
