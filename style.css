@@ -1,908 +1,1326 @@
+/* =========================================
+   AABF MOBILE HOME - FINAL STYLE
+   ========================================= */
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  font-family: "Noto Sans Bengali", sans-serif;
-  background: #ffffff;
-  color: #24242a;
-}
-
-button {
-  font-family: inherit;
-  border: 0;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================
-   APP
-========================= */
-
-.app {
-  width: 100%;
-  height: 100dvh;
-  min-height: 0;
-
-  padding: 14px 28px 8px;
-
-  display: flex;
-  flex-direction: column;
-
-  background: #ffffff;
-
-  overflow: hidden;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.top-header {
-  width: 100%;
-  height: 86px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  flex-shrink: 0;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-}
-
-.logo-box {
-  width: 92px;
-  height: 76px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-}
-
-.logo-box img {
-  width: 76px;
-  height: 76px;
-
-  object-fit: contain;
-
-  display: block;
-}
-
-.brand-text {
-  margin-left: 10px;
-  min-width: 0;
-}
-
-.brand-text h1 {
-  color: #a8173e;
-
-  font-size: clamp(21px, 4.7vw, 32px);
-  font-weight: 800;
-
-  line-height: 1.15;
-
-  white-space: nowrap;
-}
-
-.brand-text p {
-  margin-top: 4px;
-
-  color: #7c7d84;
-
-  font-size: clamp(13px, 3vw, 19px);
-  font-weight: 500;
-}
-
-
-.profile-btn {
-  width: 72px;
-  height: 78px;
-
-  background: transparent;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  color: #a8173e;
-
-  flex-shrink: 0;
-}
-
-.profile-btn i {
-  width: 52px;
-  height: 52px;
-
-  border-radius: 50%;
-
-  background: #fff4f6;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 27px;
-}
-
-.profile-btn span {
-  margin-top: 2px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-
-/* =========================
-   USER CARD
-========================= */
-
-.user-card {
-  width: 100%;
-  height: 112px;
-
-  flex-shrink: 0;
-
-  margin-bottom: 14px;
-
-  padding: 14px 24px;
-
-  border: 1px solid #e8dfe2;
-  border-radius: 30px;
-
-  background: #ffffff;
-
-  box-shadow: 0 5px 18px rgba(90, 40, 55, 0.07);
-
-  display: flex;
-  align-items: center;
-}
-
-.user-icon {
-  width: 76px;
-  height: 76px;
-
-  border-radius: 24px;
-
-  background: #fff0f3;
-
-  color: #c7194c;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-}
-
-.user-icon i {
-  font-size: 38px;
-}
-
-.user-info {
-  margin-left: 22px;
-  min-width: 0;
-}
-
-.user-info span {
-  color: #85858b;
-  font-size: 14px;
-}
-
-.user-info h2 {
-  margin-top: 0;
-
-  font-size: 28px;
-  line-height: 1.15;
-
-  font-weight: 800;
-}
-
-.user-info p {
-  margin-top: 2px;
-
-  color: #7f8086;
-
-  font-size: 16px;
-}
-
-.user-info b {
-  color: #a8173e;
-}
-
-.round-arrow {
-  width: 54px;
-  height: 54px;
-
-  margin-left: auto;
-
-  border-radius: 50%;
-
-  background: #fff2f4;
-
-  color: #b21b45;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-}
-
-.round-arrow i {
-  font-size: 23px;
-}
-
-
-/* =========================
-   MAIN GRID
-========================= */
-
-.button-grid {
-  width: 100%;
-
-  flex: 1 1 auto;
-  min-height: 0;
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  grid-template-rows: 1fr 1fr;
-
-  gap: 12px;
-
-  margin-bottom: 12px;
-}
-
-
-.action-card {
-  position: relative;
-
-  min-width: 0;
-  min-height: 0;
-
-  overflow: hidden;
-
-  border-radius: 28px;
-
-  padding: 18px;
-
-  text-align: left;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  border: 1px solid rgba(0, 0, 0, 0.07);
-
-  transition: transform .15s ease;
-}
-
-.action-card:active {
-  transform: scale(.98);
-}
-
-
-/* decorative circle */
-
-.action-card::after {
-  content: "";
-
-  position: absolute;
-
-  width: 150px;
-  height: 150px;
-
-  border-radius: 50%;
-
-  right: -45px;
-  top: -65px;
-
-  background: rgba(255,255,255,.40);
-
-  pointer-events: none;
-}
-
-
-/* icons */
-
-.card-icon {
-  position: relative;
-  z-index: 2;
-
-  width: 64px;
-  height: 64px;
-
-  border-radius: 20px;
-
-  background: rgba(255,255,255,.88);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 6px 15px rgba(0,0,0,.06);
-
-  flex-shrink: 0;
-}
-
-.card-icon i {
-  font-size: 28px;
-}
-
-
-/* text */
-
-.card-content {
-  position: relative;
-  z-index: 2;
-
-  min-width: 0;
-
-  padding-right: 45px;
-}
-
-.card-content h3 {
-  font-size: clamp(18px, 4.4vw, 25px);
-
-  font-weight: 800;
-
-  line-height: 1.25;
-}
-
-.card-content p {
-  margin-top: 3px;
-
-  font-size: clamp(11px, 2.8vw, 15px);
-
-  line-height: 1.35;
-
-  opacity: .65;
-}
-
-
-/* arrow */
-
-.card-arrow {
-  position: absolute;
-  z-index: 3;
-
-  right: 15px;
-  bottom: 15px;
-
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-
-  background: rgba(255,255,255,.82);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-arrow i {
-  font-size: 20px;
-}
-
-
-/* COLORS */
-
-.card-pink {
-  background: linear-gradient(135deg, #fff3f5, #ffdce4);
-  color: #a8173e;
-}
-
-.card-green {
-  background: linear-gradient(135deg, #f0fffc, #d2f7f1);
-  color: #078b80;
-}
-
-.card-blue {
-  background: linear-gradient(135deg, #f1f7ff, #d9e9ff);
-  color: #28699d;
-}
-
-.card-purple {
-  background: linear-gradient(135deg, #faf4ff, #ead8ff);
-  color: #7b3caf;
-}
-
-
-/* =========================
-   RELIEF
-========================= */
-
-.relief-card {
-  width: 100%;
-  height: 92px;
-
-  flex-shrink: 0;
-
-  margin-bottom: 10px;
-
-  padding: 12px 20px;
-
-  border-radius: 26px;
-
-  background: linear-gradient(135deg, #fff9e9, #ffebbd);
-
-  border: 1px solid #f0d998;
-
-  color: #bd7a00;
-
-  display: flex;
-  align-items: center;
-
-  text-align: left;
-
-  position: relative;
-  overflow: hidden;
-}
-
-.relief-card::after {
-  content: "";
-
-  position: absolute;
-
-  width: 150px;
-  height: 150px;
-
-  border-radius: 50%;
-
-  right: -40px;
-  top: -80px;
-
-  background: rgba(255,255,255,.42);
-}
-
-.relief-icon {
-  width: 58px;
-  height: 58px;
-
-  border-radius: 18px;
-
-  background: rgba(255,255,255,.8);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  position: relative;
-  z-index: 2;
-}
-
-.relief-icon i {
-  font-size: 25px;
-}
-
-.relief-content {
-  margin-left: 18px;
-
-  position: relative;
-  z-index: 2;
-}
-
-.relief-content h3 {
-  font-size: 22px;
-  line-height: 1.2;
-  font-weight: 800;
-}
-
-.relief-content p {
-  font-size: 13px;
-  opacity: .65;
-}
-
-.relief-arrow {
-  margin-left: auto;
-
-  width: 50px;
-  height: 50px;
-
-  border-radius: 50%;
-
-  background: rgba(255,255,255,.82);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  z-index: 3;
-
-  flex-shrink: 0;
-}
-
-
-/* =========================
-   EMERGENCY
-========================= */
-
-.emergency-btn {
-  width: 100%;
-  height: 70px;
-
-  flex-shrink: 0;
-
-  margin: 0;
-
-  padding: 8px 18px;
-
-  border-radius: 25px;
-
-  background: linear-gradient(135deg, #ed1748, #d7083c);
-
-  color: #ffffff;
-
-  box-shadow: 0 9px 22px rgba(215, 8, 60, .20);
-
-  display: flex;
-  align-items: center;
-
-  text-align: left;
-
-  position: relative;
-  overflow: hidden;
-}
-
-.emergency-icon {
-  width: 52px;
-  height: 52px;
-
-  border-radius: 17px;
-
-  background: rgba(255,255,255,.18);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-}
-
-.emergency-icon i {
-  font-size: 25px;
-}
-
-.emergency-text {
-  margin-left: 15px;
-
-  min-width: 0;
-}
-
-.emergency-text h3 {
-  font-family: Arial, sans-serif;
-
-  font-size: 21px;
-  font-weight: 800;
-
-  line-height: 1.1;
-}
-
-.emergency-text p {
-  font-size: 12px;
-  opacity: .85;
-}
-
-.emergency-arrow {
-  margin-left: auto;
-
-  font-size: 24px;
-
-  padding-right: 5px;
-
-  flex-shrink: 0;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-  height: 18px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  color: #a4a5aa;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 11px;
-}
-
-
-/* =========================
-   SMALL PHONE
-========================= */
-
-@media (max-height: 720px) {
-
-  .app {
-    padding-top: 8px;
-    padding-bottom: 5px;
-  }
-
-  .top-header {
-    height: 70px;
-  }
-
-  .logo-box {
-    width: 72px;
-    height: 62px;
-  }
-
-  .logo-box img {
-    width: 62px;
-    height: 62px;
-  }
-
-  .user-card {
-    height: 94px;
-    margin-bottom: 9px;
-  }
-
-  .user-icon {
-    width: 62px;
-    height: 62px;
-  }
-
-  .button-grid {
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .action-card {
-    padding: 13px;
-    border-radius: 22px;
-  }
-
-  .card-icon {
-    width: 53px;
-    height: 53px;
-  }
-
-  .card-icon i {
-    font-size: 23px;
-  }
-
-  .card-arrow {
-    width: 42px;
-    height: 42px;
-    right: 10px;
-    bottom: 10px;
-  }
-
-  .relief-card {
-    height: 72px;
-    margin-bottom: 7px;
-  }
-
-  .relief-icon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .emergency-btn {
-    height: 60px;
-  }
-
-  .emergency-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  footer {
-    height: 14px;
-  }
-}
-/* ================================
-   FINAL EMERGENCY BUTTON FIX
-   ================================ */
-
-/* পুরো স্ক্রিনের height ঠিকভাবে হিসাব করবে */
 html,
 body {
     width: 100%;
     min-height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* Main screen */
-.app {
+body {
+    font-family: "Noto Sans Bengali", "Hind Siliguri", "SolaimanLipi",
+        Arial, sans-serif;
+
+    background: #ffffff;
+    color: #24242a;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* =========================================
+   MAIN APP
+   ========================================= */
+
+.app,
+.container,
+.home,
+.main-container {
     width: 100%;
-    height: 100dvh;
-    min-height: 0;
-    box-sizing: border-box;
-    overflow: hidden;
+    max-width: 700px;
+    margin: 0 auto;
+
+    padding: 14px 18px 12px;
+
+    min-height: 100vh;
+    overflow: visible;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.header {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 4px 4px 10px;
+
+    min-height: 82px;
+
+    overflow: visible;
+}
+
+/* Logo */
+
+.logo,
+.header-logo,
+.logo img,
+.header-logo img {
+    width: 92px;
+    height: 92px;
+
+    flex: 0 0 92px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* Header title */
+
+.header-content,
+.header-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.header h1,
+.header-title {
+    font-size: clamp(22px, 5.4vw, 34px);
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color: #a9153c;
+
+    white-space: nowrap;
+}
+
+.header p,
+.header-subtitle {
+    margin-top: 4px;
+
+    font-size: clamp(15px, 3.8vw, 20px);
+    line-height: 1.2;
+
+    color: #7b7d85;
+}
+
+/* Profile */
+
+.profile,
+.profile-button {
+    flex: 0 0 auto;
+
+    width: 70px;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #a9153c;
 }
 
-/* Header */
-.header {
-    flex-shrink: 0;
+.profile-icon {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff3f6;
+
+    color: #a9153c;
+
+    font-size: 28px;
 }
 
-/* Main content */
-.main-content {
+.profile span,
+.profile-label {
+    margin-top: 4px;
+
+    font-size: 14px;
+    line-height: 1.1;
+
+    white-space: nowrap;
+}
+
+/* =========================================
+   USER CARD
+   ========================================= */
+
+.user-card,
+.user-box {
+    width: 100%;
+
+    min-height: 112px;
+
+    margin-top: 4px;
+    margin-bottom: 16px;
+
+    padding: 16px 18px;
+
+    border: 1px solid #e8dfe2;
+
+    border-radius: 28px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 24px rgba(45, 35, 40, 0.07);
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    overflow: visible;
+}
+
+.user-icon {
+    width: 108px;
+    height: 108px;
+
+    flex: 0 0 108px;
+
+    border-radius: 24px;
+
+    background: #fff0f4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #c9164a;
+
+    font-size: 50px;
+}
+
+.user-info {
     flex: 1;
-    min-height: 0;
-    height: auto !important;
-    overflow: hidden !important;
-    box-sizing: border-box;
-    padding-bottom: 8px;
-}
-
-/* User/Login card */
-.user-card {
-    flex-shrink: 0;
-}
-
-/* 5টি main button */
-.menu-grid {
-    flex-shrink: 0;
-}
-
-/* Emergency যেন কখনো কেটে না যায় */
-.emergency-btn {
-    position: relative !important;
-    bottom: auto !important;
-    margin: 10px 0 4px 0 !important;
-    width: 100% !important;
-    min-height: 72px !important;
-    height: 72px !important;
-    max-height: 72px !important;
-    flex-shrink: 0 !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-/* Emergency-এর ভিতরের লেখা/আইকন */
-.emergency-btn .emergency-icon {
-    flex-shrink: 0;
-}
-
-.emergency-btn .emergency-content {
     min-width: 0;
+
+    overflow: visible;
+}
+
+.user-welcome {
+    font-size: 15px;
+    line-height: 1.2;
+
+    color: #99999f;
+
+    margin-bottom: 4px;
+}
+
+.user-name {
+    font-size: clamp(23px, 6vw, 32px);
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color: #24242a;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.user-id {
+    margin-top: 4px;
+
+    font-size: clamp(14px, 3.7vw, 18px);
+    line-height: 1.3;
+
+    color: #8b8b91;
+
+    white-space: normal;
+}
+
+.user-id strong {
+    color: #a9153c;
+}
+
+/* User arrow */
+
+.user-arrow {
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    border-radius: 50%;
+
+    background: #fff3f6;
+
+    color: #b31945;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+/* =========================================
+   MAIN BUTTON GRID
+   ========================================= */
+
+.menu-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+    overflow: visible;
+}
+
+/* =========================================
+   ALL MAIN BUTTONS
+   ========================================= */
+
+.menu-card,
+.action-card,
+.card {
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 190px;
+
+    padding: 18px;
+
+    border-radius: 28px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
     overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    isolation: isolate;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
 }
 
-.emergency-btn .emergency-arrow {
+.menu-card:active,
+.action-card:active,
+.card:active {
+    transform: scale(0.98);
+}
+
+/* Decorative circle */
+
+.menu-card::after,
+.action-card::after,
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 145px;
+    height: 145px;
+
+    right: -45px;
+    top: -50px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.34);
+
+    z-index: -1;
+}
+
+/* =========================================
+   CARD ICON
+   ========================================= */
+
+.card-icon,
+.menu-icon,
+.action-icon {
+    width: 70px;
+    height: 70px;
+
+    flex: 0 0 70px;
+
+    border-radius: 21px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================
+   CARD TEXT AREA
+   ========================================= */
+
+.card-content,
+.menu-content,
+.action-content {
+    min-width: 0;
+
+    padding-right: 48px;
+
+    margin-top: auto;
+
+    padding-top: 12px;
+
+    overflow: visible;
+}
+
+.card-title,
+.menu-title,
+.action-title {
+    font-size: clamp(20px, 5vw, 28px);
+
+    line-height: 1.22;
+
+    font-weight: 800;
+
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+
+    word-break: normal;
+
+    margin: 0;
+}
+
+.card-subtitle,
+.menu-subtitle,
+.action-subtitle {
+    margin-top: 5px;
+
+    font-size: clamp(13px, 3.3vw, 17px);
+
+    line-height: 1.35;
+
+    font-weight: 500;
+
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+
+    opacity: 0.72;
+}
+
+/* =========================================
+   CARD ARROW
+   ========================================= */
+
+.card-arrow,
+.menu-arrow,
+.action-arrow {
+    position: absolute;
+
+    right: 16px;
+    bottom: 16px;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    z-index: 3;
+
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   CARD COLORS
+   ========================================= */
+
+/* পরিচিতি */
+
+.menu-card:nth-child(1),
+.action-card:nth-child(1),
+.card:nth-child(1) {
+    background: linear-gradient(
+        135deg,
+        #fff7f9 0%,
+        #ffe2e8 100%
+    );
+
+    color: #b31647;
+}
+
+/* রক্তের আবেদন করুন */
+
+.menu-card:nth-child(2),
+.action-card:nth-child(2),
+.card:nth-child(2) {
+    background: linear-gradient(
+        135deg,
+        #f1fffc 0%,
+        #d8f6f1 100%
+    );
+
+    color: #078c83;
+}
+
+/* রক্তের আবেদনগুলি দেখুন */
+
+.menu-card:nth-child(3),
+.action-card:nth-child(3),
+.card:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        #f3f8ff 0%,
+        #d9e9ff 100%
+    );
+
+    color: #286b9f;
+}
+
+/* সদস্য নিবন্ধন */
+
+.menu-card:nth-child(4),
+.action-card:nth-child(4),
+.card:nth-child(4) {
+    background: linear-gradient(
+        135deg,
+        #fbf5ff 0%,
+        #ead9ff 100%
+    );
+
+    color: #7136a4;
+}
+
+/* =========================================
+   RELIEF / TRIPON CARD
+   ========================================= */
+
+.relief-card,
+.aid-card,
+.menu-card:nth-child(5),
+.action-card:nth-child(5),
+.card:nth-child(5) {
+    grid-column: 1 / -1;
+
+    min-height: 126px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #fffaf0 0%,
+        #ffedc2 100%
+    );
+
+    color: #b87800;
+}
+
+.relief-card .card-content,
+.aid-card .card-content,
+.menu-card:nth-child(5) .card-content,
+.action-card:nth-child(5) .action-content,
+.card:nth-child(5) .card-content {
+    padding: 0;
+    margin: 0;
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+.relief-card .card-icon,
+.aid-card .card-icon,
+.menu-card:nth-child(5) .card-icon,
+.action-card:nth-child(5) .action-icon,
+.card:nth-child(5) .card-icon {
+    flex: 0 0 70px;
+}
+
+.relief-card .card-title,
+.aid-card .card-title,
+.menu-card:nth-child(5) .card-title,
+.action-card:nth-child(5) .action-title,
+.card:nth-child(5) .card-title {
+    font-size: clamp(20px, 5vw, 27px);
+}
+
+.relief-card .card-arrow,
+.aid-card .card-arrow,
+.menu-card:nth-child(5) .card-arrow,
+.action-card:nth-child(5) .action-arrow,
+.card:nth-child(5) .card-arrow {
+    position: static;
+
+    flex: 0 0 52px;
+}
+
+/* =========================================
+   EMERGENCY
+   ========================================= */
+
+.emergency,
+.emergency-button,
+.emergency-card {
+    width: 100%;
+
+    min-height: 86px;
+
+    margin-top: 14px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 26px;
+
+    background: linear-gradient(
+        135deg,
+        #ed1747 0%,
+        #d7083d 100%
+    );
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    overflow: visible;
+
+    box-shadow:
+        0 12px 25px rgba(220, 16, 64, 0.20);
+
     flex-shrink: 0;
+
+    position: relative;
 }
 
-/* Footer */
+/* Emergency icon */
+
+.emergency-icon {
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 31px;
+
+    color: #ffffff;
+}
+
+/* Emergency text */
+
+.emergency-content {
+    flex: 1;
+
+    min-width: 0;
+
+    overflow: visible;
+}
+
+.emergency-title {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(21px, 5vw, 29px);
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+    white-space: nowrap;
+}
+
+.emergency-subtitle {
+    margin-top: 3px;
+
+    font-size: clamp(12px, 3.2vw, 16px);
+
+    line-height: 1.25;
+
+    color: rgba(255, 255, 255, 0.88);
+
+    white-space: normal;
+}
+
+/* Emergency arrow */
+
+.emergency-arrow {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    color: #ffffff;
+
+    background: transparent;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
 .footer {
-    flex-shrink: 0;
-    height: 22px;
-    min-height: 22px;
-    box-sizing: border-box;
+    width: 100%;
+
+    padding: 7px 0 3px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    line-height: 1.2;
+
+    color: #a7a7aa;
+
+    white-space: nowrap;
 }
 
+/* =========================================
+   IMPORTANT: PREVENT TEXT CUTTING
+   ========================================= */
 
-/* ================================
-   MOBILE SCREEN — সবকিছু এক স্ক্রিনে
-   ================================ */
+.menu-card *,
+.action-card *,
+.card *,
+.user-card *,
+.user-box *,
+.emergency *,
+.relief-card *,
+.aid-card * {
+    max-width: 100%;
+}
 
-@media (max-width: 600px) {
+/* =========================================
+   MOBILE - SMALL DEVICES
+   ========================================= */
 
-    .app {
-        height: 100dvh;
-        max-height: 100dvh;
-    }
+@media (max-width: 430px) {
 
-    .main-content {
-        padding: 0 12px 4px 12px !important;
+    .app,
+    .container,
+    .home,
+    .main-container {
+        padding: 10px 14px 8px;
     }
 
     .header {
-        padding: 10px 14px !important;
+        gap: 8px;
+        min-height: 72px;
     }
 
-    .user-card {
-        margin: 8px 0 !important;
-        min-height: 100px !important;
+    .logo,
+    .header-logo,
+    .logo img,
+    .header-logo img {
+        width: 72px;
+        height: 72px;
+
+        flex-basis: 72px;
+    }
+
+    .header h1,
+    .header-title {
+        font-size: 22px;
+    }
+
+    .header p,
+    .header-subtitle {
+        font-size: 14px;
+    }
+
+    .profile,
+    .profile-button {
+        width: 58px;
+    }
+
+    .profile-icon {
+        width: 48px;
+        height: 48px;
+
+        font-size: 24px;
+    }
+
+    .profile span,
+    .profile-label {
+        font-size: 12px;
+    }
+
+    .user-card,
+    .user-box {
+        min-height: 94px;
+
+        padding: 12px 14px;
+
+        border-radius: 24px;
+
+        gap: 11px;
+
+        margin-bottom: 12px;
+    }
+
+    .user-icon {
+        width: 76px;
+        height: 76px;
+
+        flex-basis: 76px;
+
+        border-radius: 20px;
+
+        font-size: 38px;
+    }
+
+    .user-welcome {
+        font-size: 13px;
+    }
+
+    .user-name {
+        font-size: 23px;
+    }
+
+    .user-id {
+        font-size: 14px;
+    }
+
+    .user-arrow {
+        width: 48px;
+        height: 48px;
+
+        flex-basis: 48px;
+
+        font-size: 25px;
     }
 
     .menu-grid {
-        gap: 10px !important;
+        gap: 11px;
     }
 
-    .menu-card {
-        min-height: 145px !important;
-        height: 145px !important;
+    .menu-card,
+    .action-card,
+    .card {
+        min-height: 172px;
+
+        padding: 14px;
+
+        border-radius: 24px;
     }
 
-    /* ৫ম বাটন */
-    .menu-card-wide {
-        height: 92px !important;
-        min-height: 92px !important;
+    .card-icon,
+    .menu-icon,
+    .action-icon {
+        width: 60px;
+        height: 60px;
+
+        flex-basis: 60px;
+
+        border-radius: 18px;
+
+        font-size: 29px;
     }
 
-    .emergency-btn {
-        height: 68px !important;
-        min-height: 68px !important;
-        max-height: 68px !important;
-        margin-top: 8px !important;
-        margin-bottom: 2px !important;
+    .card-content,
+    .menu-content,
+    .action-content {
+        padding-right: 42px;
+        padding-top: 8px;
     }
 
-    .footer {
-        height: 18px;
-        min-height: 18px;
+    .card-title,
+    .menu-title,
+    .action-title {
+        font-size: 21px;
+        line-height: 1.18;
+    }
+
+    .card-subtitle,
+    .menu-subtitle,
+    .action-subtitle {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .card-arrow,
+    .menu-arrow,
+    .action-arrow {
+        width: 45px;
+        height: 45px;
+
+        right: 12px;
+        bottom: 12px;
+
+        font-size: 23px;
+    }
+
+    .relief-card,
+    .aid-card,
+    .menu-card:nth-child(5),
+    .action-card:nth-child(5),
+    .card:nth-child(5) {
+        min-height: 104px;
+
+        padding: 13px 14px;
+
+        gap: 12px;
+
+        border-radius: 23px;
+    }
+
+    .relief-card .card-icon,
+    .aid-card .card-icon,
+    .menu-card:nth-child(5) .card-icon,
+    .action-card:nth-child(5) .action-icon,
+    .card:nth-child(5) .card-icon {
+        width: 58px;
+        height: 58px;
+
+        flex-basis: 58px;
+    }
+
+    .relief-card .card-title,
+    .aid-card .card-title,
+    .menu-card:nth-child(5) .card-title,
+    .action-card:nth-child(5) .action-title,
+    .card:nth-child(5) .card-title {
+        font-size: 20px;
+    }
+
+    .relief-card .card-subtitle,
+    .aid-card .card-subtitle,
+    .menu-card:nth-child(5) .card-subtitle,
+    .action-card:nth-child(5) .action-subtitle,
+    .card:nth-child(5) .card-subtitle {
+        font-size: 12px;
+    }
+
+    .relief-card .card-arrow,
+    .aid-card .card-arrow,
+    .menu-card:nth-child(5) .card-arrow,
+    .action-card:nth-child(5) .action-arrow,
+    .card:nth-child(5) .card-arrow {
+        width: 45px;
+        height: 45px;
+
+        flex-basis: 45px;
+    }
+
+    /* Emergency must remain completely visible */
+
+    .emergency,
+    .emergency-button,
+    .emergency-card {
+        min-height: 76px;
+
+        height: 76px;
+
+        margin-top: 10px;
+
+        padding: 9px 12px;
+
+        border-radius: 23px;
+
+        gap: 10px;
+    }
+
+    .emergency-icon {
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        border-radius: 16px;
+
+        font-size: 27px;
+    }
+
+    .emergency-title {
+        font-size: 21px;
+    }
+
+    .emergency-subtitle {
         font-size: 11px;
     }
-}
 
+    .emergency-arrow {
+        width: 45px;
+        height: 45px;
 
-/* ছোট height-এর ফোনে আরও compact */
-@media (max-height: 750px) {
+        flex-basis: 45px;
 
-    .header {
-        padding: 7px 12px !important;
-    }
-
-    .user-card {
-        min-height: 82px !important;
-        margin: 5px 0 !important;
-    }
-
-    .menu-grid {
-        gap: 7px !important;
-    }
-
-    .menu-card {
-        height: 125px !important;
-        min-height: 125px !important;
-    }
-
-    .menu-card-wide {
-        height: 78px !important;
-        min-height: 78px !important;
-    }
-
-    .emergency-btn {
-        height: 60px !important;
-        min-height: 60px !important;
-        max-height: 60px !important;
-        margin-top: 6px !important;
+        font-size: 26px;
     }
 
     .footer {
-        display: none;
+        padding-top: 5px;
+
+        font-size: 10px;
     }
+}
+
+/* =========================================
+   VERY SMALL PHONES
+   ========================================= */
+
+@media (max-width: 360px) {
+
+    .app,
+    .container,
+    .home,
+    .main-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .header h1,
+    .header-title {
+        font-size: 19px;
+    }
+
+    .header p,
+    .header-subtitle {
+        font-size: 12px;
+    }
+
+    .logo,
+    .header-logo,
+    .logo img,
+    .header-logo img {
+        width: 62px;
+        height: 62px;
+
+        flex-basis: 62px;
+    }
+
+    .profile {
+        width: 52px;
+    }
+
+    .profile-icon {
+        width: 43px;
+        height: 43px;
+    }
+
+    .user-icon {
+        width: 68px;
+        height: 68px;
+
+        flex-basis: 68px;
+    }
+
+    .user-name {
+        font-size: 20px;
+    }
+
+    .user-id {
+        font-size: 12px;
+    }
+
+    .menu-grid {
+        gap: 8px;
+    }
+
+    .menu-card,
+    .action-card,
+    .card {
+        min-height: 158px;
+
+        padding: 12px;
+
+        border-radius: 21px;
+    }
+
+    .card-icon,
+    .menu-icon,
+    .action-icon {
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        font-size: 25px;
+    }
+
+    .card-title,
+    .menu-title,
+    .action-title {
+        font-size: 18px;
+    }
+
+    .card-subtitle,
+    .menu-subtitle,
+    .action-subtitle {
+        font-size: 10px;
+    }
+
+    .card-arrow,
+    .menu-arrow,
+    .action-arrow {
+        width: 40px;
+        height: 40px;
+
+        right: 9px;
+        bottom: 9px;
+
+        font-size: 21px;
+    }
+
+    .relief-card,
+    .aid-card,
+    .menu-card:nth-child(5),
+    .action-card:nth-child(5),
+    .card:nth-child(5) {
+        min-height: 94px;
+
+        padding: 11px;
+    }
+
+    .relief-card .card-title,
+    .aid-card .card-title,
+    .menu-card:nth-child(5) .card-title,
+    .action-card:nth-child(5) .action-title,
+    .card:nth-child(5) .card-title {
+        font-size: 18px;
+    }
+
+    .emergency,
+    .emergency-button,
+    .emergency-card {
+        height: 70px;
+        min-height: 70px;
+
+        padding: 8px 10px;
+
+        border-radius: 21px;
+    }
+
+    .emergency-icon {
+        width: 48px;
+        height: 48px;
+
+        flex-basis: 48px;
+    }
+
+    .emergency-title {
+        font-size: 19px;
+    }
+
+    .emergency-subtitle {
+        font-size: 10px;
+    }
+
+    .emergency-arrow {
+        width: 40px;
+        height: 40px;
+
+        flex-basis: 40px;
+
+        font-size: 23px;
+    }
+}
+
+/* =========================================
+   LANDSCAPE / SHORT SCREEN FIX
+   ========================================= */
+
+@media (max-height: 700px) and (orientation: portrait) {
+
+    .app,
+    .container,
+    .home,
+    .main-container {
+        padding-top: 6px;
+        padding-bottom: 5px;
+    }
+
+    .header {
+        min-height: 62px;
+        padding-bottom: 5px;
+    }
+
+    .logo,
+    .header-logo,
+    .logo img,
+    .header-logo img {
+        width: 58px;
+        height: 58px;
+
+        flex-basis: 58px;
+    }
+
+    .header h1,
+    .header-title {
+        font-size: 19px;
+    }
+
+    .header p,
+    .header-subtitle {
+        font-size: 12px;
+    }
+
+    .user-card,
+    .user-box {
+        min-height: 82px;
+
+        margin-bottom: 9px;
+
+        padding: 9px 12px;
+    }
+
+    .user-icon {
+        width: 62px;
+        height: 62px;
+
+        flex-basis: 62px;
+    }
+
+    .user-name {
+        font-size: 20px;
+    }
+
+    .user-id {
+        font-size: 12px;
+    }
+
+    .menu-card,
+    .action-card,
+    .card {
+        min-height: 145px;
+    }
+
+    .relief-card,
+    .aid-card,
+    .menu-card:nth-child(5),
+    .action-card:nth-child(5),
+    .card:nth-child(5) {
+        min-height: 82px;
+    }
+
+    .emergency,
+    .emergency-button,
+    .emergency-card {
+        height: 64px;
+        min-height: 64px;
+
+        margin-top: 8px;
+    }
+
+    .emergency-icon {
+        width: 46px;
+        height: 46px;
+
+        flex-basis: 46px;
+    }
+
+    .emergency-title {
+        font-size: 18px;
+    }
+
+    .emergency-subtitle {
+        font-size: 10px;
+    }
+
+    .emergency-arrow {
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+    }
+}
+
+/* =========================================
+   SAFETY OVERRIDES
+   ========================================= */
+
+img {
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font-family: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Prevent accidental horizontal overflow */
+
+section,
+header,
+main,
+footer,
+div {
+    max-width: 100%;
+}
+
+/* Keep emergency above footer */
+
+.emergency,
+.emergency-button,
+.emergency-card {
+    z-index: 10;
+}
+
+/* Never clip the bottom of the page */
+
+body,
+.app,
+.container,
+.home,
+.main-container {
+    clip-path: none;
 }
