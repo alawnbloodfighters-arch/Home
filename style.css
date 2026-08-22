@@ -1,5 +1,6 @@
 /* =========================================
-   AABF MOBILE HOME - FINAL STYLE
+   AABF TEAM - MOBILE HOME
+   CSS MATCHED WITH index.html
    ========================================= */
 
 * {
@@ -8,189 +9,259 @@
     padding: 0;
 }
 
-html,
-body {
+html {
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
 }
 
 body {
-    font-family: "Noto Sans Bengali", "Hind Siliguri", "SolaimanLipi",
-        Arial, sans-serif;
+    width: 100%;
+    min-height: 100vh;
+
+    font-family:
+        "Noto Sans Bengali",
+        "Hind Siliguri",
+        "SolaimanLipi",
+        Arial,
+        sans-serif;
 
     background: #ffffff;
     color: #24242a;
+
+    overflow-x: hidden;
 
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
 
+
 /* =========================================
    MAIN APP
    ========================================= */
 
-.app,
-.container,
-.home,
-.main-container {
+.app {
     width: 100%;
     max-width: 700px;
+
     margin: 0 auto;
 
-    padding: 14px 18px 12px;
+    padding:
+        12px
+        14px
+        14px;
 
     min-height: 100vh;
+
     overflow: visible;
 }
+
 
 /* =========================================
    HEADER
    ========================================= */
 
-.header {
+.top-header {
     width: 100%;
 
     display: flex;
     align-items: center;
 
-    gap: 14px;
+    gap: 10px;
 
-    padding: 4px 4px 10px;
+    padding: 2px 0 12px;
 
-    min-height: 82px;
+    min-height: 78px;
 
     overflow: visible;
 }
 
-/* Logo */
 
-.logo,
-.header-logo,
-.logo img,
-.header-logo img {
-    width: 92px;
-    height: 92px;
+/* =========================================
+   BRAND
+   ========================================= */
 
-    flex: 0 0 92px;
+.brand {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.logo-box {
+    width: 68px;
+    height: 68px;
+
+    flex: 0 0 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.logo-box img {
+    width: 68px;
+    height: 68px;
 
     object-fit: contain;
 
     display: block;
 }
 
-/* Header title */
 
-.header-content,
-.header-text {
+/* =========================================
+   BRAND TEXT
+   ========================================= */
+
+.brand-text {
     flex: 1;
+
     min-width: 0;
 }
 
-.header h1,
-.header-title {
-    font-size: clamp(22px, 5.4vw, 34px);
-    line-height: 1.15;
+.brand-text h1 {
+    font-size: 23px;
+
+    line-height: 1.18;
 
     font-weight: 800;
 
     color: #a9153c;
 
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+}
+
+.brand-text p {
+    margin-top: 4px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.2;
+
+    color: #777980;
+
     white-space: nowrap;
 }
 
-.header p,
-.header-subtitle {
-    margin-top: 4px;
 
-    font-size: clamp(15px, 3.8vw, 20px);
-    line-height: 1.2;
+/* =========================================
+   PROFILE BUTTON
+   ========================================= */
 
-    color: #7b7d85;
-}
+.profile-btn {
+    width: 58px;
+    min-width: 58px;
 
-/* Profile */
+    padding: 5px 0;
 
-.profile,
-.profile-button {
-    flex: 0 0 auto;
+    border: none;
 
-    width: 70px;
+    background: transparent;
+
+    color: #a9153c;
 
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
-    color: #a9153c;
+    gap: 3px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
 }
 
-.profile-icon {
-    width: 58px;
-    height: 58px;
+.profile-btn i {
+    width: 48px;
+    height: 48px;
 
     border-radius: 50%;
+
+    background: #fff3f6;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #fff3f6;
-
-    color: #a9153c;
-
-    font-size: 28px;
+    font-size: 23px;
 }
 
-.profile span,
-.profile-label {
-    margin-top: 4px;
+.profile-btn span {
+    font-size: 11px;
 
-    font-size: 14px;
     line-height: 1.1;
+
+    font-weight: 700;
 
     white-space: nowrap;
 }
+
 
 /* =========================================
    USER CARD
    ========================================= */
 
-.user-card,
-.user-box {
+.user-card {
     width: 100%;
 
-    min-height: 112px;
+    min-height: 104px;
 
-    margin-top: 4px;
-    margin-bottom: 16px;
+    margin-top: 2px;
+    margin-bottom: 14px;
 
-    padding: 16px 18px;
+    padding: 12px 14px;
 
-    border: 1px solid #e8dfe2;
+    border:
+        1px solid #e8dfe2;
 
-    border-radius: 28px;
+    border-radius: 26px;
 
     background: #ffffff;
 
     box-shadow:
-        0 8px 24px rgba(45, 35, 40, 0.07);
+        0 7px 22px rgba(45, 35, 40, 0.07);
 
     display: flex;
     align-items: center;
 
-    gap: 16px;
+    gap: 12px;
 
     overflow: visible;
+
+    cursor: pointer;
 }
 
+
+/* =========================================
+   USER ICON
+   ========================================= */
+
 .user-icon {
-    width: 108px;
-    height: 108px;
+    width: 76px;
+    height: 76px;
 
-    flex: 0 0 108px;
+    flex: 0 0 76px;
 
-    border-radius: 24px;
+    border-radius: 20px;
 
     background: #fff0f4;
 
@@ -200,59 +271,76 @@ body {
 
     color: #c9164a;
 
-    font-size: 50px;
+    font-size: 38px;
 }
+
+
+/* =========================================
+   USER INFO
+   ========================================= */
 
 .user-info {
     flex: 1;
+
     min-width: 0;
 
     overflow: visible;
 }
 
-.user-welcome {
-    font-size: 15px;
-    line-height: 1.2;
+.user-info span {
+    display: block;
+
+    margin-bottom: 2px;
 
     color: #99999f;
 
-    margin-bottom: 4px;
+    font-size: 13px;
+
+    line-height: 1.2;
 }
 
-.user-name {
-    font-size: clamp(23px, 6vw, 32px);
-    line-height: 1.15;
-
-    font-weight: 800;
+.user-info h2 {
+    margin: 0;
 
     color: #24242a;
 
+    font-size: 23px;
+
+    line-height: 1.18;
+
+    font-weight: 800;
+
     white-space: normal;
+
     overflow-wrap: anywhere;
 }
 
-.user-id {
-    margin-top: 4px;
-
-    font-size: clamp(14px, 3.7vw, 18px);
-    line-height: 1.3;
+.user-info p {
+    margin-top: 3px;
 
     color: #8b8b91;
+
+    font-size: 14px;
+
+    line-height: 1.25;
 
     white-space: normal;
 }
 
-.user-id strong {
+.user-info p b {
     color: #a9153c;
 }
 
-/* User arrow */
 
-.user-arrow {
-    width: 58px;
-    height: 58px;
+/* =========================================
+   USER ARROW
+   ========================================= */
 
-    flex: 0 0 58px;
+.round-arrow {
+    width: 48px;
+    height: 48px;
+
+    flex: 0 0 48px;
 
     border-radius: 50%;
 
@@ -264,45 +352,47 @@ body {
     align-items: center;
     justify-content: center;
 
-    font-size: 30px;
+    font-size: 25px;
 }
+
 
 /* =========================================
    MAIN BUTTON GRID
    ========================================= */
 
-.menu-grid {
+.button-grid {
     width: 100%;
 
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    gap: 14px;
+    gap: 11px;
 
     overflow: visible;
 }
 
+
 /* =========================================
-   ALL MAIN BUTTONS
+   MAIN ACTION CARD
    ========================================= */
 
-.menu-card,
-.action-card,
-.card {
+.action-card {
     position: relative;
 
     width: 100%;
 
     min-width: 0;
 
-    min-height: 190px;
+    min-height: 172px;
 
-    padding: 18px;
+    padding: 14px;
 
-    border-radius: 28px;
+    border-radius: 24px;
 
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border:
+        1px solid rgba(0, 0, 0, 0.05);
 
     overflow: hidden;
 
@@ -311,24 +401,30 @@ body {
 
     justify-content: space-between;
 
+    font-family: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
     isolation: isolate;
 
+    -webkit-tap-highlight-color: transparent;
+
     transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease;
+        transform 0.15s ease;
 }
 
-.menu-card:active,
-.action-card:active,
-.card:active {
+.action-card:active {
     transform: scale(0.98);
 }
 
-/* Decorative circle */
 
-.menu-card::after,
-.action-card::after,
-.card::after {
+/* =========================================
+   DECORATIVE CIRCLE
+   ========================================= */
+
+.action-card::after {
     content: "";
 
     position: absolute;
@@ -341,61 +437,61 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.34);
+    background:
+        rgba(255, 255, 255, 0.34);
 
     z-index: -1;
 }
+
 
 /* =========================================
    CARD ICON
    ========================================= */
 
-.card-icon,
-.menu-icon,
-.action-icon {
-    width: 70px;
-    height: 70px;
+.card-icon {
+    width: 60px;
+    height: 60px;
 
-    flex: 0 0 70px;
+    flex: 0 0 60px;
 
-    border-radius: 21px;
+    border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.88);
+    background:
+        rgba(255, 255, 255, 0.90);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 34px;
+    font-size: 29px;
 
     box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.05);
+        0 7px 16px rgba(0, 0, 0, 0.05);
 }
 
+
 /* =========================================
-   CARD TEXT AREA
+   CARD CONTENT
    ========================================= */
 
-.card-content,
-.menu-content,
-.action-content {
+.card-content {
     min-width: 0;
 
-    padding-right: 48px;
+    padding-right: 40px;
 
     margin-top: auto;
 
-    padding-top: 12px;
+    padding-top: 8px;
 
     overflow: visible;
 }
 
-.card-title,
-.menu-title,
-.action-title {
-    font-size: clamp(20px, 5vw, 28px);
+.card-content h3 {
+    margin: 0;
 
-    line-height: 1.22;
+    font-size: 21px;
+
+    line-height: 1.18;
 
     font-weight: 800;
 
@@ -404,18 +500,14 @@ body {
     overflow-wrap: anywhere;
 
     word-break: normal;
-
-    margin: 0;
 }
 
-.card-subtitle,
-.menu-subtitle,
-.action-subtitle {
-    margin-top: 5px;
+.card-content p {
+    margin-top: 4px;
 
-    font-size: clamp(13px, 3.3vw, 17px);
+    font-size: 12px;
 
-    line-height: 1.35;
+    line-height: 1.3;
 
     font-weight: 500;
 
@@ -426,30 +518,30 @@ body {
     opacity: 0.72;
 }
 
+
 /* =========================================
    CARD ARROW
    ========================================= */
 
-.card-arrow,
-.menu-arrow,
-.action-arrow {
+.card-arrow {
     position: absolute;
 
-    right: 16px;
-    bottom: 16px;
+    right: 12px;
+    bottom: 12px;
 
-    width: 52px;
-    height: 52px;
+    width: 45px;
+    height: 45px;
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.88);
+    background:
+        rgba(255, 255, 255, 0.90);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 27px;
+    font-size: 23px;
 
     z-index: 3;
 
@@ -457,181 +549,113 @@ body {
         0 5px 14px rgba(0, 0, 0, 0.04);
 }
 
+
 /* =========================================
    CARD COLORS
    ========================================= */
 
 /* পরিচিতি */
 
-.menu-card:nth-child(1),
-.action-card:nth-child(1),
-.card:nth-child(1) {
-    background: linear-gradient(
-        135deg,
-        #fff7f9 0%,
-        #ffe2e8 100%
-    );
+.card-pink {
+    background:
+        linear-gradient(
+            135deg,
+            #fff7f9 0%,
+            #ffe2e8 100%
+        );
 
     color: #b31647;
 }
 
-/* রক্তের আবেদন করুন */
 
-.menu-card:nth-child(2),
-.action-card:nth-child(2),
-.card:nth-child(2) {
-    background: linear-gradient(
-        135deg,
-        #f1fffc 0%,
-        #d8f6f1 100%
-    );
+/* রক্তের আবেদন */
+
+.card-green {
+    background:
+        linear-gradient(
+            135deg,
+            #f1fffc 0%,
+            #d8f6f1 100%
+        );
 
     color: #078c83;
 }
 
-/* রক্তের আবেদনগুলি দেখুন */
 
-.menu-card:nth-child(3),
-.action-card:nth-child(3),
-.card:nth-child(3) {
-    background: linear-gradient(
-        135deg,
-        #f3f8ff 0%,
-        #d9e9ff 100%
-    );
+/* আবেদনসমূহ */
+
+.card-blue {
+    background:
+        linear-gradient(
+            135deg,
+            #f3f8ff 0%,
+            #d9e9ff 100%
+        );
 
     color: #286b9f;
 }
 
+
 /* সদস্য নিবন্ধন */
 
-.menu-card:nth-child(4),
-.action-card:nth-child(4),
-.card:nth-child(4) {
-    background: linear-gradient(
-        135deg,
-        #fbf5ff 0%,
-        #ead9ff 100%
-    );
+.card-purple {
+    background:
+        linear-gradient(
+            135deg,
+            #fbf5ff 0%,
+            #ead9ff 100%
+        );
 
     color: #7136a4;
 }
 
-/* =========================================
-   RELIEF / TRIPON CARD
-   ========================================= */
-
-.relief-card,
-.aid-card,
-.menu-card:nth-child(5),
-.action-card:nth-child(5),
-.card:nth-child(5) {
-    grid-column: 1 / -1;
-
-    min-height: 126px;
-
-    padding: 18px 20px;
-
-    display: flex;
-    flex-direction: row;
-
-    align-items: center;
-
-    gap: 18px;
-
-    background: linear-gradient(
-        135deg,
-        #fffaf0 0%,
-        #ffedc2 100%
-    );
-
-    color: #b87800;
-}
-
-.relief-card .card-content,
-.aid-card .card-content,
-.menu-card:nth-child(5) .card-content,
-.action-card:nth-child(5) .action-content,
-.card:nth-child(5) .card-content {
-    padding: 0;
-    margin: 0;
-
-    flex: 1;
-
-    min-width: 0;
-}
-
-.relief-card .card-icon,
-.aid-card .card-icon,
-.menu-card:nth-child(5) .card-icon,
-.action-card:nth-child(5) .action-icon,
-.card:nth-child(5) .card-icon {
-    flex: 0 0 70px;
-}
-
-.relief-card .card-title,
-.aid-card .card-title,
-.menu-card:nth-child(5) .card-title,
-.action-card:nth-child(5) .action-title,
-.card:nth-child(5) .card-title {
-    font-size: clamp(20px, 5vw, 27px);
-}
-
-.relief-card .card-arrow,
-.aid-card .card-arrow,
-.menu-card:nth-child(5) .card-arrow,
-.action-card:nth-child(5) .action-arrow,
-.card:nth-child(5) .card-arrow {
-    position: static;
-
-    flex: 0 0 52px;
-}
 
 /* =========================================
-   EMERGENCY
+   RELIEF CARD
    ========================================= */
 
-.emergency,
-.emergency-button,
-.emergency-card {
+.relief-card {
     width: 100%;
 
-    min-height: 86px;
+    min-height: 104px;
 
-    margin-top: 14px;
+    margin-top: 11px;
 
-    padding: 12px 18px;
+    padding: 13px 14px;
 
     border: none;
 
-    border-radius: 26px;
+    border-radius: 23px;
 
-    background: linear-gradient(
-        135deg,
-        #ed1747 0%,
-        #d7083d 100%
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf0 0%,
+            #ffedc2 100%
+        );
 
-    color: #ffffff;
+    color: #b87800;
 
     display: flex;
     align-items: center;
 
-    gap: 14px;
+    gap: 12px;
 
-    overflow: visible;
+    font-family: inherit;
 
-    box-shadow:
-        0 12px 25px rgba(220, 16, 64, 0.20);
+    text-align: left;
 
-    flex-shrink: 0;
+    cursor: pointer;
 
-    position: relative;
+    overflow: hidden;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Emergency icon */
 
-.emergency-icon {
+/* Relief icon */
+
+.relief-icon {
     width: 58px;
     height: 58px;
 
@@ -639,20 +663,147 @@ body {
 
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.18);
+    background:
+        rgba(255, 255, 255, 0.90);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 31px;
+    font-size: 28px;
+}
+
+
+/* Relief text */
+
+.relief-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.relief-content h3 {
+    font-size: 20px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+}
+
+.relief-content p {
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    line-height: 1.25;
+
+    opacity: 0.72;
+
+    white-space: normal;
+}
+
+
+/* Relief arrow */
+
+.relief-arrow {
+    width: 45px;
+    height: 45px;
+
+    flex: 0 0 45px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.90);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+
+/* =========================================
+   EMERGENCY
+   ========================================= */
+
+.emergency-btn {
+    width: 100%;
+
+    height: 76px;
+    min-height: 76px;
+
+    margin-top: 10px;
+
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ed1747 0%,
+            #d7083d 100%
+        );
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-family: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+
+    box-shadow:
+        0 10px 22px
+        rgba(220, 16, 64, 0.20);
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Emergency icon */
+
+.emergency-icon {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
 
     color: #ffffff;
 }
 
+
 /* Emergency text */
 
-.emergency-content {
+.emergency-text {
     flex: 1;
 
     min-width: 0;
@@ -660,10 +811,10 @@ body {
     overflow: visible;
 }
 
-.emergency-title {
+.emergency-text h3 {
     font-family: Arial, sans-serif;
 
-    font-size: clamp(21px, 5vw, 29px);
+    font-size: 21px;
 
     line-height: 1.15;
 
@@ -674,49 +825,55 @@ body {
     white-space: nowrap;
 }
 
-.emergency-subtitle {
-    margin-top: 3px;
+.emergency-text p {
+    margin-top: 2px;
 
-    font-size: clamp(12px, 3.2vw, 16px);
+    font-size: 11px;
 
     line-height: 1.25;
 
-    color: rgba(255, 255, 255, 0.88);
+    color:
+        rgba(255, 255, 255, 0.88);
 
     white-space: normal;
 }
 
+
 /* Emergency arrow */
 
 .emergency-arrow {
-    width: 52px;
-    height: 52px;
+    width: 45px;
+    height: 45px;
 
-    flex: 0 0 52px;
+    flex: 0 0 45px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 30px;
+    font-size: 26px;
 
     color: #ffffff;
-
-    background: transparent;
 }
+
 
 /* =========================================
    FOOTER
    ========================================= */
 
-.footer {
+footer {
     width: 100%;
 
-    padding: 7px 0 3px;
+    padding:
+        7px
+        0
+        3px;
 
     text-align: center;
 
-    font-size: 12px;
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
 
     line-height: 1.2;
 
@@ -725,285 +882,29 @@ body {
     white-space: nowrap;
 }
 
+footer b {
+    margin: 0 5px;
+}
+
+
 /* =========================================
-   IMPORTANT: PREVENT TEXT CUTTING
+   BUTTON RESET
    ========================================= */
 
-.menu-card *,
-.action-card *,
-.card *,
-.user-card *,
-.user-box *,
-.emergency *,
-.relief-card *,
-.aid-card * {
+button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
+   IMAGES
+   ========================================= */
+
+img {
     max-width: 100%;
 }
 
-/* =========================================
-   MOBILE - SMALL DEVICES
-   ========================================= */
-
-@media (max-width: 430px) {
-
-    .app,
-    .container,
-    .home,
-    .main-container {
-        padding: 10px 14px 8px;
-    }
-
-    .header {
-        gap: 8px;
-        min-height: 72px;
-    }
-
-    .logo,
-    .header-logo,
-    .logo img,
-    .header-logo img {
-        width: 72px;
-        height: 72px;
-
-        flex-basis: 72px;
-    }
-
-    .header h1,
-    .header-title {
-        font-size: 22px;
-    }
-
-    .header p,
-    .header-subtitle {
-        font-size: 14px;
-    }
-
-    .profile,
-    .profile-button {
-        width: 58px;
-    }
-
-    .profile-icon {
-        width: 48px;
-        height: 48px;
-
-        font-size: 24px;
-    }
-
-    .profile span,
-    .profile-label {
-        font-size: 12px;
-    }
-
-    .user-card,
-    .user-box {
-        min-height: 94px;
-
-        padding: 12px 14px;
-
-        border-radius: 24px;
-
-        gap: 11px;
-
-        margin-bottom: 12px;
-    }
-
-    .user-icon {
-        width: 76px;
-        height: 76px;
-
-        flex-basis: 76px;
-
-        border-radius: 20px;
-
-        font-size: 38px;
-    }
-
-    .user-welcome {
-        font-size: 13px;
-    }
-
-    .user-name {
-        font-size: 23px;
-    }
-
-    .user-id {
-        font-size: 14px;
-    }
-
-    .user-arrow {
-        width: 48px;
-        height: 48px;
-
-        flex-basis: 48px;
-
-        font-size: 25px;
-    }
-
-    .menu-grid {
-        gap: 11px;
-    }
-
-    .menu-card,
-    .action-card,
-    .card {
-        min-height: 172px;
-
-        padding: 14px;
-
-        border-radius: 24px;
-    }
-
-    .card-icon,
-    .menu-icon,
-    .action-icon {
-        width: 60px;
-        height: 60px;
-
-        flex-basis: 60px;
-
-        border-radius: 18px;
-
-        font-size: 29px;
-    }
-
-    .card-content,
-    .menu-content,
-    .action-content {
-        padding-right: 42px;
-        padding-top: 8px;
-    }
-
-    .card-title,
-    .menu-title,
-    .action-title {
-        font-size: 21px;
-        line-height: 1.18;
-    }
-
-    .card-subtitle,
-    .menu-subtitle,
-    .action-subtitle {
-        font-size: 12px;
-        line-height: 1.3;
-    }
-
-    .card-arrow,
-    .menu-arrow,
-    .action-arrow {
-        width: 45px;
-        height: 45px;
-
-        right: 12px;
-        bottom: 12px;
-
-        font-size: 23px;
-    }
-
-    .relief-card,
-    .aid-card,
-    .menu-card:nth-child(5),
-    .action-card:nth-child(5),
-    .card:nth-child(5) {
-        min-height: 104px;
-
-        padding: 13px 14px;
-
-        gap: 12px;
-
-        border-radius: 23px;
-    }
-
-    .relief-card .card-icon,
-    .aid-card .card-icon,
-    .menu-card:nth-child(5) .card-icon,
-    .action-card:nth-child(5) .action-icon,
-    .card:nth-child(5) .card-icon {
-        width: 58px;
-        height: 58px;
-
-        flex-basis: 58px;
-    }
-
-    .relief-card .card-title,
-    .aid-card .card-title,
-    .menu-card:nth-child(5) .card-title,
-    .action-card:nth-child(5) .action-title,
-    .card:nth-child(5) .card-title {
-        font-size: 20px;
-    }
-
-    .relief-card .card-subtitle,
-    .aid-card .card-subtitle,
-    .menu-card:nth-child(5) .card-subtitle,
-    .action-card:nth-child(5) .action-subtitle,
-    .card:nth-child(5) .card-subtitle {
-        font-size: 12px;
-    }
-
-    .relief-card .card-arrow,
-    .aid-card .card-arrow,
-    .menu-card:nth-child(5) .card-arrow,
-    .action-card:nth-child(5) .action-arrow,
-    .card:nth-child(5) .card-arrow {
-        width: 45px;
-        height: 45px;
-
-        flex-basis: 45px;
-    }
-
-    /* Emergency must remain completely visible */
-
-    .emergency,
-    .emergency-button,
-    .emergency-card {
-        min-height: 76px;
-
-        height: 76px;
-
-        margin-top: 10px;
-
-        padding: 9px 12px;
-
-        border-radius: 23px;
-
-        gap: 10px;
-    }
-
-    .emergency-icon {
-        width: 52px;
-        height: 52px;
-
-        flex-basis: 52px;
-
-        border-radius: 16px;
-
-        font-size: 27px;
-    }
-
-    .emergency-title {
-        font-size: 21px;
-    }
-
-    .emergency-subtitle {
-        font-size: 11px;
-    }
-
-    .emergency-arrow {
-        width: 45px;
-        height: 45px;
-
-        flex-basis: 45px;
-
-        font-size: 26px;
-    }
-
-    .footer {
-        padding-top: 5px;
-
-        font-size: 10px;
-    }
-}
 
 /* =========================================
    VERY SMALL PHONES
@@ -1011,65 +912,100 @@ body {
 
 @media (max-width: 360px) {
 
-    .app,
-    .container,
-    .home,
-    .main-container {
+    .app {
         padding-left: 10px;
         padding-right: 10px;
     }
 
-    .header h1,
-    .header-title {
+    .top-header {
+        gap: 6px;
+    }
+
+    .logo-box {
+        width: 60px;
+        height: 60px;
+
+        flex-basis: 60px;
+    }
+
+    .logo-box img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .brand {
+        gap: 7px;
+    }
+
+    .brand-text h1 {
         font-size: 19px;
     }
 
-    .header p,
-    .header-subtitle {
+    .brand-text p {
         font-size: 12px;
     }
 
-    .logo,
-    .header-logo,
-    .logo img,
-    .header-logo img {
-        width: 62px;
-        height: 62px;
-
-        flex-basis: 62px;
+    .profile-btn {
+        width: 50px;
+        min-width: 50px;
     }
 
-    .profile {
-        width: 52px;
-    }
+    .profile-btn i {
+        width: 42px;
+        height: 42px;
 
-    .profile-icon {
-        width: 43px;
-        height: 43px;
-    }
-
-    .user-icon {
-        width: 68px;
-        height: 68px;
-
-        flex-basis: 68px;
-    }
-
-    .user-name {
         font-size: 20px;
     }
 
-    .user-id {
+    .profile-btn span {
+        font-size: 10px;
+    }
+
+    .user-card {
+        min-height: 90px;
+
+        padding: 10px;
+
+        gap: 8px;
+
+        border-radius: 22px;
+    }
+
+    .user-icon {
+        width: 66px;
+        height: 66px;
+
+        flex-basis: 66px;
+
+        font-size: 33px;
+    }
+
+    .user-info span {
+        font-size: 11px;
+    }
+
+    .user-info h2 {
+        font-size: 20px;
+    }
+
+    .user-info p {
         font-size: 12px;
     }
 
-    .menu-grid {
+    .round-arrow {
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+
+        font-size: 22px;
+    }
+
+    .button-grid {
         gap: 8px;
     }
 
-    .menu-card,
-    .action-card,
-    .card {
+    .action-card {
         min-height: 158px;
 
         padding: 12px;
@@ -1077,9 +1013,7 @@ body {
         border-radius: 21px;
     }
 
-    .card-icon,
-    .menu-icon,
-    .action-icon {
+    .card-icon {
         width: 52px;
         height: 52px;
 
@@ -1088,21 +1022,19 @@ body {
         font-size: 25px;
     }
 
-    .card-title,
-    .menu-title,
-    .action-title {
+    .card-content {
+        padding-right: 36px;
+    }
+
+    .card-content h3 {
         font-size: 18px;
     }
 
-    .card-subtitle,
-    .menu-subtitle,
-    .action-subtitle {
+    .card-content p {
         font-size: 10px;
     }
 
-    .card-arrow,
-    .menu-arrow,
-    .action-arrow {
+    .card-arrow {
         width: 40px;
         height: 40px;
 
@@ -1112,31 +1044,49 @@ body {
         font-size: 21px;
     }
 
-    .relief-card,
-    .aid-card,
-    .menu-card:nth-child(5),
-    .action-card:nth-child(5),
-    .card:nth-child(5) {
-        min-height: 94px;
+    .relief-card {
+        min-height: 92px;
 
-        padding: 11px;
+        padding: 10px;
+
+        gap: 9px;
+
+        border-radius: 21px;
     }
 
-    .relief-card .card-title,
-    .aid-card .card-title,
-    .menu-card:nth-child(5) .card-title,
-    .action-card:nth-child(5) .action-title,
-    .card:nth-child(5) .card-title {
+    .relief-icon {
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        font-size: 25px;
+    }
+
+    .relief-content h3 {
         font-size: 18px;
     }
 
-    .emergency,
-    .emergency-button,
-    .emergency-card {
+    .relief-content p {
+        font-size: 10px;
+    }
+
+    .relief-arrow {
+        width: 40px;
+        height: 40px;
+
+        flex-basis: 40px;
+
+        font-size: 21px;
+    }
+
+    .emergency-btn {
         height: 70px;
         min-height: 70px;
 
         padding: 8px 10px;
+
+        gap: 8px;
 
         border-radius: 21px;
     }
@@ -1146,13 +1096,15 @@ body {
         height: 48px;
 
         flex-basis: 48px;
+
+        font-size: 24px;
     }
 
-    .emergency-title {
+    .emergency-text h3 {
         font-size: 19px;
     }
 
-    .emergency-subtitle {
+    .emergency-text p {
         font-size: 10px;
     }
 
@@ -1164,140 +1116,16 @@ body {
 
         font-size: 23px;
     }
+
+    footer {
+        font-size: 9px;
+    }
 }
+
 
 /* =========================================
-   LANDSCAPE / SHORT SCREEN FIX
+   SAFETY
    ========================================= */
-
-@media (max-height: 700px) and (orientation: portrait) {
-
-    .app,
-    .container,
-    .home,
-    .main-container {
-        padding-top: 6px;
-        padding-bottom: 5px;
-    }
-
-    .header {
-        min-height: 62px;
-        padding-bottom: 5px;
-    }
-
-    .logo,
-    .header-logo,
-    .logo img,
-    .header-logo img {
-        width: 58px;
-        height: 58px;
-
-        flex-basis: 58px;
-    }
-
-    .header h1,
-    .header-title {
-        font-size: 19px;
-    }
-
-    .header p,
-    .header-subtitle {
-        font-size: 12px;
-    }
-
-    .user-card,
-    .user-box {
-        min-height: 82px;
-
-        margin-bottom: 9px;
-
-        padding: 9px 12px;
-    }
-
-    .user-icon {
-        width: 62px;
-        height: 62px;
-
-        flex-basis: 62px;
-    }
-
-    .user-name {
-        font-size: 20px;
-    }
-
-    .user-id {
-        font-size: 12px;
-    }
-
-    .menu-card,
-    .action-card,
-    .card {
-        min-height: 145px;
-    }
-
-    .relief-card,
-    .aid-card,
-    .menu-card:nth-child(5),
-    .action-card:nth-child(5),
-    .card:nth-child(5) {
-        min-height: 82px;
-    }
-
-    .emergency,
-    .emergency-button,
-    .emergency-card {
-        height: 64px;
-        min-height: 64px;
-
-        margin-top: 8px;
-    }
-
-    .emergency-icon {
-        width: 46px;
-        height: 46px;
-
-        flex-basis: 46px;
-    }
-
-    .emergency-title {
-        font-size: 18px;
-    }
-
-    .emergency-subtitle {
-        font-size: 10px;
-    }
-
-    .emergency-arrow {
-        width: 38px;
-        height: 38px;
-
-        flex-basis: 38px;
-    }
-}
-
-/* =========================================
-   SAFETY OVERRIDES
-   ========================================= */
-
-img {
-    max-width: 100%;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
-
-button {
-    font-family: inherit;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* Prevent accidental horizontal overflow */
 
 section,
 header,
@@ -1307,20 +1135,7 @@ div {
     max-width: 100%;
 }
 
-/* Keep emergency above footer */
-
-.emergency,
-.emergency-button,
-.emergency-card {
-    z-index: 10;
-}
-
-/* Never clip the bottom of the page */
-
 body,
-.app,
-.container,
-.home,
-.main-container {
+.app {
     clip-path: none;
 }
