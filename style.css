@@ -1,93 +1,136 @@
 /* =========================================
-   AABF HOME SCREEN - FINAL
+   AABF HOME
+   WEBVIEW + MOBILE OPTIMIZED
    ========================================= */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
+
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
+
 
 html,
 body {
+
     width: 100%;
     height: 100%;
+
+    margin: 0;
+    padding: 0;
+
     overflow: hidden;
+
+    background: #ffffff;
+
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
+
 body {
+
     font-family:
         "Noto Sans Bengali",
-        "Hind Siliguri",
-        "SolaimanLipi",
         Arial,
         sans-serif;
 
-    background: #ffffff;
-    color: #222;
+    color: #24242a;
+
+    overflow: hidden;
+
     -webkit-font-smoothing: antialiased;
+
     text-rendering: optimizeLegibility;
 }
+
 
 /* =========================================
    APP
    ========================================= */
 
 .app {
+
     width: 100%;
-    max-width: 700px;
+    height: 100vh;
     height: 100dvh;
+
+    max-width: 700px;
 
     margin: 0 auto;
 
     padding:
-        max(8px, env(safe-area-inset-top))
+        10px
         18px
-        max(4px, env(safe-area-inset-bottom));
+        6px;
 
     display: flex;
+
     flex-direction: column;
+
+    gap: 8px;
 
     overflow: hidden;
 }
+
 
 /* =========================================
    HEADER
    ========================================= */
 
 .top-header {
+
     width: 100%;
 
     flex: 0 0 auto;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
 
-    padding: 4px 0 8px;
+    align-items: center;
+
+    min-height: 92px;
+
+    overflow: hidden;
 }
 
+
 .brand {
+
     width: 100%;
 
     display: flex;
+
     align-items: center;
 
     gap: 14px;
+
+    min-width: 0;
 }
+
 
 .logo-box {
-    width: 145px;
-    height: 100px;
 
-    flex: 0 0 145px;
+    width: 92px;
+    height: 92px;
+
+    flex: 0 0 92px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
+
+    overflow: hidden;
 }
 
+
 .logo-box img {
+
     width: 100%;
     height: 100%;
 
@@ -96,253 +139,393 @@ body {
     display: block;
 }
 
+
 .brand-text {
+
     flex: 1;
+
     min-width: 0;
+
+    overflow: hidden;
 }
 
+
 .brand-text h1 {
-    font-size: 28px;
-    line-height: 1.15;
-    font-weight: 900;
+
     margin: 0;
+
+    font-size: clamp(
+        23px,
+        5.8vw,
+        34px
+    );
+
+    line-height: 1.08;
+
+    font-weight: 900;
+
+    color: #24242a;
+
     white-space: nowrap;
 }
 
 
 .brand-text p {
+
     margin-top: 5px;
 
-    color: #85858b;
+    font-family: Arial, sans-serif;
 
-    font-size: clamp(13px, 3.5vw, 18px);
+    font-size: clamp(
+        14px,
+        3.6vw,
+        19px
+    );
 
-    line-height: 1.15;
+    line-height: 1.2;
+
+    color: #88888f;
 
     white-space: nowrap;
 }
+
 
 /* =========================================
    USER CARD
    ========================================= */
 
 .user-card {
+
     width: 100%;
 
     flex: 0 0 auto;
 
-    min-height: 104px;
+    min-height: 88px;
 
-    margin-bottom: 12px;
+    padding: 10px 14px;
 
-    padding: 12px 16px;
+    border:
+        1px solid #e8dfe2;
 
-    border: 1px solid #e8dfe2;
-
-    border-radius: 28px;
+    border-radius: 27px;
 
     background: #ffffff;
 
     box-shadow:
-        0 7px 20px rgba(40, 30, 35, 0.07);
+        0 7px 20px
+        rgba(45, 35, 40, 0.07);
 
     display: flex;
+
     align-items: center;
 
-    gap: 14px;
+    gap: 12px;
 
     cursor: pointer;
 
     overflow: hidden;
 }
 
+
 .user-icon {
-    width: 82px;
-    height: 82px;
 
-    flex: 0 0 82px;
+    width: 72px;
+    height: 72px;
 
-    border-radius: 22px;
+    flex: 0 0 72px;
+
+    border-radius: 20px;
 
     background: #fff0f4;
 
     color: #c9164a;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    font-size: 40px;
+    font-size: 35px;
 }
+
 
 .user-info {
-    flex: 1;
+
     min-width: 0;
-}
 
-.welcome {
-    display: block;
-
-    color: #99999f;
-
-    font-size: 14px;
-
-    line-height: 1.1;
-}
-
-.user-info h2 {
-    margin-top: 2px;
-
-    color: #25252a;
-
-    font-size: clamp(23px, 6vw, 31px);
-
-    line-height: 1.08;
-
-    font-weight: 900;
-}
-
-.user-info p {
-    margin-top: 3px;
-
-    color: #8b8b91;
-
-    font-size: clamp(13px, 3.5vw, 17px);
-
-    line-height: 1.15;
-
-    white-space: nowrap;
-}
-
-.user-info b {
-    color: #a9153c;
-}
-
-.user-arrow {
-    width: 54px;
-    height: 54px;
-
-    flex: 0 0 54px;
-
-    border-radius: 50%;
-
-    background: #fff3f6;
-
-    color: #b31945;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 28px;
-}
-
-/* =========================================
-   MAIN BUTTON GRID
-   ========================================= */
-
-.button-grid {
-    width: 100%;
-
-    flex: 0 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
+    flex: 1;
 
     overflow: hidden;
 }
 
+
+.welcome {
+
+    display: block;
+
+    font-size: 13px;
+
+    line-height: 1.1;
+
+    color: #99999f;
+
+    margin-bottom: 2px;
+}
+
+
+.user-info h2 {
+
+    font-size: clamp(
+        20px,
+        5.4vw,
+        29px
+    );
+
+    line-height: 1.12;
+
+    font-weight: 900;
+
+    color: #24242a;
+
+    white-space: nowrap;
+}
+
+
+.user-info p {
+
+    margin-top: 3px;
+
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
+
+    font-size: clamp(
+        12px,
+        3.4vw,
+        17px
+    );
+
+    line-height: 1.2;
+
+    color: #88888f;
+
+    white-space: nowrap;
+}
+
+
+.user-info p b {
+
+    color: #a9153c;
+}
+
+
 /* =========================================
-   ACTION CARDS
+   MAIN GRID
+   ========================================= */
+
+.button-grid {
+
+    width: 100%;
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    grid-template-rows:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 9px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   MAIN CARDS
    ========================================= */
 
 .action-card {
-    position: relative;
 
     width: 100%;
+    height: 100%;
+
     min-width: 0;
+    min-height: 0;
 
-    height: 142px;
+    border: 1px solid
+        rgba(0, 0, 0, 0.07);
 
-    padding: 13px;
+    border-radius: 25px;
 
-    border: 1px solid rgba(0, 0, 0, 0.07);
+    padding: 14px;
 
-    border-radius: 23px;
+    position: relative;
 
     display: flex;
+
     flex-direction: column;
+
+    align-items: flex-start;
 
     justify-content: space-between;
 
     overflow: hidden;
 
-    font-family: inherit;
+    isolation: isolate;
 
-    text-align: left;
+    font-family: inherit;
 
     cursor: pointer;
 
     transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+        transform .15s ease;
 }
 
+
 .action-card:active {
-    transform: scale(0.97);
+
+    transform: scale(.98);
 }
+
 
 /* Decorative circle */
 
 .action-card::after {
+
     content: "";
 
     position: absolute;
 
-    width: 105px;
-    height: 105px;
+    width: 145px;
+    height: 145px;
 
-    right: -35px;
-    top: -40px;
+    right: -48px;
+    top: -52px;
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.35);
+    background:
+        rgba(255,255,255,.35);
 
-    pointer-events: none;
+    z-index: -1;
 }
 
+
 /* =========================================
-   CARD COLORS
+   CARD ICON
+   ========================================= */
+
+.card-icon {
+
+    width: 62px;
+    height: 62px;
+
+    flex: 0 0 62px;
+
+    border-radius: 19px;
+
+    background:
+        rgba(255,255,255,.9);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 7px 16px
+        rgba(0,0,0,.045);
+}
+
+
+/* =========================================
+   CARD CONTENT
+   ========================================= */
+
+.card-content {
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin-top: auto;
+
+    padding-top: 8px;
+
+    overflow: hidden;
+}
+
+
+.card-content h3 {
+
+    width: 100%;
+
+    margin: 0;
+
+    font-size: clamp(
+        18px,
+        4.5vw,
+        25px
+    );
+
+    line-height: 1.12;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: clip;
+}
+
+
+/* =========================================
+   COLORS
    ========================================= */
 
 .card-pink {
+
     background:
         linear-gradient(
             135deg,
             #fff7f9 0%,
-            #ffe0e7 100%
+            #ffe1e8 100%
         );
 
     color: #b31647;
 }
 
+
 .card-green {
+
     background:
         linear-gradient(
             135deg,
             #f1fffc 0%,
-            #d8f6f1 100%
+            #d7f6f1 100%
         );
 
     color: #078c83;
 }
 
+
 .card-blue {
+
     background:
         linear-gradient(
             135deg,
@@ -353,7 +536,9 @@ body {
     color: #286b9f;
 }
 
+
 .card-purple {
+
     background:
         linear-gradient(
             135deg,
@@ -364,120 +549,28 @@ body {
     color: #7136a4;
 }
 
-/* =========================================
-   CARD ICON
-   ========================================= */
-
-.card-icon {
-    width: 58px;
-    height: 58px;
-
-    flex: 0 0 58px;
-
-    border-radius: 18px;
-
-    background: rgba(255, 255, 255, 0.88);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 28px;
-
-    box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.04);
-
-    position: relative;
-    z-index: 2;
-}
-
-/* =========================================
-   CARD CONTENT
-   ========================================= */
-
-.card-content {
-    min-width: 0;
-
-    padding-right: 42px;
-
-    margin-top: auto;
-
-    padding-top: 6px;
-
-    position: relative;
-    z-index: 2;
-}
-
-.card-content h3 {
-    margin: 0;
-
-    font-size: clamp(17px, 4.6vw, 25px);
-
-    line-height: 1.15;
-
-    font-weight: 900;
-
-    overflow-wrap: anywhere;
-}
-
-.card-content p {
-    margin-top: 3px;
-
-    font-size: clamp(10px, 2.8vw, 14px);
-
-    line-height: 1.2;
-
-    font-weight: 500;
-
-    opacity: 0.72;
-
-    overflow-wrap: anywhere;
-}
-
-/* =========================================
-   CARD ARROW
-   ========================================= */
-
-.card-arrow {
-    position: absolute;
-
-    right: 10px;
-    bottom: 10px;
-
-    width: 43px;
-    height: 43px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.9);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
-
-    z-index: 4;
-}
 
 /* =========================================
    RELIEF
    ========================================= */
 
 .relief-card {
+
     width: 100%;
 
-    flex: 0 0 auto;
+    flex: 0 0 76px;
 
-    height: 82px;
+    min-height: 76px;
 
-    margin-top: 10px;
+    padding:
+        10px
+        16px;
 
-    padding: 10px 14px;
+    border:
+        1px solid
+        rgba(184,120,0,.15);
 
-    border: 1px solid #f0dfb8;
-
-    border-radius: 25px;
+    border-radius: 24px;
 
     background:
         linear-gradient(
@@ -489,9 +582,10 @@ body {
     color: #b87800;
 
     display: flex;
+
     align-items: center;
 
-    gap: 12px;
+    gap: 13px;
 
     font-family: inherit;
 
@@ -500,7 +594,9 @@ body {
     overflow: hidden;
 }
 
+
 .relief-icon {
+
     width: 56px;
     height: 56px;
 
@@ -508,73 +604,85 @@ body {
 
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.9);
+    background:
+        rgba(255,255,255,.78);
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     font-size: 27px;
 }
 
+
 .relief-content {
+
     flex: 1;
+
     min-width: 0;
+
+    text-align: center;
+
+    overflow: hidden;
 }
+
 
 .relief-content h3 {
-    font-size: clamp(19px, 5vw, 26px);
 
-    line-height: 1.1;
+    font-size: clamp(
+        19px,
+        4.8vw,
+        26px
+    );
+
+    line-height: 1.05;
 
     font-weight: 900;
+
+    white-space: nowrap;
 }
 
-.relief-content p {
-    margin-top: 3px;
 
-    font-size: clamp(10px, 2.8vw, 14px);
+.relief-content p {
+
+    margin-top: 2px;
+
+    font-size: clamp(
+        11px,
+        2.9vw,
+        15px
+    );
 
     line-height: 1.15;
 
-    opacity: 0.72;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    overflow: hidden;
 }
 
-.relief-arrow {
-    width: 45px;
-    height: 45px;
-
-    flex: 0 0 45px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.9);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 24px;
-}
 
 /* =========================================
-   EMERGENCY - RED
+   EMERGENCY
    ========================================= */
 
 .emergency-btn {
+
     width: 100%;
 
-    flex: 0 0 auto;
+    flex: 0 0 68px;
 
-    height: 65px;
+    min-height: 68px;
 
-    margin-top: 9px;
-
-    padding: 8px 12px;
+    padding:
+        8px
+        14px;
 
     border: none;
 
-    border-radius: 22px;
+    border-radius: 23px;
 
     background:
         linear-gradient(
@@ -586,108 +694,123 @@ body {
     color: #ffffff;
 
     display: flex;
+
     align-items: center;
 
-    gap: 10px;
+    gap: 12px;
 
     font-family: inherit;
 
     cursor: pointer;
 
     box-shadow:
-        0 8px 18px rgba(220, 16, 64, 0.20);
+        0 10px 23px
+        rgba(220,16,64,.20);
 
     overflow: hidden;
 }
 
+
 .emergency-icon {
-    width: 48px;
-    height: 48px;
 
-    flex: 0 0 48px;
+    width: 50px;
+    height: 50px;
 
-    border-radius: 15px;
+    flex: 0 0 50px;
 
-    background: rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.18);
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    font-size: 25px;
+    font-size: 27px;
 }
+
 
 .emergency-text {
+
     flex: 1;
+
     min-width: 0;
+
+    text-align: center;
+
+    overflow: hidden;
 }
 
+
 .emergency-text h3 {
+
     font-family: Arial, sans-serif;
 
-    font-size: 20px;
+    font-size: clamp(
+        20px,
+        5vw,
+        27px
+    );
 
-    line-height: 1.05;
+    line-height: 1;
 
     font-weight: 800;
 
-    color: #ffffff;
+    white-space: nowrap;
 }
 
+
 .emergency-text p {
+
     margin-top: 3px;
 
-    font-size: 10px;
+    font-size: clamp(
+        10px,
+        2.8vw,
+        14px
+    );
 
     line-height: 1.1;
 
-    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
 }
 
-.emergency-arrow {
-    width: 42px;
-    height: 42px;
-
-    flex: 0 0 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 25px;
-
-    color: #ffffff;
-}
 
 /* =========================================
    FOOTER
    ========================================= */
 
 .footer {
+
     width: 100%;
 
-    flex: 0 0 auto;
+    flex: 0 0 16px;
 
-    height: 18px;
-
-    margin-top: 3px;
+    min-height: 16px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    gap: 7px;
+    gap: 8px;
 
-    color: #aaa;
+    text-align: center;
 
     font-family: Arial, sans-serif;
 
-    font-size: 9px;
+    font-size: 10px;
 
     line-height: 1;
 
+    color: #aaa;
+
     white-space: nowrap;
 }
+
 
 /* =========================================
    MOBILE
@@ -696,67 +819,180 @@ body {
 @media (max-width: 430px) {
 
     .app {
-        padding-left: 14px;
-        padding-right: 14px;
+
+        padding:
+            8px
+            14px
+            5px;
+
+        gap: 7px;
     }
+
 
     .top-header {
-        padding-top: 2px;
-        padding-bottom: 6px;
+
+        min-height: 84px;
     }
 
+
     .brand {
+
+        gap: 9px;
+    }
+
+
+    .logo-box {
+
+        width: 76px;
+        height: 76px;
+
+        flex-basis: 76px;
+    }
+
+
+    .brand-text h1 {
+
+        font-size: 22px;
+
+        line-height: 1.05;
+    }
+
+
+    .brand-text p {
+
+        font-size: 13px;
+
+        margin-top: 4px;
+    }
+
+
+    .user-card {
+
+        min-height: 78px;
+
+        padding:
+            8px
+            11px;
+
+        border-radius: 23px;
+
         gap: 10px;
     }
 
-    .logo-box {
-        width: 145px;
-        height: 88px;
 
-        flex-basis: 145px;
+    .user-icon {
+
+        width: 62px;
+        height: 62px;
+
+        flex-basis: 62px;
+
+        border-radius: 17px;
+
+        font-size: 31px;
     }
 
-    .brand-text h1 {
+
+    .user-info h2 {
+
+        font-size: 21px;
+    }
+
+
+    .user-info p {
+
+        font-size: 12px;
+    }
+
+
+    .button-grid {
+
+        gap: 8px;
+    }
+
+
+    .action-card {
+
+        padding: 12px;
+
+        border-radius: 22px;
+    }
+
+
+    .card-icon {
+
+        width: 56px;
+        height: 56px;
+
+        flex-basis: 56px;
+
+        border-radius: 17px;
+
+        font-size: 27px;
+    }
+
+
+    .card-content h3 {
+
+        font-size: 19px;
+    }
+
+
+    .relief-card {
+
+        flex-basis: 70px;
+
+        min-height: 70px;
+
+        padding:
+            8px
+            12px;
+
+        border-radius: 21px;
+    }
+
+
+    .relief-icon {
+
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        border-radius: 16px;
+
         font-size: 25px;
     }
 
-    .brand-text p {
-        font-size: 13px;
+
+    .relief-content h3 {
+
+        font-size: 20px;
     }
 
-    .user-card {
-        min-height: 92px;
-        height: 92px;
 
-        padding: 9px 13px;
+    .relief-content p {
 
-        margin-bottom: 10px;
-
-        border-radius: 25px;
-
-        gap: 10px;
+        font-size: 11px;
     }
 
-    .user-icon {
-        width: 72px;
-        height: 72px;
 
-        flex-basis: 72px;
+    .emergency-btn {
 
-        border-radius: 20px;
+        flex-basis: 64px;
 
-        font-size: 36px;
+        min-height: 64px;
+
+        padding:
+            7px
+            11px;
+
+        border-radius: 21px;
     }
 
-    .user-info h2 {
-        font-size: 23px;
-    }
 
-    .user-info p {
-        font-size: 13px;
-    }
+    .emergency-icon {
 
-    .user-arrow {
         width: 48px;
         height: 48px;
 
@@ -765,202 +1001,114 @@ body {
         font-size: 25px;
     }
 
-    .button-grid {
-        gap: 9px;
-    }
 
-    .action-card {
-        height: 137px;
+    .emergency-text h3 {
 
-        padding: 11px;
-
-        border-radius: 21px;
-    }
-
-    .card-icon {
-        width: 55px;
-        height: 55px;
-
-        flex-basis: 55px;
-
-        border-radius: 17px;
-
-        font-size: 27px;
-    }
-
-    .card-content {
-        padding-right: 38px;
-    }
-
-    .card-content h3 {
-        font-size: 19px;
-    }
-
-    .card-content p {
-        font-size: 10px;
-    }
-
-    .card-arrow {
-        width: 40px;
-        height: 40px;
-
-        right: 9px;
-        bottom: 9px;
-
-        font-size: 21px;
-    }
-
-    .relief-card {
-        height: 76px;
-
-        margin-top: 8px;
-
-        padding: 9px 12px;
-
-        border-radius: 22px;
-
-        gap: 10px;
-    }
-
-    .relief-icon {
-        width: 52px;
-        height: 52px;
-
-        flex-basis: 52px;
-
-        border-radius: 17px;
-
-        font-size: 25px;
-    }
-
-    .relief-content h3 {
         font-size: 20px;
     }
 
-    .relief-content p {
+
+    .emergency-text p {
+
         font-size: 10px;
     }
 
-    .relief-arrow {
-        width: 42px;
-        height: 42px;
 
-        flex-basis: 42px;
+    .footer {
 
-        font-size: 22px;
-    }
+        flex-basis: 14px;
 
-    .emergency-btn {
-        height: 61px;
+        min-height: 14px;
 
-        min-height: 61px;
-
-        margin-top: 7px;
-
-        border-radius: 20px;
-
-        padding: 7px 10px;
-    }
-
-    .emergency-icon {
-        width: 46px;
-        height: 46px;
-
-        flex-basis: 46px;
-
-        font-size: 24px;
-    }
-
-    .emergency-text h3 {
-        font-size: 19px;
-    }
-
-    .emergency-text p {
         font-size: 9px;
     }
 
-    .emergency-arrow {
-        width: 40px;
-        height: 40px;
-
-        flex-basis: 40px;
-
-        font-size: 23px;
-    }
-
-    .footer {
-        font-size: 8px;
-    }
 }
 
+
 /* =========================================
-   VERY SMALL PHONES
+   VERY SMALL SCREEN
    ========================================= */
 
 @media (max-width: 360px) {
 
     .app {
-        padding-left: 10px;
-        padding-right: 10px;
+
+        padding:
+            6px
+            10px
+            4px;
+
+        gap: 6px;
     }
+
+
+    .top-header {
+
+        min-height: 72px;
+    }
+
 
     .logo-box {
-        width: 105px;
-        height: 76px;
 
-        flex-basis: 105px;
-    }
-
-    .brand-text h1 {
-        font-size: 21px;
-    }
-
-    .brand-text p {
-        font-size: 11px;
-    }
-
-    .user-card {
-        height: 84px;
-        min-height: 84px;
-
-        padding: 7px 10px;
-    }
-
-    .user-icon {
         width: 64px;
         height: 64px;
 
         flex-basis: 64px;
-
-        font-size: 31px;
     }
 
-    .user-info h2 {
-        font-size: 20px;
+
+    .brand-text h1 {
+
+        font-size: 19px;
     }
 
-    .user-info p {
+
+    .brand-text p {
+
         font-size: 11px;
     }
 
-    .user-arrow {
-        width: 43px;
-        height: 43px;
 
-        flex-basis: 43px;
+    .user-card {
 
-        font-size: 22px;
+        min-height: 70px;
     }
+
+
+    .user-icon {
+
+        width: 55px;
+        height: 55px;
+
+        flex-basis: 55px;
+
+        font-size: 27px;
+    }
+
+
+    .user-info h2 {
+
+        font-size: 19px;
+    }
+
+
+    .user-info p {
+
+        font-size: 11px;
+    }
+
 
     .action-card {
-        height: 126px;
 
-        padding: 9px;
+        padding: 10px;
 
-        border-radius: 19px;
+        border-radius: 20px;
     }
 
+
     .card-icon {
+
         width: 50px;
         height: 50px;
 
@@ -969,99 +1117,233 @@ body {
         font-size: 24px;
     }
 
+
     .card-content h3 {
+
         font-size: 17px;
     }
 
-    .card-content p {
-        font-size: 9px;
-    }
-
-    .card-arrow {
-        width: 37px;
-        height: 37px;
-
-        right: 8px;
-        bottom: 8px;
-
-        font-size: 19px;
-    }
 
     .relief-card {
-        height: 69px;
+
+        flex-basis: 64px;
+
+        min-height: 64px;
     }
 
+
     .relief-icon {
+
         width: 48px;
         height: 48px;
 
         flex-basis: 48px;
     }
 
+
     .relief-content h3 {
+
         font-size: 18px;
     }
 
+
     .relief-content p {
+
         font-size: 9px;
     }
 
-    .relief-arrow {
-        width: 38px;
-        height: 38px;
-
-        flex-basis: 38px;
-    }
 
     .emergency-btn {
-        height: 57px;
-        min-height: 57px;
+
+        flex-basis: 59px;
+
+        min-height: 59px;
     }
 
+
     .emergency-icon {
+
+        width: 44px;
+        height: 44px;
+
+        flex-basis: 44px;
+    }
+
+
+    .emergency-text h3 {
+
+        font-size: 18px;
+    }
+
+
+    .emergency-text p {
+
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================
+   SHORT SCREEN
+   ========================================= */
+
+@media (max-height: 700px) {
+
+    .app {
+
+        padding-top: 5px;
+
+        gap: 5px;
+    }
+
+
+    .top-header {
+
+        min-height: 67px;
+    }
+
+
+    .logo-box {
+
+        width: 58px;
+        height: 58px;
+
+        flex-basis: 58px;
+    }
+
+
+    .brand-text h1 {
+
+        font-size: 18px;
+    }
+
+
+    .brand-text p {
+
+        font-size: 10px;
+    }
+
+
+    .user-card {
+
+        min-height: 64px;
+
+        padding:
+            6px
+            10px;
+    }
+
+
+    .user-icon {
+
+        width: 50px;
+        height: 50px;
+
+        flex-basis: 50px;
+
+        font-size: 25px;
+    }
+
+
+    .user-info h2 {
+
+        font-size: 18px;
+    }
+
+
+    .user-info p {
+
+        font-size: 10px;
+    }
+
+
+    .action-card {
+
+        padding: 9px;
+    }
+
+
+    .card-icon {
+
+        width: 46px;
+        height: 46px;
+
+        flex-basis: 46px;
+
+        font-size: 22px;
+    }
+
+
+    .card-content h3 {
+
+        font-size: 16px;
+    }
+
+
+    .relief-card {
+
+        flex-basis: 58px;
+
+        min-height: 58px;
+    }
+
+
+    .relief-icon {
+
+        width: 44px;
+        height: 44px;
+
+        flex-basis: 44px;
+    }
+
+
+    .relief-content h3 {
+
+        font-size: 17px;
+    }
+
+
+    .relief-content p {
+
+        font-size: 9px;
+    }
+
+
+    .emergency-btn {
+
+        flex-basis: 54px;
+
+        min-height: 54px;
+    }
+
+
+    .emergency-icon {
+
         width: 42px;
         height: 42px;
 
         flex-basis: 42px;
+
+        font-size: 22px;
     }
 
+
     .emergency-text h3 {
+
         font-size: 17px;
     }
 
+
     .emergency-text p {
+
+        font-size: 9px;
+    }
+
+
+    .footer {
+
         font-size: 8px;
     }
 
-    .emergency-arrow {
-        width: 37px;
-        height: 37px;
-
-        flex-basis: 37px;
-    }
-}
-
-/* =========================================
-   NO SCROLL / NO HORIZONTAL OVERFLOW
-   ========================================= */
-
-html,
-body,
-.app {
-    overflow: hidden !important;
-}
-
-img {
-    max-width: 100%;
-}
-
-button {
-    font-family: inherit;
-    -webkit-tap-highlight-color: transparent;
-}
-@media (max-width: 480px) {
-    .brand-text h1 {
-        font-size: 25px;
-        line-height: 1.15;
-    }
 }
