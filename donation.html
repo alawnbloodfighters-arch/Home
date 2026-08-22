@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>অর্থ সাহায্য করুন | আল-আওন ব্লাড ফাইটার্স</title>
+
+
+<style>
+
+/* ==================================
+   BASIC
+================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    padding: 25px 12px;
+
+    font-family:
+        "Noto Sans Bengali",
+        "SolaimanLipi",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7fa,
+            #ffffff,
+            #fff5f8
+        );
+
+    color: #222;
+
+    min-height: 100vh;
+
+}
+
+
+/* ==================================
+   MAIN CONTAINER
+================================== */
+
+.container {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+}
+
+
+/* ==================================
+   LOGO
+================================== */
+
+.logo {
+
+    width: 130px;
+
+    height: 130px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin: 5px auto 18px;
+
+}
+
+
+/* ==================================
+   MAIN TEXT
+================================== */
+
+.intro {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+
+}
+
+
+.intro-title {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 1.45;
+
+    margin: 0 0 5px;
+
+}
+
+
+.intro-number-text {
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    color: #d4145a;
+
+    line-height: 1.5;
+
+    margin: 0;
+
+}
+
+
+/* ==================================
+   DONATION CARD
+================================== */
+
+.donation-card {
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 24px 20px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 7px 25px rgba(0, 0, 0, 0.10);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+/* ==================================
+   PAYMENT LOGO
+================================== */
+
+.payment-logo {
+
+    width: 115px;
+
+    min-width: 115px;
+
+    height: 115px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.payment-logo img {
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    object-fit: contain;
+
+}
+
+
+/*
+   যদি bKash / Nagad logo image না থাকে,
+   নিচের text logo ব্যবহার হবে
+*/
+
+.bkash-logo {
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    color: #d41468;
+
+    text-align: center;
+
+}
+
+
+.nagad-logo {
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    color: #e88900;
+
+    text-align: center;
+
+}
+
+
+/* ==================================
+   PAYMENT INFORMATION
+================================== */
+
+.payment-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.payment-name {
+
+    font-size: 25px;
+
+    margin-bottom: 5px;
+
+    font-weight: 600;
+
+}
+
+
+.mobile-number {
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #d4145a;
+
+    letter-spacing: 0.5px;
+
+    word-break: break-word;
+
+}
+
+
+/* ==================================
+   COPY BUTTON
+================================== */
+
+.copy-button {
+
+    border: none;
+
+    background: #d41468;
+
+    color: white;
+
+    border-radius: 12px;
+
+    min-width: 105px;
+
+    height: 55px;
+
+    padding: 0 12px;
+
+    font-family:
+        "Noto Sans Bengali",
+        "SolaimanLipi",
+        Arial,
+        sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+
+}
+
+
+.copy-button:active {
+
+    transform: scale(0.96);
+
+}
+
+
+.copy-button.copied {
+
+    background: #159447;
+
+}
+
+
+/* ==================================
+   TREASURER
+================================== */
+
+.treasurer {
+
+    background: #fff0f6;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-top: 10px;
+
+    text-align: center;
+
+}
+
+
+.treasurer-title {
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    margin-bottom: 3px;
+
+}
+
+
+.treasurer-name {
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    color: #c9145a;
+
+}
+
+
+/* ==================================
+   COPY MESSAGE
+================================== */
+
+.copy-message {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    background: #222;
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 30px;
+
+    font-size: 17px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    z-index: 9999;
+
+}
+
+
+.copy-message.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+}
+
+
+/* ==================================
+   MOBILE
+================================== */
+
+@media (max-width: 600px) {
+
+
+    body {
+
+        padding: 18px 10px;
+
+    }
+
+
+    .logo {
+
+        width: 110px;
+
+        height: 110px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .intro {
+
+        margin-bottom: 22px;
+
+    }
+
+
+    .intro-title {
+
+        font-size: 25px;
+
+    }
+
+
+    .intro-number-text {
+
+        font-size: 23px;
+
+    }
+
+
+    .donation-card {
+
+        padding: 18px 14px;
+
+        gap: 12px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .payment-logo {
+
+        width: 82px;
+
+        min-width: 82px;
+
+        height: 82px;
+
+    }
+
+
+    .bkash-logo,
+    .nagad-logo {
+
+        font-size: 22px;
+
+    }
+
+
+    .payment-name {
+
+        font-size: 21px;
+
+    }
+
+
+    .mobile-number {
+
+        font-size: 23px;
+
+        letter-spacing: 0;
+
+    }
+
+
+    .copy-button {
+
+        min-width: 82px;
+
+        height: 48px;
+
+        font-size: 15px;
+
+        padding: 0 8px;
+
+    }
+
+
+    .treasurer {
+
+        padding: 17px 12px;
+
+    }
+
+
+    .treasurer-title {
+
+        font-size: 18px;
+
+    }
+
+
+    .treasurer-name {
+
+        font-size: 23px;
+
+    }
+
+}
+
+
+/* ==================================
+   SMALL MOBILE
+================================== */
+
+@media (max-width: 380px) {
+
+
+    .donation-card {
+
+        gap: 8px;
+
+        padding: 15px 10px;
+
+    }
+
+
+    .payment-logo {
+
+        width: 70px;
+
+        min-width: 70px;
+
+        height: 70px;
+
+    }
+
+
+    .mobile-number {
+
+        font-size: 20px;
+
+    }
+
+
+    .payment-name {
+
+        font-size: 19px;
+
+    }
+
+
+    .copy-button {
+
+        min-width: 70px;
+
+        font-size: 14px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ==============================
+         YOUR LOGO
+    =============================== -->
+
+    <img
+        src="logo.png"
+        class="logo"
+        alt="আল-আওন ব্লাড ফাইটার্স"
+    >
+
+
+    <!-- ==============================
+         INTRO
+    =============================== -->
+
+    <div class="intro">
+
+        <p class="intro-title">
+
+            সংগঠনে অর্থ সাহায্য করতে
+
+        </p>
+
+        <p class="intro-number-text">
+
+            এই নাম্বারে টাকা পাঠান
+
+        </p>
+
+    </div>
+
+
+    <!-- ==============================
+         BKASH
+    =============================== -->
+
+    <div class="donation-card">
+
+
+        <div class="payment-logo">
+
+            <div class="bkash-logo">
+
+                বিকাশ
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-info">
+
+            <div class="payment-name">
+
+                বিকাশ :
+
+            </div>
+
+            <div
+                class="mobile-number"
+                id="bkashNumber"
+            >
+
+                01845878701
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="copy-button"
+            onclick="copyNumber(
+                '01845878701',
+                this
+            )"
+        >
+
+            📋<br>
+            কপি করুন
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ==============================
+         NAGAD
+    =============================== -->
+
+    <div class="donation-card">
+
+
+        <div class="payment-logo">
+
+            <div class="nagad-logo">
+
+                নগদ
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-info">
+
+            <div class="payment-name">
+
+                নগদ :
+
+            </div>
+
+            <div
+                class="mobile-number"
+                id="nagadNumber"
+            >
+
+                01845878701
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="copy-button"
+            onclick="copyNumber(
+                '01845878701',
+                this
+            )"
+        >
+
+            📋<br>
+            কপি করুন
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ==============================
+         TREASURER
+    =============================== -->
+
+    <div class="treasurer">
+
+        <div class="treasurer-title">
+
+            অর্থ সম্পাদক :
+
+        </div>
+
+        <div class="treasurer-name">
+
+            তানভীর হাসান রুবিন
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==============================
+     COPY MESSAGE
+================================ -->
+
+<div
+    id="copyMessage"
+    class="copy-message"
+>
+
+    ✅ নাম্বার কপি হয়েছে
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================
+   COPY NUMBER
+================================== */
+
+function copyNumber(number, button) {
+
+
+    navigator.clipboard.writeText(number)
+
+        .then(function () {
+
+
+            /*
+               Button Text
+            */
+
+            button.classList.add("copied");
+
+            button.innerHTML =
+                "✅<br>কপি হয়েছে";
+
+
+            /*
+               Message
+            */
+
+            const message =
+                document.getElementById(
+                    "copyMessage"
+                );
+
+
+            message.classList.add("show");
+
+
+            /*
+               কিছুক্ষণ পরে
+               আগের অবস্থায় ফিরে যাবে
+            */
+
+            setTimeout(function () {
+
+                button.classList.remove(
+                    "copied"
+                );
+
+                button.innerHTML =
+                    "📋<br>কপি করুন";
+
+            }, 1800);
+
+
+            setTimeout(function () {
+
+                message.classList.remove(
+                    "show"
+                );
+
+            }, 1800);
+
+
+        })
+
+
+        .catch(function () {
+
+
+            /*
+               পুরোনো browser fallback
+            */
+
+            const textArea =
+                document.createElement(
+                    "textarea"
+                );
+
+
+            textArea.value = number;
+
+
+            document.body.appendChild(
+                textArea
+            );
+
+
+            textArea.select();
+
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            document.body.removeChild(
+                textArea
+            );
+
+
+            button.classList.add("copied");
+
+            button.innerHTML =
+                "✅<br>কপি হয়েছে";
+
+
+            const message =
+                document.getElementById(
+                    "copyMessage"
+                );
+
+
+            message.classList.add("show");
+
+
+            setTimeout(function () {
+
+                button.classList.remove(
+                    "copied"
+                );
+
+                button.innerHTML =
+                    "📋<br>কপি করুন";
+
+                message.classList.remove(
+                    "show"
+                );
+
+            }, 1800);
+
+        });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
