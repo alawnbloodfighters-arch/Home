@@ -28,7 +28,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.gstatic.com"
+        href="https://fonts.googleapis.com"
         crossorigin
     >
 
@@ -123,6 +123,7 @@
 
     <section
         class="user-card"
+        id="userCard"
         onclick="login()"
     >
 
@@ -142,7 +143,7 @@
             </span>
 
 
-            <h2>
+            <h2 id="userName">
 
                 ব্যবহারকারী
 
@@ -152,7 +153,7 @@
             <p>
 
                 AABF ID :
-                <b>Login করুন</b>
+                <b id="userAabfId">Login করুন</b>
 
             </p>
 
@@ -456,6 +457,218 @@
 </div>
 
 
+
+<!-- =========================
+     HOME SCRIPT
+========================= -->
+
+<script type="module">
+
+    import {
+        initializeApp
+    }
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    import {
+        getDatabase,
+        ref,
+        get
+    }
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+    // ===============================
+    // Firebase Configuration
+    // ===============================
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
+
+        authDomain:
+            "al-awn-blood-fighters.firebaseapp.com",
+
+        projectId:
+            "al-awn-blood-fighters",
+
+        storageBucket:
+            "al-awn-blood-fighters.firebasestorage.app",
+
+        messagingSenderId:
+            "299061496611",
+
+        appId:
+            "1:299061496611:web:4762f74dbf311cd57f1a96",
+
+        measurementId:
+            "G-D31EXKJWQ3"
+
+    };
+
+
+    // ===============================
+    // Initialize Firebase
+    // ===============================
+
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getDatabase(app);
+
+
+    // ===============================
+    // User Profile
+    // ===============================
+
+    const userName =
+        document.getElementById("userName");
+
+
+    const userAabfId =
+        document.getElementById("userAabfId");
+
+
+    // ===============================
+    // Check Login User
+    // ===============================
+
+    onAuthStateChanged(
+        auth,
+        async function(user) {
+
+
+            // =========================
+            // User Login করা নেই
+            // =========================
+
+            if (!user) {
+
+                userName.textContent =
+                    "ব্যবহারকারী";
+
+                userAabfId.textContent =
+                    "Login করুন";
+
+                return;
+
+            }
+
+
+            // =========================
+            // Firebase User UID
+            // =========================
+
+            const uid =
+                user.uid;
+
+
+            try {
+
+
+                // =========================
+                // Get User Profile
+                // =========================
+
+                const userRef =
+                    ref(
+                        db,
+                        "users/" + uid
+                    );
+
+
+                const snapshot =
+                    await get(userRef);
+
+
+                if (
+                    snapshot.exists()
+                ) {
+
+
+                    const profile =
+                        snapshot.val();
+
+
+                    // =====================
+                    // User Name
+                    // =====================
+
+                    userName.textContent =
+                        profile.name ||
+                        "ব্যবহারকারী";
+
+
+                    // =====================
+                    // AABF ID
+                    // =====================
+
+                    userAabfId.textContent =
+                        profile.aabfID ||
+                        "AABF ID নেই";
+
+
+                } else {
+
+
+                    userName.textContent =
+                        "ব্যবহারকারী";
+
+
+                    userAabfId.textContent =
+                        "Profile পাওয়া যায়নি";
+
+                }
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Profile Load Error:",
+                    error
+                );
+
+
+                userName.textContent =
+                    "ব্যবহারকারী";
+
+
+                userAabfId.textContent =
+                    "Login করুন";
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+<!-- =========================
+     NORMAL HOME SCRIPT
+========================= -->
 
 <script src="script.js"></script>
 
