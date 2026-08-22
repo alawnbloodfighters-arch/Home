@@ -6,19 +6,15 @@ function goTo(page) {
 
     const pages = {
 
-        // পরিচিতি
         "porichiti.html":
             "https://sites.google.com/view/alawnbloodfighters/home",
 
-        // রক্তের আবেদন
         "blood-request.html":
             "https://alawnbloodfighters-arch.github.io/Blood-Request-/",
 
-        // আবেদন দেখুন
         "blood-requests.html":
             "https://alawnbloodfighters-arch.github.io/Blood-Request-/requests.html",
 
-        // সদস্য নিবন্ধন
         "registration.html":
             "https://alawnbloodfighters-arch.github.io/Registration/"
 
@@ -29,6 +25,7 @@ function goTo(page) {
     if (url) {
         window.location.href = url;
     }
+
 }
 
 
@@ -45,26 +42,15 @@ function login() {
 
 
 // =========================================
-// PROFILE
-// =========================================
-
-function openProfile() {
-
-    alert("প্রোফাইল");
-
-}
-
-
-// =========================================
 // FIREBASE USER PROFILE
 // =========================================
 
-(async function () {
+(async function loadUserProfile() {
 
     try {
 
         // =====================================
-        // FIREBASE APP
+        // FIREBASE IMPORT
         // =====================================
 
         const {
@@ -74,10 +60,6 @@ function openProfile() {
         );
 
 
-        // =====================================
-        // FIREBASE AUTH
-        // =====================================
-
         const {
             getAuth,
             onAuthStateChanged
@@ -85,10 +67,6 @@ function openProfile() {
             "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
         );
 
-
-        // =====================================
-        // FIREBASE DATABASE
-        // =====================================
 
         const {
             getDatabase,
@@ -100,7 +78,7 @@ function openProfile() {
 
 
         // =====================================
-        // FIREBASE CONFIGURATION
+        // FIREBASE CONFIG
         // =====================================
 
         const firebaseConfig = {
@@ -146,92 +124,48 @@ function openProfile() {
 
 
         // =====================================
-        // GET UID FROM URL
-        // =====================================
-
-        const urlParams =
-            new URLSearchParams(
-                window.location.search
-            );
-
-
-        const urlUID =
-            urlParams.get("uid");
-
-
-        console.log(
-            "URL UID:",
-            urlUID
-        );
-
-
-        // =====================================
-        // LOAD USER PROFILE
+        // CHECK LOGIN USER
         // =====================================
 
         onAuthStateChanged(
             auth,
-            async function (firebaseUser) {
+            async function(user) {
+
+                // =================================
+                // LOGIN করা নেই
+                // =================================
+
+                if (!user) {
+
+                    console.log(
+                        "কোনো Firebase user login করা নেই।"
+                    );
+
+                    return;
+
+                }
+
+
+                // =================================
+                // CURRENT USER UID
+                // =================================
+
+                const uid =
+                    user.uid;
+
+
+                console.log(
+                    "Logged in UID:",
+                    uid
+                );
+
+
+                // =================================
+                // FIREBASE DATABASE
+                // users / UID
+                // =================================
 
                 try {
-
-                    let uid = null;
-
-
-                    // =================================
-                    // FIRST PRIORITY:
-                    // FIREBASE AUTH USER
-                    // =================================
-
-                    if (firebaseUser) {
-
-                        uid =
-                            firebaseUser.uid;
-
-                        console.log(
-                            "Firebase Auth UID:",
-                            uid
-                        );
-
-                    }
-
-
-                    // =================================
-                    // SECOND PRIORITY:
-                    // URL UID
-                    // =================================
-
-                    else if (urlUID) {
-
-                        uid =
-                            urlUID;
-
-                        console.log(
-                            "Using URL UID:",
-                            uid
-                        );
-
-                    }
-
-
-                    // =================================
-                    // NO UID
-                    // =================================
-
-                    if (!uid) {
-
-                        console.log(
-                            "কোনো Login করা User পাওয়া যায়নি।"
-                        );
-
-                        return;
-
-                    }
-
-
-                    // =================================
-                    // GET USER DATA
-                    // =================================
 
                     const userRef =
                         ref(
@@ -244,21 +178,15 @@ function openProfile() {
                         await get(userRef);
 
 
-                    console.log(
-                        "Profile exists:",
-                        snapshot.exists()
-                    );
-
-
                     // =================================
-                    // PROFILE NOT FOUND
+                    // USER DATA পাওয়া যায়নি
                     // =================================
 
                     if (!snapshot.exists()) {
 
                         console.error(
-                            "এই UID-এর জন্য Firebase Database-এ Profile পাওয়া যায়নি:",
-                            uid
+                            "users/" + uid +
+                            " এ কোনো profile পাওয়া যায়নি।"
                         );
 
                         return;
@@ -266,22 +194,18 @@ function openProfile() {
                     }
 
 
-                    // =================================
-                    // USER DATA
-                    // =================================
-
                     const userData =
                         snapshot.val();
 
 
                     console.log(
-                        "AABF User Data:",
+                        "AABF User Profile:",
                         userData
                     );
 
 
                     // =================================
-                    // SHOW USER NAME
+                    // NAME
                     // =================================
 
                     const userName =
@@ -290,26 +214,19 @@ function openProfile() {
                         );
 
 
-                    if (userName) {
+                    if (
+                        userName &&
+                        userData.name
+                    ) {
 
-                        if (userData.name) {
-
-                            userName.textContent =
-                                userData.name;
-
-                        }
-                        else {
-
-                            userName.textContent =
-                                "ব্যবহারকারী";
-
-                        }
+                        userName.textContent =
+                            userData.name;
 
                     }
 
 
                     // =================================
-                    // SHOW AABF ID
+                    // AABF ID
                     // =================================
 
                     const userAABFID =
@@ -318,26 +235,19 @@ function openProfile() {
                         );
 
 
-                    if (userAABFID) {
+                    if (
+                        userAABFID &&
+                        userData.aabfID
+                    ) {
 
-                        if (userData.aabfID) {
-
-                            userAABFID.textContent =
-                                userData.aabfID;
-
-                        }
-                        else {
-
-                            userAABFID.textContent =
-                                "AABF ID পাওয়া যায়নি";
-
-                        }
+                        userAABFID.textContent =
+                            userData.aabfID;
 
                     }
 
 
                     // =================================
-                    // PROFILE CARD
+                    // PROFILE CARD CLICK
                     // =================================
 
                     const userCard =
@@ -349,9 +259,11 @@ function openProfile() {
                     if (userCard) {
 
                         userCard.onclick =
-                            function () {
+                            function() {
 
-                                openProfile();
+                                openProfile(
+                                    userData
+                                );
 
                             };
 
@@ -359,11 +271,10 @@ function openProfile() {
 
                 }
 
-
                 catch (error) {
 
                     console.error(
-                        "Profile Load Error:",
+                        "Firebase Database Error:",
                         error
                     );
 
@@ -373,7 +284,6 @@ function openProfile() {
         );
 
     }
-
 
     catch (error) {
 
@@ -388,12 +298,60 @@ function openProfile() {
 
 
 // =========================================
+// PROFILE
+// =========================================
+
+function openProfile(userData) {
+
+    if (!userData) {
+
+        alert(
+            "প্রোফাইল তথ্য পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        userData.name ||
+        "নাম পাওয়া যায়নি";
+
+
+    const aabfID =
+        userData.aabfID ||
+        "AABF ID পাওয়া যায়নি";
+
+
+    const phone =
+        userData.phone ||
+        "মোবাইল নম্বর পাওয়া যায়নি";
+
+
+    alert(
+        "AABF Profile\n\n" +
+
+        "নাম: " +
+        name +
+
+        "\n\nAABF ID: " +
+        aabfID +
+
+        "\n\nমোবাইল: " +
+        phone
+    );
+
+}
+
+
+// =========================================
 // EMERGENCY
 // =========================================
 
 function emergency() {
 
-    // এখানে আপনার Emergency ফোন নম্বর বসাবেন
+    // এখানে Emergency নম্বর বসাও
 
     window.location.href =
         "tel:YOUR_NUMBER";
