@@ -102,16 +102,13 @@ body {
 }
 
 .brand-text h1 {
-    color: #a9153c;
-
-    font-size: clamp(24px, 6vw, 34px);
-
-    line-height: 1.08;
-
+    font-size: 28px;
+    line-height: 1.15;
     font-weight: 900;
-
+    margin: 0;
     white-space: nowrap;
 }
+
 
 .brand-text p {
     margin-top: 5px;
@@ -1061,4 +1058,10 @@ img {
 button {
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 480px) {
+    .brand-text h1 {
+        font-size: 25px;
+        line-height: 1.15;
+    }
 }
