@@ -189,37 +189,6 @@ body {
 }
 
 
-/*
-   যদি bKash / Nagad logo image না থাকে,
-   নিচের text logo ব্যবহার হবে
-*/
-
-.bkash-logo {
-
-    font-size: 31px;
-
-    font-weight: 800;
-
-    color: #d41468;
-
-    text-align: center;
-
-}
-
-
-.nagad-logo {
-
-    font-size: 31px;
-
-    font-weight: 800;
-
-    color: #e88900;
-
-    text-align: center;
-
-}
-
-
 /* ==================================
    PAYMENT INFORMATION
 ================================== */
@@ -475,14 +444,6 @@ body {
     }
 
 
-    .bkash-logo,
-    .nagad-logo {
-
-        font-size: 22px;
-
-    }
-
-
     .payment-name {
 
         font-size: 21px;
@@ -616,13 +577,13 @@ body {
 
         <p class="intro-title">
 
-            সংগঠনে অর্থ সাহায্য করতে
+            সংগঠনে অর্থ সাহায্য করতেই
 
         </p>
 
         <p class="intro-number-text">
 
-            এই নাম্বারে টাকা পাঠান
+            নাম্বারে টাকা পাঠান
 
         </p>
 
@@ -638,11 +599,10 @@ body {
 
         <div class="payment-logo">
 
-            <div class="bkash-logo">
-
-                বিকাশ
-
-            </div>
+            <img
+                src="bkash.png"
+                alt="বিকাশ"
+            >
 
         </div>
 
@@ -694,11 +654,10 @@ body {
 
         <div class="payment-logo">
 
-            <div class="nagad-logo">
-
-                নগদ
-
-            </div>
+            <img
+                src="nagad.png"
+                alt="নগদ"
+            >
 
         </div>
 
@@ -743,7 +702,7 @@ body {
 
     <!-- ==============================
          TREASURER
-    =============================== -->
+================================ -->
 
     <div class="treasurer">
 
@@ -796,19 +755,11 @@ function copyNumber(number, button) {
         .then(function () {
 
 
-            /*
-               Button Text
-            */
-
             button.classList.add("copied");
 
             button.innerHTML =
                 "✅<br>কপি হয়েছে";
 
-
-            /*
-               Message
-            */
 
             const message =
                 document.getElementById(
@@ -818,11 +769,6 @@ function copyNumber(number, button) {
 
             message.classList.add("show");
 
-
-            /*
-               কিছুক্ষণ পরে
-               আগের অবস্থায় ফিরে যাবে
-            */
 
             setTimeout(function () {
 
@@ -850,10 +796,6 @@ function copyNumber(number, button) {
 
         .catch(function () {
 
-
-            /*
-               পুরোনো browser fallback
-            */
 
             const textArea =
                 document.createElement(
