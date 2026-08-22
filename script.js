@@ -43,7 +43,7 @@ function goTo(page) {
 
 function login() {
 
-    alert("AABF ID Login");
+    window.location.href = "login.html";
 
 }
 
