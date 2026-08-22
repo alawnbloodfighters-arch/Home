@@ -189,11 +189,6 @@ body {
 }
 
 
-/*
-   যদি bKash / Nagad logo image না থাকে,
-   নিচের text logo ব্যবহার হবে
-*/
-
 .bkash-logo {
 
     font-size: 31px;
@@ -230,6 +225,8 @@ body {
 
     min-width: 0;
 
+    position: relative;
+
 }
 
 
@@ -258,7 +255,9 @@ body {
 
     letter-spacing: 0.5px;
 
-    word-break: break-word;
+    white-space: nowrap;
+
+    word-break: normal;
 
 }
 
@@ -275,13 +274,13 @@ body {
 
     color: white;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    min-width: 105px;
+    min-width: 82px;
 
-    height: 55px;
+    height: 46px;
 
-    padding: 0 12px;
+    padding: 0 8px;
 
     font-family:
         "Noto Sans Bengali",
@@ -289,7 +288,7 @@ body {
         Arial,
         sans-serif;
 
-    font-size: 17px;
+    font-size: 14px;
 
     font-weight: 700;
 
@@ -298,6 +297,12 @@ body {
     transition:
         transform 0.15s ease,
         opacity 0.15s ease;
+
+    align-self: flex-start;
+
+    margin-top: 35px;
+
+    flex-shrink: 0;
 
 }
 
@@ -457,7 +462,7 @@ body {
 
         padding: 18px 14px;
 
-        gap: 12px;
+        gap: 10px;
 
         border-radius: 18px;
 
@@ -496,18 +501,26 @@ body {
 
         letter-spacing: 0;
 
+        white-space: nowrap;
+
+        word-break: normal;
+
     }
 
 
     .copy-button {
 
-        min-width: 82px;
+        min-width: 72px;
 
-        height: 48px;
+        height: 42px;
 
-        font-size: 15px;
+        font-size: 13px;
 
-        padding: 0 8px;
+        padding: 0 6px;
+
+        margin-top: 31px;
+
+        border-radius: 9px;
 
     }
 
@@ -544,7 +557,7 @@ body {
 
     .donation-card {
 
-        gap: 8px;
+        gap: 7px;
 
         padding: 15px 10px;
 
@@ -566,6 +579,10 @@ body {
 
         font-size: 20px;
 
+        white-space: nowrap;
+
+        word-break: normal;
+
     }
 
 
@@ -578,9 +595,15 @@ body {
 
     .copy-button {
 
-        min-width: 70px;
+        min-width: 66px;
 
-        font-size: 14px;
+        height: 40px;
+
+        font-size: 12px;
+
+        padding: 0 5px;
+
+        margin-top: 28px;
 
     }
 
@@ -589,44 +612,11 @@ body {
 
 /* ==================================
    DONATION PAGE ONLY
-   NUMBER WILL STAY IN ONE LINE
 ================================== */
 
-.mobile-number {
+.payment-info {
 
-    white-space: nowrap;
-
-    word-break: normal;
-
-}
-
-
-@media (max-width: 600px) {
-
-    .mobile-number {
-
-        font-size: 22px;
-
-        white-space: nowrap;
-
-        word-break: normal;
-
-    }
-
-}
-
-
-@media (max-width: 380px) {
-
-    .mobile-number {
-
-        font-size: 20px;
-
-        white-space: nowrap;
-
-        word-break: normal;
-
-    }
+    overflow: visible;
 
 }
 
@@ -660,7 +650,7 @@ body {
 
         <p class="intro-title">
 
-            সংগঠনে অর্থ সাহায্য করতে
+            সংগঠনের ত্রাণ সাহায্য করতে
 
         </p>
 
@@ -797,7 +787,7 @@ body {
 
         <div class="treasurer-name">
 
-            তানভীর হাসান রুবিন
+            তানভীর হাসান রবিন
 
         </div>
 
@@ -838,19 +828,11 @@ function copyNumber(number, button) {
         .then(function () {
 
 
-            /*
-               Button Text
-            */
-
             button.classList.add("copied");
 
             button.innerHTML =
                 "✅<br>কপি হয়েছে";
 
-
-            /*
-               Message
-            */
 
             const message =
                 document.getElementById(
@@ -860,11 +842,6 @@ function copyNumber(number, button) {
 
             message.classList.add("show");
 
-
-            /*
-               কিছুক্ষণ পরে
-               আগের অবস্থায় ফিরে যাবে
-            */
 
             setTimeout(function () {
 
@@ -892,10 +869,6 @@ function copyNumber(number, button) {
 
         .catch(function () {
 
-
-            /*
-               পুরোনো browser fallback
-            */
 
             const textArea =
                 document.createElement(
