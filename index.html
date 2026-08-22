@@ -1,339 +1,309 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0,
-                 maximum-scale=1.0,
-                 user-scalable=no,
-                 viewport-fit=cover"
-    >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
-    <title>আল-আওন ব্লাড ফাইটার্স</title>
+  <title>আল-আওন ব্লাড ফাইটার্স</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
-    <!-- বাংলা ফন্ট -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- বাংলা ফন্ট -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
 </head>
 
 <body>
 
-<div class="app">
+  <div class="app">
 
-    <!-- =========================
+    <!-- =====================================
          HEADER
-    ========================== -->
+         ===================================== -->
+
     <header class="top-header">
 
-        <div class="brand">
+      <div class="brand">
 
-            <div class="logo-box">
-                <img
-                    src="logo.png"
-                    alt="Al-Awn Blood Fighters Logo"
-                >
-            </div>
+        <!-- LOGO -->
+        <div class="logo-box">
+          <img src="logo.png" alt="AABF Logo">
+        </div>
 
-            <div class="brand-text">
+        <!-- BRAND TEXT -->
+        <div class="brand-text">
 
-                <h1>
-                    আল-আওন ব্লাড<br>
-                    ফাইটার্স
-                </h1>
+          <h1>আল-আওন ব্লাড ফাইটার্স</h1>
 
-                <p>
-                    AABF • Feni + Cumilla
-                </p>
-
-            </div>
+          <p>AABF • Feni + Cumilla</p>
 
         </div>
 
+      </div>
 
-        <!-- শুধু মাঝের Profile -->
-        <button
-            class="profile-btn"
-            type="button"
-            onclick="openProfile()"
-        >
-
-            <div class="profile-icon">
-                <i class="fa-regular fa-user"></i>
-            </div>
-
-            <span>প্রোফাইল</span>
-
-        </button>
+      <!--
+        CORNER PROFILE REMOVED
+        এখানে আর profile button নেই
+      -->
 
     </header>
 
 
-    <!-- =========================
-         USER / LOGIN
-    ========================== -->
-    <section
-        class="user-card"
-        onclick="login()"
-    >
+    <!-- =====================================
+         USER / LOGIN CARD
+         ===================================== -->
 
-        <div class="user-icon">
-            <i class="fa-solid fa-user"></i>
-        </div>
+    <section class="user-card" onclick="login()">
 
+      <div class="user-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
 
-        <div class="user-info">
+      <div class="user-info">
 
-            <span class="welcome">
-                স্বাগতম
-            </span>
+        <span class="user-welcome">স্বাগতম</span>
 
-            <h2>
-                ব্যবহারকারী
-            </h2>
+        <h2 class="user-name">
+          ব্যবহারকারী
+        </h2>
 
-            <p>
-                AABF ID :
-                <b>Login করুন</b>
-            </p>
+        <p class="user-id">
+          AABF ID :
+          <b>Login করুন</b>
+        </p>
 
-        </div>
+      </div>
 
-
-        <div class="user-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
+      <div class="user-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
 
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================
          MAIN MENU
-    ========================== -->
-    <main class="button-grid">
+         ===================================== -->
 
-        <!-- পরিচিতি -->
-        <button
-            class="action-card card-pink"
-            type="button"
-            onclick="goTo('porichiti.html')"
-        >
-
-            <div class="card-icon">
-                <i class="fa-regular fa-address-card"></i>
-            </div>
-
-            <div class="card-content">
-
-                <h3>
-                    পরিচিতি
-                </h3>
-
-                <p>
-                    সদস্যের বিস্তারিত তথ্য দেখুন
-                </p>
-
-            </div>
-
-            <div class="card-arrow">
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-
-        </button>
+    <main class="menu-grid">
 
 
-        <!-- রক্তের আবেদন -->
-        <button
-            class="action-card card-green"
-            type="button"
-            onclick="goTo('blood-request.html')"
-        >
+      <!-- পরিচিতি -->
+      <button
+        class="menu-card"
+        onclick="goTo('porichiti.html')"
+      >
 
-            <div class="card-icon">
-                <i class="fa-solid fa-droplet"></i>
-            </div>
+        <div class="card-icon">
+          <i class="fa-regular fa-address-card"></i>
+        </div>
 
-            <div class="card-content">
+        <div class="card-content">
 
-                <h3>
-                    রক্তের আবেদন করুন
-                </h3>
+          <h3 class="card-title">
+            পরিচিতি
+          </h3>
 
-                <p>
-                    জরুরি রক্তের জন্য আবেদন করুন
-                </p>
+          <p class="card-subtitle">
+            সদস্যের বিস্তারিত তথ্য দেখুন
+          </p>
 
-            </div>
+        </div>
 
-            <div class="card-arrow">
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
+        <div class="card-arrow">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
 
-        </button>
-
-
-        <!-- রক্তের আবেদনগুলো -->
-        <button
-            class="action-card card-blue"
-            type="button"
-            onclick="goTo('blood-requests.html')"
-        >
-
-            <div class="card-icon">
-                <i class="fa-solid fa-file-medical"></i>
-            </div>
-
-            <div class="card-content">
-
-                <h3>
-                    রক্তের আবেদনগুলি দেখুন
-                </h3>
-
-                <p>
-                    সকল রক্তের আবেদন দেখুন
-                </p>
-
-            </div>
-
-            <div class="card-arrow">
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
-
-        </button>
+      </button>
 
 
-        <!-- সদস্য নিবন্ধন -->
-        <button
-            class="action-card card-purple"
-            type="button"
-            onclick="goTo('registration.html')"
-        >
+      <!-- রক্তের আবেদন করুন -->
+      <button
+        class="menu-card"
+        onclick="goTo('blood-request.html')"
+      >
 
-            <div class="card-icon">
-                <i class="fa-solid fa-user-plus"></i>
-            </div>
+        <div class="card-icon">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
 
-            <div class="card-content">
+        <div class="card-content">
 
-                <h3>
-                    সদস্য নিবন্ধন
-                </h3>
+          <h3 class="card-title">
+            রক্তের আবেদন করুন
+          </h3>
 
-                <p>
-                    AABF-এর নতুন সদস্য হন
-                </p>
+          <p class="card-subtitle">
+            জরুরি রক্তের জন্য আবেদন করুন
+          </p>
 
-            </div>
+        </div>
 
-            <div class="card-arrow">
-                <i class="fa-solid fa-arrow-right"></i>
-            </div>
+        <div class="card-arrow">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
 
-        </button>
+      </button>
+
+
+      <!-- রক্তের আবেদনগুলি দেখুন -->
+      <button
+        class="menu-card"
+        onclick="goTo('blood-requests.html')"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-file-medical"></i>
+        </div>
+
+        <div class="card-content">
+
+          <h3 class="card-title">
+            রক্তের আবেদনগুলি দেখুন
+          </h3>
+
+          <p class="card-subtitle">
+            সকল রক্তের আবেদন দেখুন
+          </p>
+
+        </div>
+
+        <div class="card-arrow">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+      </button>
+
+
+      <!-- সদস্য নিবন্ধন -->
+      <button
+        class="menu-card"
+        onclick="goTo('registration.html')"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+
+        <div class="card-content">
+
+          <h3 class="card-title">
+            সদস্য নিবন্ধন
+          </h3>
+
+          <p class="card-subtitle">
+            AABF-এর নতুন সদস্য হন
+          </p>
+
+        </div>
+
+        <div class="card-arrow">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+      </button>
 
     </main>
 
 
-    <!-- =========================
-         RELIEF
-    ========================== -->
+    <!-- =====================================
+         RELIEF / AID
+         ===================================== -->
+
     <button
-        class="relief-card"
-        type="button"
-        onclick="goTo('relief.html')"
+      class="relief-card"
+      onclick="goTo('relief.html')"
     >
 
-        <div class="relief-icon">
-            <i class="fa-solid fa-hands-holding-child"></i>
-        </div>
+      <div class="card-icon">
+        <i class="fa-solid fa-hands-holding-child"></i>
+      </div>
 
-        <div class="relief-content">
+      <div class="card-content">
 
-            <h3>
-                ত্রাণ সহায়তা
-            </h3>
+        <h3 class="card-title">
+          ত্রাণ সহায়তা
+        </h3>
 
-            <p>
-                সহায়তার জন্য আবেদন করুন
-            </p>
+        <p class="card-subtitle">
+          সহায়তার জন্য আবেদন করুন
+        </p>
 
-        </div>
+      </div>
 
-        <div class="relief-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
+      <div class="card-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
 
     </button>
 
 
-    <!-- =========================
+    <!-- =====================================
          EMERGENCY
-    ========================== -->
+         ===================================== -->
+
     <button
-        class="emergency-btn"
-        type="button"
-        onclick="emergency()"
+      class="emergency"
+      onclick="emergency()"
     >
 
-        <div class="emergency-icon">
-            <i class="fa-solid fa-phone"></i>
-        </div>
+      <div class="emergency-icon">
+        <i class="fa-solid fa-phone"></i>
+      </div>
 
-        <div class="emergency-text">
+      <div class="emergency-content">
 
-            <h3>
-                Emergency
-            </h3>
+        <h3 class="emergency-title">
+          Emergency
+        </h3>
 
-            <p>
-                জরুরি সহায়তা প্রয়োজন?
-            </p>
+        <p class="emergency-subtitle">
+          জরুরি সহায়তা প্রয়োজন?
+        </p>
 
-        </div>
+      </div>
 
-        <div class="emergency-arrow">
-            <i class="fa-solid fa-arrow-right"></i>
-        </div>
+      <div class="emergency-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
 
     </button>
 
 
-    <!-- =========================
+    <!-- =====================================
          FOOTER
-    ========================== -->
+         ===================================== -->
+
     <footer class="footer">
 
-        <span>
-            Al-Awn Blood Fighters
-        </span>
+      <span>Al-Awn Blood Fighters</span>
 
-        <b>•</b>
+      <b>•</b>
 
-        <span>
-            AABF
-        </span>
+      <span>AABF</span>
 
     </footer>
 
-</div>
+  </div>
 
 
-<script src="script.js"></script>
+  <!-- JAVASCRIPT -->
+  <script src="script.js"></script>
 
 </body>
 </html>
