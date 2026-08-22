@@ -1827,3 +1827,672 @@ footer {
         flex-basis: 40px;
     }
 }
+/* =========================================
+   AABF HOME - ONE SCREEN FINAL FIX
+   ========================================= */
+
+/* -----------------------------------------
+   NO SCROLL
+   ----------------------------------------- */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    overscroll-behavior: none;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+.app {
+    width: 100%;
+    max-width: 700px;
+
+    height: 100dvh;
+    min-height: 0;
+
+    margin: 0 auto;
+
+    padding: 5px 12px 4px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.top-header {
+    width: 100%;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    position: relative;
+
+    padding: 2px 0 4px;
+
+    overflow: visible;
+}
+
+
+/* -----------------------------------------
+   BRAND
+   ----------------------------------------- */
+
+.brand {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 0;
+}
+
+
+/* Logo */
+
+.logo-box {
+    width: 68px;
+    height: 68px;
+
+    flex: 0 0 68px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* Brand text */
+
+.brand-text {
+    min-width: 0;
+
+    text-align: left;
+}
+
+.brand-text h1 {
+    margin: 0;
+
+    font-size: 25px;
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    color: #a9153c;
+}
+
+.brand-text p {
+    margin: 3px 0 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.1;
+
+    color: #85858b;
+}
+
+
+/* =========================================
+   CENTER PROFILE
+   ========================================= */
+
+.top-header .profile-btn {
+    position: relative;
+
+    width: 72px;
+    height: 48px;
+
+    margin-top: 1px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #a9153c;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+.top-header .profile-btn i {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: #fff3f6;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+
+    color: #a9153c;
+}
+
+.top-header .profile-btn span {
+    margin-top: 1px;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   USER CARD
+   ========================================= */
+
+.user-card {
+    flex: 0 0 auto;
+
+    width: 100%;
+
+    min-height: 78px;
+
+    height: 78px;
+
+    margin: 2px 0 7px;
+
+    padding: 8px 12px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    overflow: hidden;
+}
+
+
+/* User icon */
+
+.user-icon {
+    width: 60px;
+    height: 60px;
+
+    flex: 0 0 60px;
+
+    border-radius: 18px;
+
+    font-size: 31px;
+}
+
+
+/* User text */
+
+.user-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.user-info span {
+    font-size: 11px;
+    line-height: 1;
+}
+
+.user-info h2 {
+    margin: 1px 0 0;
+
+    font-size: 19px;
+
+    line-height: 1.05;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.user-info p {
+    margin: 2px 0 0;
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* User arrow */
+
+.round-arrow {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+
+/* =========================================
+   MAIN 4 CARDS
+   ========================================= */
+
+.button-grid {
+    width: 100%;
+
+    flex: 0 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+    min-height: 0;
+}
+
+
+/* Cards */
+
+.button-grid .action-card {
+    width: 100%;
+
+    height: 145px;
+    min-height: 145px;
+
+    padding: 11px;
+
+    border-radius: 21px;
+
+    overflow: hidden;
+}
+
+
+/* Card icon */
+
+.button-grid .action-card .card-icon {
+    width: 49px;
+    height: 49px;
+
+    flex: 0 0 49px;
+
+    border-radius: 15px;
+
+    font-size: 23px;
+}
+
+
+/* Card content */
+
+.button-grid .action-card .card-content {
+    padding: 5px 35px 0 0;
+
+    margin-top: auto;
+}
+
+.button-grid .action-card h3 {
+    font-size: 17px;
+
+    line-height: 1.12;
+}
+
+.button-grid .action-card p {
+    margin-top: 3px;
+
+    font-size: 9px;
+
+    line-height: 1.25;
+}
+
+
+/* Card arrow */
+
+.button-grid .action-card .card-arrow {
+    width: 38px;
+    height: 38px;
+
+    right: 8px;
+    bottom: 8px;
+
+    font-size: 19px;
+}
+
+
+/* =========================================
+   RELIEF
+   ========================================= */
+
+.relief-card {
+    flex: 0 0 auto;
+
+    width: 100%;
+
+    height: 65px;
+    min-height: 65px;
+
+    margin-top: 7px;
+
+    padding: 7px 10px;
+
+    border-radius: 19px;
+
+    gap: 8px;
+
+    overflow: hidden;
+}
+
+
+/* Relief icon */
+
+.relief-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 13px;
+
+    font-size: 20px;
+}
+
+
+/* Relief content */
+
+.relief-content h3 {
+    font-size: 16px;
+
+    line-height: 1.05;
+}
+
+.relief-content p {
+    margin-top: 2px;
+
+    font-size: 9px;
+
+    line-height: 1.1;
+}
+
+
+/* Relief arrow */
+
+.relief-arrow {
+    width: 36px;
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   EMERGENCY
+   ========================================= */
+
+.emergency-btn {
+    flex: 0 0 auto;
+
+    width: 100%;
+
+    height: 58px;
+    min-height: 58px;
+
+    margin-top: 7px;
+
+    padding: 6px 9px;
+
+    border: none;
+
+    border-radius: 19px;
+
+    background: linear-gradient(
+        135deg,
+        #ed1747 0%,
+        #d7083d 100%
+    );
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 7px 16px rgba(220, 16, 64, 0.20);
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+
+/* Emergency icon */
+
+.emergency-btn .emergency-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+
+    color: #ffffff;
+}
+
+
+/* Emergency text */
+
+.emergency-btn .emergency-text {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.emergency-btn .emergency-text h3 {
+    margin: 0;
+
+    font-size: 17px;
+
+    line-height: 1;
+}
+
+.emergency-btn .emergency-text p {
+    margin: 2px 0 0;
+
+    font-size: 9px;
+
+    line-height: 1;
+}
+
+
+/* Emergency arrow */
+
+.emergency-btn .emergency-arrow {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    font-size: 21px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    flex: 0 0 auto;
+
+    width: 100%;
+
+    height: 18px;
+
+    padding: 3px 0 0;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    line-height: 1;
+
+    color: #999999;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   EXTRA SMALL SCREEN
+   ========================================= */
+
+@media (max-height: 680px) {
+
+    .app {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .logo-box {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+    }
+
+    .brand-text h1 {
+        font-size: 21px;
+    }
+
+    .brand-text p {
+        font-size: 12px;
+    }
+
+    .top-header .profile-btn {
+        height: 40px;
+    }
+
+    .top-header .profile-btn i {
+        width: 29px;
+        height: 29px;
+        font-size: 18px;
+    }
+
+    .top-header .profile-btn span {
+        font-size: 9px;
+    }
+
+    .user-card {
+        height: 68px;
+        min-height: 68px;
+
+        margin-bottom: 5px;
+    }
+
+    .user-icon {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+        font-size: 27px;
+    }
+
+    .user-info h2 {
+        font-size: 17px;
+    }
+
+    .user-info p {
+        font-size: 11px;
+    }
+
+    .button-grid .action-card {
+        height: 130px;
+        min-height: 130px;
+    }
+
+    .relief-card {
+        height: 58px;
+        min-height: 58px;
+    }
+
+    .emergency-btn {
+        height: 52px;
+        min-height: 52px;
+    }
+}
