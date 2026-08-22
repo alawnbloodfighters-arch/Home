@@ -1139,3 +1139,691 @@ body,
 .app {
     clip-path: none;
 }
+/* =========================================
+   AABF HOME - FINAL FIX
+   ========================================= */
+
+/* -----------------------------------------
+   MAIN BUTTON GRID
+   HTML: button-grid
+   ----------------------------------------- */
+
+.button-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* -----------------------------------------
+   ACTION CARDS
+   ----------------------------------------- */
+
+.button-grid .action-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 180px;
+
+    padding: 15px;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 26px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    position: relative;
+    overflow: hidden;
+
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+
+/* Decorative circle */
+
+.button-grid .action-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 145px;
+    height: 145px;
+
+    right: -45px;
+    top: -50px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.34);
+
+    pointer-events: none;
+}
+
+
+/* -----------------------------------------
+   ACTION CARD ICON
+   ----------------------------------------- */
+
+.button-grid .action-card .card-icon {
+    width: 60px;
+    height: 60px;
+
+    flex: 0 0 60px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 29px;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+/* -----------------------------------------
+   ACTION CARD CONTENT
+   ----------------------------------------- */
+
+.button-grid .action-card .card-content {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 8px 42px 0 0;
+
+    margin-top: auto;
+
+    position: relative;
+    z-index: 2;
+}
+
+.button-grid .action-card h3 {
+    margin: 0;
+
+    font-size: 21px;
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+.button-grid .action-card p {
+    margin: 5px 0 0;
+
+    font-size: 12px;
+    line-height: 1.35;
+
+    font-weight: 500;
+
+    opacity: 0.75;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* -----------------------------------------
+   ACTION CARD ARROW
+   ----------------------------------------- */
+
+.button-grid .action-card .card-arrow {
+    position: absolute;
+
+    right: 12px;
+    bottom: 12px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+
+    z-index: 5;
+}
+
+
+/* -----------------------------------------
+   CARD COLORS
+   ----------------------------------------- */
+
+.button-grid .card-pink {
+    background: linear-gradient(
+        135deg,
+        #fff7f9 0%,
+        #ffe2e8 100%
+    );
+
+    color: #b31647;
+}
+
+.button-grid .card-green {
+    background: linear-gradient(
+        135deg,
+        #f1fffc 0%,
+        #d8f6f1 100%
+    );
+
+    color: #078c83;
+}
+
+.button-grid .card-blue {
+    background: linear-gradient(
+        135deg,
+        #f3f8ff 0%,
+        #d9e9ff 100%
+    );
+
+    color: #286b9f;
+}
+
+.button-grid .card-purple {
+    background: linear-gradient(
+        135deg,
+        #fbf5ff 0%,
+        #ead9ff 100%
+    );
+
+    color: #7136a4;
+}
+
+
+/* =========================================
+   RELIEF CARD
+   ========================================= */
+
+.relief-card {
+    width: 100%;
+
+    min-height: 105px;
+
+    margin-top: 12px;
+
+    padding: 14px 16px;
+
+    border: 1px solid #e7d9b8;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #fffaf0 0%,
+        #ffedc2 100%
+    );
+
+    color: #b87800;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+
+/* Relief icon */
+
+.relief-icon {
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+}
+
+
+/* Relief text */
+
+.relief-content {
+    flex: 1;
+    min-width: 0;
+
+    text-align: center;
+}
+
+.relief-content h3 {
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+.relief-content p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+    line-height: 1.3;
+
+    opacity: 0.78;
+}
+
+
+/* Relief arrow */
+
+.relief-arrow {
+    width: 45px;
+    height: 45px;
+
+    flex: 0 0 45px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+
+/* =========================================
+   EMERGENCY BUTTON
+   HTML class: emergency-btn
+   ========================================= */
+
+.emergency-btn {
+    width: 100%;
+
+    min-height: 76px;
+
+    height: 76px;
+
+    margin-top: 12px;
+
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 23px;
+
+    background: linear-gradient(
+        135deg,
+        #ed1747 0%,
+        #d7083d 100%
+    );
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 22px rgba(220, 16, 64, 0.22);
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+
+/* Emergency icon */
+
+.emergency-btn .emergency-icon {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    color: #ffffff;
+}
+
+
+/* Emergency text */
+
+.emergency-btn .emergency-text {
+    flex: 1;
+
+    min-width: 0;
+
+    text-align: left;
+}
+
+.emergency-btn .emergency-text h3 {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 21px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+.emergency-btn .emergency-text p {
+    margin: 3px 0 0;
+
+    font-size: 11px;
+
+    line-height: 1.25;
+
+    color: rgba(255, 255, 255, 0.90);
+}
+
+
+/* Emergency arrow */
+
+.emergency-btn .emergency-arrow {
+    width: 45px;
+    height: 45px;
+
+    flex: 0 0 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 26px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    width: 100%;
+
+    padding: 7px 0 5px;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    color: #999999;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 430px) {
+
+    .button-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .button-grid .action-card {
+        min-height: 172px;
+        padding: 13px;
+        border-radius: 23px;
+    }
+
+    .button-grid .action-card .card-icon {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+
+        border-radius: 17px;
+
+        font-size: 28px;
+    }
+
+    .button-grid .action-card .card-content {
+        padding-right: 40px;
+        padding-top: 7px;
+    }
+
+    .button-grid .action-card h3 {
+        font-size: 20px;
+    }
+
+    .button-grid .action-card p {
+        font-size: 11px;
+    }
+
+    .button-grid .action-card .card-arrow {
+        width: 44px;
+        height: 44px;
+
+        right: 11px;
+        bottom: 11px;
+
+        font-size: 22px;
+    }
+
+
+    /* Relief */
+
+    .relief-card {
+        min-height: 100px;
+
+        margin-top: 10px;
+
+        padding: 12px 13px;
+
+        border-radius: 22px;
+
+        gap: 10px;
+    }
+
+    .relief-icon {
+        width: 55px;
+        height: 55px;
+        flex-basis: 55px;
+
+        font-size: 25px;
+    }
+
+    .relief-content h3 {
+        font-size: 19px;
+    }
+
+    .relief-content p {
+        font-size: 11px;
+    }
+
+    .relief-arrow {
+        width: 43px;
+        height: 43px;
+        flex-basis: 43px;
+
+        font-size: 22px;
+    }
+
+
+    /* Emergency */
+
+    .emergency-btn {
+        height: 76px;
+        min-height: 76px;
+
+        margin-top: 10px;
+
+        padding: 9px 11px;
+
+        border-radius: 22px;
+
+        gap: 9px;
+    }
+
+    .emergency-btn .emergency-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+
+        font-size: 26px;
+    }
+
+    .emergency-btn .emergency-text h3 {
+        font-size: 20px;
+    }
+
+    .emergency-btn .emergency-text p {
+        font-size: 10px;
+    }
+
+    .emergency-btn .emergency-arrow {
+        width: 43px;
+        height: 43px;
+        flex-basis: 43px;
+
+        font-size: 25px;
+    }
+
+    footer {
+        font-size: 10px;
+        padding-top: 5px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONE
+   ========================================= */
+
+@media (max-width: 360px) {
+
+    .button-grid {
+        gap: 8px;
+    }
+
+    .button-grid .action-card {
+        min-height: 158px;
+        padding: 11px;
+        border-radius: 21px;
+    }
+
+    .button-grid .action-card .card-icon {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+        font-size: 25px;
+    }
+
+    .button-grid .action-card h3 {
+        font-size: 18px;
+    }
+
+    .button-grid .action-card p {
+        font-size: 10px;
+    }
+
+    .button-grid .action-card .card-arrow {
+        width: 40px;
+        height: 40px;
+
+        right: 9px;
+        bottom: 9px;
+
+        font-size: 21px;
+    }
+
+    .relief-card {
+        min-height: 92px;
+        padding: 10px;
+    }
+
+    .relief-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+
+    .relief-content h3 {
+        font-size: 18px;
+    }
+
+    .relief-content p {
+        font-size: 10px;
+    }
+
+    .relief-arrow {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+    }
+
+    .emergency-btn {
+        height: 70px;
+        min-height: 70px;
+
+        padding: 8px 10px;
+    }
+
+    .emergency-btn .emergency-icon {
+        width: 47px;
+        height: 47px;
+        flex-basis: 47px;
+    }
+
+    .emergency-btn .emergency-text h3 {
+        font-size: 19px;
+    }
+
+    .emergency-btn .emergency-text p {
+        font-size: 9px;
+    }
+
+    .emergency-btn .emergency-arrow {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+    }
+}
