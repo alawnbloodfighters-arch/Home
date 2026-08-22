@@ -64,32 +64,24 @@ function openProfile() {
 // FIREBASE USER PROFILE
 // =========================================
 
-import(
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
-)
-.then(async ({ initializeApp }) => {
+(async function () {
 
 
     // =====================================
-    // FIREBASE AUTH + DATABASE SDK
+    // FIREBASE SDK
     // =====================================
 
     const {
-
-        getAuth,
-        onAuthStateChanged
-
+        initializeApp
     } = await import(
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
     );
 
 
     const {
-
         getDatabase,
         ref,
         get
-
     } = await import(
         "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
     );
@@ -102,7 +94,7 @@ import(
     const firebaseConfig = {
 
         apiKey:
-            "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
+            "AIzaSyAR3uyMlvGNWzaG_w1zs6IKQ2lXB_Y_9M0",
 
         authDomain:
             "al-awn-blood-fighters.firebaseapp.com",
@@ -133,175 +125,177 @@ import(
         initializeApp(firebaseConfig);
 
 
-    const auth =
-        getAuth(app);
-
-
     const db =
         getDatabase(app);
 
 
     // =====================================
-    // CHECK LOGGED-IN USER
+    // GET UID FROM URL
     // =====================================
 
-    onAuthStateChanged(
-        auth,
-        async function(user) {
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
 
-            // =================================
-            // USER LOGIN করা নেই
-            // =================================
-
-            if (!user) {
-
-                console.log(
-                    "কোনো User Login করা নেই।"
-                );
-
-                return;
-
-            }
+    const uid =
+        params.get("uid");
 
 
-            // =================================
-            // FIREBASE AUTH UID
-            // =================================
-
-            const uid =
-                user.uid;
+    console.log(
+        "Home UID:",
+        uid
+    );
 
 
-            console.log(
-                "Logged-in User UID:",
-                uid
+    // =====================================
+    // UID না থাকলে
+    // =====================================
+
+    if (!uid) {
+
+        console.log(
+            "Home URL-এ UID পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // LOAD USER PROFILE
+    // =====================================
+
+    try {
+
+
+        const userRef =
+            ref(
+                db,
+                "users/" + uid
             );
 
 
-            // =================================
-            // USER PROFILE LOAD
-            // =================================
-
-            try {
+        const snapshot =
+            await get(userRef);
 
 
-                const userRef =
-                    ref(
-                        db,
-                        "users/" + uid
-                    );
+        console.log(
+            "Profile Snapshot Exists:",
+            snapshot.exists()
+        );
 
 
-                const snapshot =
-                    await get(userRef);
+        // =================================
+        // PROFILE পাওয়া যায়নি
+        // =================================
 
+        if (!snapshot.exists()) {
 
-                // =================================
-                // PROFILE পাওয়া যায়নি
-                // =================================
+            console.error(
+                "users/" + uid +
+                " এ কোনো Profile পাওয়া যায়নি।"
+            );
 
-                if (!snapshot.exists()) {
-
-                    console.error(
-                        "Firebase-এ User Profile পাওয়া যায়নি।"
-                    );
-
-                    return;
-
-                }
-
-
-                const userData =
-                    snapshot.val();
-
-
-                console.log(
-                    "AABF User Profile:",
-                    userData
-                );
-
-
-                // =================================
-                // USER NAME
-                // =================================
-
-                const userName =
-                    document.getElementById(
-                        "userName"
-                    );
-
-
-                if (
-                    userName &&
-                    userData.name
-                ) {
-
-                    userName.textContent =
-                        userData.name;
-
-                }
-
-
-                // =================================
-                // AABF ID
-                // =================================
-
-                const userAABFID =
-                    document.getElementById(
-                        "userAABFID"
-                    );
-
-
-                if (
-                    userAABFID &&
-                    userData.aabfID
-                ) {
-
-                    userAABFID.textContent =
-                        userData.aabfID;
-
-                }
-
-
-                // =================================
-                // USER CARD
-                // =================================
-
-                const userCard =
-                    document.getElementById(
-                        "userCard"
-                    );
-
-
-                if (userCard) {
-
-                    userCard.onclick =
-                        function () {
-
-                            openProfile();
-
-                        };
-
-                }
-
-
-            }
-
-
-            catch (error) {
-
-                console.error(
-                    "User Profile Load Error:",
-                    error
-                );
-
-            }
+            return;
 
         }
-    );
 
-});
+
+        // =================================
+        // USER DATA
+        // =================================
+
+        const userData =
+            snapshot.val();
+
+
+        console.log(
+            "User Data:",
+            userData
+        );
+
+
+        // =================================
+        // NAME
+        // =================================
+
+        const userName =
+            document.getElementById(
+                "userName"
+            );
+
+
+        if (
+            userName &&
+            userData.name
+        ) {
+
+            userName.textContent =
+                userData.name;
+
+        }
+
+
+        // =================================
+        // AABF ID
+        // =================================
+
+        const userAABFID =
+            document.getElementById(
+                "userAABFID"
+            );
+
+
+        if (
+            userAABFID &&
+            userData.aabfID
+        ) {
+
+            userAABFID.textContent =
+                userData.aabfID;
+
+        }
+
+
+        // =================================
+        // PROFILE CARD CLICK
+        // =================================
+
+        const userCard =
+            document.getElementById(
+                "userCard"
+            );
+
+
+        if (userCard) {
+
+            userCard.onclick =
+                function () {
+
+                    openProfile();
+
+                };
+
+        }
+
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Firebase Profile Error:",
+            error
+        );
+
+    }
+
+
+})();
 
 
 // =========================================
@@ -309,8 +303,6 @@ import(
 // =========================================
 
 function emergency() {
-
-    // এখানে আপনার Emergency ফোন নম্বর বসাবেন
 
     window.location.href =
         "tel:YOUR_NUMBER";
