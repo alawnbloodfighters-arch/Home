@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Mobile / MIT App WebViewer -->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#d60000">
+
+    <title>ইমারজেন্সি যোগাযোগ - AABF</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+            touch-action: manipulation;
+
+            font-family:
+                "Noto Sans Bengali",
+                "SolaimanLipi",
+                "Vrinda",
+                Arial,
+                sans-serif;
+
+            background: #ffffff;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* =========================================
+           MAIN PAGE
+        ========================================= */
+
+        .page {
+            width: 100%;
+            height: 100vh;
+
+            max-width: 1100px;
+
+            overflow: hidden;
+
+            background: #ffffff;
+
+            position: relative;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .header {
+            width: 100%;
+            height: 12vh;
+
+            min-height: 72px;
+
+            background: linear-gradient(
+                135deg,
+                #b80000,
+                #e60012
+            );
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            padding: 0 3%;
+        }
+
+        .back-button {
+            width: 55px;
+            height: 55px;
+
+            border: none;
+            background: transparent;
+
+            color: white;
+
+            font-size: 48px;
+            font-weight: bold;
+
+            line-height: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+        }
+
+        .header-title {
+            flex: 1;
+
+            color: white;
+
+            font-size: clamp(
+                25px,
+                4vw,
+                50px
+            );
+
+            font-weight: 800;
+
+            text-align: center;
+
+            white-space: nowrap;
+        }
+
+        .logo {
+            width: 82px;
+            height: 82px;
+
+            object-fit: contain;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .content {
+            width: 100%;
+            height: 88vh;
+
+            padding:
+                2vh
+                3%
+                1vh;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+        }
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .section {
+            width: 100%;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: #111;
+
+            font-size: clamp(
+                20px,
+                3vw,
+                38px
+            );
+
+            font-weight: 800;
+
+            margin-bottom: 1vh;
+        }
+
+        .section-icon {
+            color: #c40000;
+
+            font-size: clamp(
+                25px,
+                4vw,
+                45px
+            );
+        }
+
+        .title-line {
+            flex: 1;
+
+            height: 3px;
+
+            background: #c40000;
+
+            position: relative;
+        }
+
+        .title-line::after {
+            content: "";
+
+            position: absolute;
+
+            right: 0;
+
+            top: 50%;
+
+            width: 10px;
+            height: 10px;
+
+            background: #c40000;
+
+            border-radius: 50%;
+
+            transform:
+                translateY(-50%);
+        }
+
+
+        /* =========================================
+           CARD GRID
+        ========================================= */
+
+        .card-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 2vh 3%;
+        }
+
+
+        /* =========================================
+           CONTACT CARD
+        ========================================= */
+
+        .contact-card {
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 3px 15px
+                rgba(0, 0, 0, 0.14);
+
+            padding:
+                1vh 2%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            min-height: 25vh;
+        }
+
+
+        /* =========================================
+           PROFILE IMAGE
+        ========================================= */
+
+        .profile-image {
+            width: clamp(
+                75px,
+                10vh,
+                125px
+            );
+
+            height: clamp(
+                75px,
+                10vh,
+                125px
+            );
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 2px solid #c90000;
+
+            margin-bottom: 0.5vh;
+        }
+
+
+        /* =========================================
+           CALL BUTTON
+        ========================================= */
+
+        .call-button {
+            width: 100%;
+
+            min-height: 55px;
+
+            border: none;
+
+            border-radius: 16px;
+
+            background: linear-gradient(
+                135deg,
+                #e90012,
+                #c90000
+            );
+
+            color: white;
+
+            font-size: clamp(
+                17px,
+                2.3vw,
+                30px
+            );
+
+            font-weight: 800;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.1s;
+        }
+
+        .call-button:active {
+            transform: scale(0.97);
+        }
+
+        .phone-icon {
+            font-size: 28px;
+        }
+
+
+        /* =========================================
+           MESSAGE SECTION
+        ========================================= */
+
+        .message-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 3%;
+        }
+
+        .message-button {
+            width: 100%;
+
+            height: 7vh;
+
+            min-height: 50px;
+
+            border: none;
+
+            border-radius: 16px;
+
+            color: white;
+
+            font-size: clamp(
+                16px,
+                2vw,
+                28px
+            );
+
+            font-weight: 800;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 12px;
+
+            cursor: pointer;
+        }
+
+        .facebook-button {
+            background: #2864b8;
+        }
+
+        .team-message-button {
+            background: #18a83a;
+        }
+
+        .message-button:active {
+            transform: scale(0.97);
+        }
+
+        .message-icon {
+            font-size: 25px;
+        }
+
+
+        /* =========================================
+           SMALL SCREEN
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+                height: 11vh;
+                min-height: 65px;
+
+                padding: 0 2%;
+            }
+
+            .back-button {
+                width: 42px;
+                height: 42px;
+
+                font-size: 38px;
+            }
+
+            .logo {
+                width: 62px;
+                height: 62px;
+            }
+
+            .header-title {
+                font-size: 24px;
+            }
+
+            .content {
+                height: 89vh;
+
+                padding:
+                    1vh
+                    3%
+                    0.5vh;
+            }
+
+            .section-title {
+                font-size: 20px;
+
+                gap: 7px;
+
+                margin-bottom: 0.5vh;
+            }
+
+            .section-icon {
+                font-size: 25px;
+            }
+
+            .card-grid {
+                gap: 1vh 3%;
+            }
+
+            .contact-card {
+                min-height: 23vh;
+
+                padding:
+                    0.8vh
+                    2%;
+
+                border-radius: 15px;
+            }
+
+            .profile-image {
+                width: 75px;
+                height: 75px;
+            }
+
+            .call-button {
+                min-height: 48px;
+
+                border-radius: 12px;
+
+                font-size: 16px;
+
+                gap: 5px;
+            }
+
+            .phone-icon {
+                font-size: 22px;
+            }
+
+            .message-button {
+                height: 6.5vh;
+
+                min-height: 45px;
+
+                border-radius: 12px;
+
+                font-size: 15px;
+            }
+
+            .message-icon {
+                font-size: 21px;
+            }
+        }
+
+
+        /* =========================================
+           VERY SMALL PHONE
+        ========================================= */
+
+        @media (max-height: 700px) {
+
+            .header {
+                height: 10vh;
+            }
+
+            .logo {
+                width: 55px;
+                height: 55px;
+            }
+
+            .header-title {
+                font-size: 21px;
+            }
+
+            .content {
+                height: 90vh;
+            }
+
+            .contact-card {
+                min-height: 21vh;
+            }
+
+            .profile-image {
+                width: 62px;
+                height: 62px;
+            }
+
+            .call-button {
+                min-height: 43px;
+
+                font-size: 14px;
+            }
+
+            .message-button {
+                height: 6vh;
+
+                font-size: 13px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <button
+            class="back-button"
+            onclick="goBack()"
+            aria-label="Back"
+        >
+            ←
+        </button>
+
+
+        <div class="header-title">
+            ইমারজেন্সি যোগাযোগ
+        </div>
+
+
+        <img
+            src="logo.png"
+            class="logo"
+            alt="AABF Logo"
+        >
+
+    </header>
+
+
+
+    <!-- =========================================
+         CONTENT
+    ========================================== -->
+
+    <main class="content">
+
+
+        <!-- =====================================
+             ORGANIZATIONAL CONTACT
+        ====================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <span class="section-icon">
+                    👥
+                </span>
+
+                <span>
+                    সাংগঠনিক কার্যক্রম :
+                </span>
+
+                <div class="title-line"></div>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <!-- সভাপতি -->
+
+                <div class="contact-card">
+
+                    <img
+                        src="rifat.png"
+                        class="profile-image"
+                        alt="সভাপতি"
+                    >
+
+                    <a
+                        href="tel:+8801859259020"
+                        class="call-button"
+                    >
+
+                        <span class="phone-icon">
+                            ☎
+                        </span>
+
+                        <span>
+                            Call সভাপতি
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- সাধারণ সম্পাদক -->
+
+                <div class="contact-card">
+
+                    <img
+                        src="manjurul.png"
+                        class="profile-image"
+                        alt="সাধারণ সম্পাদক"
+                    >
+
+                    <a
+                        href="tel:+8801618848777"
+                        class="call-button"
+                    >
+
+                        <span class="phone-icon">
+                            ☎
+                        </span>
+
+                        <span>
+                            Call সাধারণ সম্পাদক
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             BLOOD CONTACT
+        ====================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <span class="section-icon">
+                    🩸
+                </span>
+
+                <span>
+                    জরুরী রক্তের প্রয়োজনে :
+                </span>
+
+                <div class="title-line"></div>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <!-- রক্ত বিষয়ক সম্পাদক - Sohag -->
+
+                <div class="contact-card">
+
+                    <img
+                        src="sohag.png"
+                        class="profile-image"
+                        alt="রক্ত বিষয়ক সম্পাদক"
+                    >
+
+                    <a
+                        href="tel:+8801812646476"
+                        class="call-button"
+                    >
+
+                        <span class="phone-icon">
+                            ☎
+                        </span>
+
+                        <span>
+                            Call রক্ত বিষয়ক সম্পাদক
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- রক্ত বিষয়ক সম্পাদক - Sayed -->
+
+                <div class="contact-card">
+
+                    <img
+                        src="sayed.png"
+                        class="profile-image"
+                        alt="রক্ত বিষয়ক সম্পাদক"
+                    >
+
+                    <a
+                        href="tel:+8801897901243"
+                        class="call-button"
+                    >
+
+                        <span class="phone-icon">
+                            ☎
+                        </span>
+
+                        <span>
+                            Call রক্ত বিষয়ক সম্পাদক
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             MESSAGE
+        ====================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <span class="section-icon">
+                    💬
+                </span>
+
+                <span>
+                    মেসেজ পাঠান:
+                </span>
+
+                <div class="title-line"></div>
+
+            </div>
+
+
+            <div class="message-grid">
+
+
+                <!-- FACEBOOK -->
+
+                <button
+                    class="message-button facebook-button"
+                    onclick="openFacebook()"
+                >
+
+                    <span class="message-icon">
+                        f
+                    </span>
+
+                    <span>
+                        Open Facebook page
+                    </span>
+
+                </button>
+
+
+
+                <!-- MESSAGE AABF TEAM -->
+
+                <button
+                    class="message-button team-message-button"
+                    onclick="messageTeam()"
+                >
+
+                    <span class="message-icon">
+                        💬
+                    </span>
+
+                    <span>
+                        Message AABF Team
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+    // =========================================
+    // BACK BUTTON
+    // =========================================
+
+    function goBack() {
+
+        if (
+            window.history.length > 1
+        ) {
+
+            window.history.back();
+
+        } else {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+
+
+    // =========================================
+    // FACEBOOK PAGE
+    // =========================================
+
+    function openFacebook() {
+
+        window.location.href =
+            "https://www.facebook.com/alawnbloodfighters";
+
+    }
+
+
+    // =========================================
+    // MESSAGE AABF TEAM
+    // =========================================
+
+    function messageTeam() {
+
+        // পরে এখানে Message-এর কাজ দেওয়া হবে
+
+        alert(
+            "Message AABF Team — এই অপশনটি পরে চালু করা হবে।"
+        );
+
+    }
+
+</script>
+
+
+</body>
+</html>
