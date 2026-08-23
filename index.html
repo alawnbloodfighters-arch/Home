@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <!-- বাংলা ফন্ট -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -38,15 +36,11 @@
     >
 
 
-    <!-- Font Awesome -->
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-
-    <!-- BUTTON TITLE FONT -->
 
     <style>
 
@@ -74,10 +68,6 @@
 
 <div class="app">
 
-
-    <!-- =========================
-         HEADER
-    ========================== -->
 
     <header class="top-header">
 
@@ -117,9 +107,7 @@
 
 
 
-    <!-- =========================
-         USER / LOGIN
-    ========================== -->
+    <!-- USER / PROFILE -->
 
     <section
         class="user-card"
@@ -153,7 +141,10 @@
             <p>
 
                 AABF ID :
-                <b id="userAABFID">Login করুন</b>
+
+                <b id="userAABFID">
+                    Login করুন
+                </b>
 
             </p>
 
@@ -170,16 +161,8 @@
 
 
 
-    <!-- =========================
-         MAIN MENU
-    ========================== -->
-
     <main class="button-grid">
 
-
-        <!-- =====================
-             পরিচিতি
-        ====================== -->
 
         <button
             class="action-card card-pink"
@@ -197,9 +180,7 @@
             <div class="card-content">
 
                 <h3>
-
                     পরিচিতি
-
                 </h3>
 
             </div>
@@ -214,10 +195,6 @@
         </button>
 
 
-
-        <!-- =====================
-             রক্তের আবেদন
-        ====================== -->
 
         <button
             class="action-card card-green"
@@ -254,10 +231,6 @@
 
 
 
-        <!-- =====================
-             আবেদন দেখুন
-        ====================== -->
-
         <button
             class="action-card card-blue"
             type="button"
@@ -292,10 +265,6 @@
         </button>
 
 
-
-        <!-- =====================
-             সদস্য নিবন্ধন
-        ====================== -->
 
         <button
             class="action-card card-purple"
@@ -335,10 +304,6 @@
 
 
 
-    <!-- =========================
-         RELIEF
-    ========================== -->
-
     <button
         class="relief-card"
         type="button"
@@ -355,16 +320,12 @@
         <div class="relief-content">
 
             <h3>
-
                 ত্রাণ সহায়তা
-
             </h3>
 
 
             <p>
-
                 সংগঠনকে অর্থ সাহায্য করুন
-
             </p>
 
         </div>
@@ -379,10 +340,6 @@
     </button>
 
 
-
-    <!-- =========================
-         EMERGENCY
-    ========================== -->
 
     <button
         class="emergency-btn"
@@ -400,16 +357,12 @@
         <div class="emergency-text">
 
             <h3>
-
                 Emergency
-
             </h3>
 
 
             <p>
-
                 জরুরি সহায়তা প্রয়োজন?
-
             </p>
 
         </div>
@@ -425,30 +378,18 @@
 
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
     <footer class="footer">
 
         <span>
-
             Al-Awn Blood Fighters
-
         </span>
 
-
         <b>
-
             •
-
         </b>
 
-
         <span>
-
             AABF
-
         </span>
 
     </footer>
@@ -457,8 +398,15 @@
 </div>
 
 
+<!-- IMPORTANT:
+     Home script must be module because
+     Firebase SDK is imported inside it.
+-->
 
-<script src="script.js"></script>
+<script
+    type="module"
+    src="script.js"
+></script>
 
 
 </body>
