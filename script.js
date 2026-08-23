@@ -1,8 +1,83 @@
 // =========================================
-// AABF HOME - PAGE NAVIGATION
+// AABF HOME - FIREBASE PROFILE + NAVIGATION
 // =========================================
 
-function goTo(page) {
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getDatabase,
+    ref,
+    get
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+
+// =========================================
+// FIREBASE CONFIGURATION
+// =========================================
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
+
+    authDomain:
+        "al-awn-blood-fighters.firebaseapp.com",
+
+    projectId:
+        "al-awn-blood-fighters",
+
+    storageBucket:
+        "al-awn-blood-fighters.firebasestorage.app",
+
+    messagingSenderId:
+        "299061496611",
+
+    appId:
+        "1:299061496611:web:4762f74dbf311cd57f1a96",
+
+    measurementId:
+        "G-D31EXKJWQ3"
+
+};
+
+
+
+// =========================================
+// INITIALIZE FIREBASE
+// =========================================
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getDatabase(app);
+
+
+
+// =========================================
+// PAGE NAVIGATION
+// =========================================
+
+window.goTo = function(page) {
 
     const pages = {
 
@@ -32,31 +107,60 @@ function goTo(page) {
 
     }
 
-}
+};
+
 
 
 // =========================================
 // LOGIN
 // =========================================
 
-function login() {
+window.login = function() {
 
     window.location.href =
         "https://alawnbloodfighters-arch.github.io/App-sing-up/login.html";
 
-}
+};
+
 
 
 // =========================================
 // PROFILE
 // =========================================
 
-function openProfile(userData) {
+window.openProfile = function() {
 
-    if (!userData) {
+    alert("আপনার প্রোফাইল");
 
-        alert(
-            "প্রোফাইল তথ্য পাওয়া যায়নি।"
+};
+
+
+
+// =========================================
+// GET UID FROM URL
+// =========================================
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const urlUID =
+    urlParams.get("uid");
+
+
+
+// =========================================
+// LOAD USER PROFILE
+// =========================================
+
+async function loadUserProfile(uid) {
+
+    if (!uid) {
+
+        console.log(
+            "UID পাওয়া যায়নি।"
         );
 
         return;
@@ -64,359 +168,171 @@ function openProfile(userData) {
     }
 
 
-    const name =
-        userData.name ||
-        "নাম পাওয়া যায়নি";
-
-
-    const aabfID =
-        userData.aabfID ||
-        "AABF ID পাওয়া যায়নি";
-
-
-    const phone =
-        userData.phone ||
-        "মোবাইল নম্বর পাওয়া যায়নি";
-
-
-    alert(
-
-        "AABF Profile\n\n" +
-
-        "নাম: " +
-        name +
-
-        "\n\nAABF ID: " +
-        aabfID +
-
-        "\n\nমোবাইল: " +
-        phone
-
-    );
-
-}
-
-
-// =========================================
-// FIREBASE USER PROFILE
-// =========================================
-
-(async function () {
-
     try {
 
-
-        // =====================================
-        // FIREBASE APP
-        // =====================================
-
-        const {
-            initializeApp
-        } = await import(
-            "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
-        );
-
-
-        // =====================================
-        // FIREBASE AUTH
-        // =====================================
-
-        const {
-            getAuth,
-            onAuthStateChanged
-        } = await import(
-            "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
-        );
-
-
-        // =====================================
-        // FIREBASE DATABASE
-        // =====================================
-
-        const {
-            getDatabase,
-            ref,
-            get
-        } = await import(
-            "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
-        );
-
-
-        // =====================================
-        // FIREBASE CONFIGURATION
-        // =====================================
-
-        const firebaseConfig = {
-
-            apiKey:
-                "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
-
-            authDomain:
-                "al-awn-blood-fighters.firebaseapp.com",
-
-            projectId:
-                "al-awn-blood-fighters",
-
-            storageBucket:
-                "al-awn-blood-fighters.firebasestorage.app",
-
-            messagingSenderId:
-                "299061496611",
-
-            appId:
-                "1:299061496611:web:4762f74dbf311cd57f1a96",
-
-            measurementId:
-                "G-D31EXKJWQ3"
-
-        };
-
-
-        // =====================================
-        // INITIALIZE FIREBASE
-        // =====================================
-
-        const app =
-            initializeApp(
-                firebaseConfig
+        const userRef =
+            ref(
+                db,
+                "users/" + uid
             );
 
 
-        const auth =
-            getAuth(app);
+        const snapshot =
+            await get(userRef);
 
 
-        const db =
-            getDatabase(app);
+        if (!snapshot.exists()) {
 
-
-        // =====================================
-        // GET UID FROM URL
-        // =====================================
-
-        const params =
-            new URLSearchParams(
-                window.location.search
+            console.error(
+                "users/" + uid +
+                " এ কোনো profile পাওয়া যায়নি।"
             );
 
+            return;
 
-        const urlUID =
-            params.get("uid");
+        }
+
+
+        const user =
+            snapshot.val();
 
 
         console.log(
-            "Home URL UID:",
-            urlUID
+            "Firebase User:",
+            user
         );
 
 
-        // =====================================
-        // AUTH STATE
-        // =====================================
 
-        onAuthStateChanged(
-            auth,
-            async function(firebaseUser) {
+        // =================================
+        // NAME
+        // =================================
 
-                try {
+        const userName =
+            document.getElementById(
+                "userName"
+            );
 
 
-                    // =================================
-                    // DETERMINE UID
-                    // =================================
+        if (
+            userName &&
+            user.name
+        ) {
 
-                    let uid = null;
+            userName.textContent =
+                user.name;
 
+        }
 
-                    if (firebaseUser) {
 
-                        uid =
-                            firebaseUser.uid;
 
-                        console.log(
-                            "Firebase Auth UID:",
-                            uid
-                        );
+        // =================================
+        // AABF ID
+        // =================================
 
-                    }
+        const userAABFID =
+            document.getElementById(
+                "userAABFID"
+            );
 
-                    else if (urlUID) {
 
-                        uid =
-                            urlUID;
+        if (
+            userAABFID &&
+            user.aabfID
+        ) {
 
-                        console.log(
-                            "Using URL UID:",
-                            uid
-                        );
+            userAABFID.textContent =
+                user.aabfID;
 
-                    }
+        }
 
 
-                    // =================================
-                    // NO USER
-                    // =================================
 
-                    if (!uid) {
+        // =================================
+        // PROFILE CARD CLICK
+        // =================================
 
-                        console.log(
-                            "User Login করা নেই।"
-                        );
+        const userCard =
+            document.getElementById(
+                "userCard"
+            );
 
-                        return;
 
-                    }
+        if (userCard) {
 
+            userCard.onclick =
+                function() {
 
-                    // =================================
-                    // DATABASE USER PATH
-                    // =================================
+                    openProfile();
 
-                    const userRef =
-                        ref(
-                            db,
-                            "users/" + uid
-                        );
+                };
 
-
-                    const snapshot =
-                        await get(userRef);
-
-
-                    console.log(
-                        "Database profile exists:",
-                        snapshot.exists()
-                    );
-
-
-                    // =================================
-                    // PROFILE NOT FOUND
-                    // =================================
-
-                    if (!snapshot.exists()) {
-
-                        console.error(
-                            "Firebase Database-এ এই UID-এর Profile নেই:",
-                            uid
-                        );
-
-                        return;
-
-                    }
-
-
-                    // =================================
-                    // USER DATA
-                    // =================================
-
-                    const userData =
-                        snapshot.val();
-
-
-                    console.log(
-                        "AABF User Data:",
-                        userData
-                    );
-
-
-                    // =================================
-                    // USER NAME
-                    // =================================
-
-                    const userName =
-                        document.getElementById(
-                            "userName"
-                        );
-
-
-                    if (userName) {
-
-                        userName.textContent =
-                            userData.name ||
-                            "ব্যবহারকারী";
-
-                    }
-
-
-                    // =================================
-                    // AABF ID
-                    // =================================
-
-                    const userAABFID =
-                        document.getElementById(
-                            "userAABFID"
-                        );
-
-
-                    if (userAABFID) {
-
-                        userAABFID.textContent =
-                            userData.aabfID ||
-                            "Login করুন";
-
-                    }
-
-
-                    // =================================
-                    // PROFILE CARD
-                    // =================================
-
-                    const userCard =
-                        document.getElementById(
-                            "userCard"
-                        );
-
-
-                    if (userCard) {
-
-                        userCard.onclick =
-                            function() {
-
-                                openProfile(
-                                    userData
-                                );
-
-                            };
-
-                    }
-
-                }
-
-
-                catch (error) {
-
-                    console.error(
-                        "Firebase Profile Load Error:",
-                        error
-                    );
-
-                }
-
-            }
-        );
+        }
 
     }
 
-
-    catch (error) {
+    catch(error) {
 
         console.error(
-            "Firebase Initialization Error:",
+            "Profile Load Error:",
             error
         );
 
     }
 
-})();
+}
+
+
+
+// =========================================
+// AUTH STATE
+// =========================================
+
+onAuthStateChanged(
+    auth,
+    function(user) {
+
+        // Login থেকে UID এসেছে
+        if (urlUID) {
+
+            loadUserProfile(
+                urlUID
+            );
+
+            return;
+
+        }
+
+
+        // Firebase current user আছে
+        if (user) {
+
+            loadUserProfile(
+                user.uid
+            );
+
+            return;
+
+        }
+
+
+        // কোনো login নেই
+        console.log(
+            "কোনো logged-in user পাওয়া যায়নি।"
+        );
+
+    }
+);
+
 
 
 // =========================================
 // EMERGENCY
 // =========================================
 
-function emergency() {
+window.emergency = function() {
 
     window.location.href =
         "tel:YOUR_NUMBER";
 
-}
+};
