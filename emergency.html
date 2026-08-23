@@ -3,816 +3,646 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    >
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-    <meta
-        name="theme-color"
-        content="#e00000"
-    >
+<title>ইমারজেন্সি যোগাযোগ</title>
 
-    <title>ইমার্জেন্সি যোগাযোগ</title>
+<style>
 
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    <style>
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+    background: #ffffff;
 
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #ffffff;
-            font-family:
-                "Noto Sans Bengali",
-                "Arial",
-                sans-serif;
-        }
+    overflow-x: hidden;
+    overflow-y: hidden;
 
+    touch-action: manipulation;
+}
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
 
+/* ============================= */
+/* MAIN */
+/* ============================= */
 
-        .page {
-            width: 100%;
-            max-width: 720px;
-            height: 100dvh;
-            overflow: hidden;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-        }
+.container {
+    width: 100%;
+    max-width: 620px;
+    margin: auto;
+    padding-bottom: 12px;
+}
 
 
-        /* =========================
-           HEADER
-        ========================= */
+/* ============================= */
+/* HEADER */
+/* ============================= */
 
-        .header {
-            width: 100%;
-            height: 78px;
-            min-height: 78px;
-            background: linear-gradient(
-                135deg,
-                #d90000,
-                #f00000
-            );
+.header {
 
-            color: white;
+    width: 100%;
+    height: 68px;
 
-            display: flex;
-            align-items: center;
+    background: #e60000;
 
-            position: relative;
+    display: flex;
+    align-items: center;
 
-            padding: 0 18px;
-        }
+    padding: 0 12px;
 
+    color: white;
+}
 
-        .back {
-            width: 50px;
-            height: 50px;
+.back {
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    width: 42px;
 
-            color: white;
-            text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
 
-            font-size: 42px;
-            font-weight: 400;
+    cursor: pointer;
 
-            flex-shrink: 0;
-        }
+    flex-shrink: 0;
+}
 
+.header-title {
 
-        .header-title {
-            flex: 1;
+    flex: 1;
 
-            text-align: center;
+    text-align: center;
 
-            font-size: clamp(
-                27px,
-                6vw,
-                40px
-            );
+    font-size: 25px;
 
-            font-weight: 800;
+    font-weight: bold;
 
-            white-space: nowrap;
-        }
+    white-space: nowrap;
+}
 
 
+/* ============================= */
+/* SECTION */
+/* ============================= */
 
-        /* =========================
-           MAIN
-        ========================= */
+.section {
 
-        .content {
-            flex: 1;
+    margin-top: 14px;
 
-            display: flex;
-            flex-direction: column;
+    padding: 0 16px;
+}
 
-            justify-content: space-evenly;
+.section-title {
 
-            padding:
-                10px
-                20px
-                12px;
+    font-size: 21px;
 
-            overflow: hidden;
-        }
+    font-weight: bold;
 
+    color: #111;
 
+    margin-bottom: 10px;
+}
 
-        /* =========================
-           SECTION TITLE
-        ========================= */
 
-        .section-title {
-            display: flex;
-            align-items: center;
+/* ============================= */
+/* CARD GRID */
+/* ============================= */
 
-            gap: 10px;
+.grid {
 
-            font-size: clamp(
-                22px,
-                5.3vw,
-                34px
-            );
+    display: grid;
 
-            font-weight: 800;
+    grid-template-columns: 1fr 1fr;
 
-            color: #111;
+    gap: 12px;
 
-            white-space: nowrap;
+    padding: 0 16px;
+}
 
-            margin-bottom: 4px;
-        }
 
+/* ============================= */
+/* CARD */
+/* ============================= */
 
-        .section-icon {
-            font-size: clamp(
-                28px,
-                6vw,
-                40px
-            );
+.card {
 
-            flex-shrink: 0;
-        }
+    background: #ffffff;
 
+    border-radius: 17px;
 
-        .line {
-            height: 4px;
+    padding: 10px 7px 8px;
 
-            background: #c90000;
+    text-align: center;
 
-            flex: 1;
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.12);
 
-            border-radius: 10px;
+    min-width: 0;
+}
 
-            position: relative;
-        }
 
+/* ============================= */
+/* PROFILE IMAGE */
+/* ============================= */
 
-        .line::after {
-            content: "";
+.profile-img {
 
-            position: absolute;
+    width: 105px;
+    height: 105px;
 
-            right: 0;
-            top: 50%;
+    max-width: 75%;
 
-            transform:
-                translateY(-50%);
+    object-fit: cover;
 
-            width: 12px;
-            height: 12px;
+    border-radius: 50%;
 
-            background: #c90000;
+    border: 3px solid #c40000;
 
-            border-radius: 50%;
-        }
+    display: block;
 
+    margin: 0 auto 9px;
+}
 
 
-        /* =========================
-           CONTACT GRID
-        ========================= */
+/* ============================= */
+/* CALL BUTTON */
+/* ============================= */
 
-        .contact-grid {
-            display: grid;
+.call-button {
 
-            grid-template-columns:
-                1fr 1fr;
+    width: 100%;
 
-            gap: 12px;
+    min-height: 57px;
 
-            width: 100%;
-        }
+    border: none;
 
+    border-radius: 14px;
 
-        .contact-card {
-            background: #ffffff;
+    background: #ed0000;
 
-            border-radius: 18px;
+    color: white;
 
-            box-shadow:
-                0 4px 14px
-                rgba(0, 0, 0, 0.13);
+    font-size: 20px;
 
-            padding: 10px;
+    font-weight: bold;
 
-            display: flex;
+    line-height: 1.1;
 
-            flex-direction: column;
+    padding: 7px 5px;
 
-            align-items: center;
+    cursor: pointer;
 
-            justify-content: space-between;
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
 
-            min-width: 0;
+    display: flex;
 
-            overflow: hidden;
-        }
+    align-items: center;
 
+    justify-content: center;
 
+    gap: 7px;
+}
 
-        /* =========================
-           PROFILE IMAGE
-        ========================= */
+.call-button:active {
 
-        .profile-image {
-            width: clamp(
-                88px,
-                19vw,
-                125px
-            );
+    transform: scale(0.97);
+}
 
-            height: clamp(
-                88px,
-                19vw,
-                125px
-            );
+.phone-icon {
 
-            border-radius: 50%;
+    font-size: 25px;
 
-            object-fit: cover;
+    flex-shrink: 0;
+}
 
-            border: 3px solid #c80000;
 
-            margin: 2px 0 8px;
-        }
+/* ============================= */
+/* MESSAGE */
+/* ============================= */
 
+.message-section {
 
+    margin-top: 17px;
 
-        /* =========================
-           CALL BUTTON
-        ========================= */
+    padding: 0 16px;
+}
 
-        .call-button {
-            width: 100%;
+.message-title {
 
-            min-height: 58px;
+    font-size: 21px;
 
-            border-radius: 15px;
+    font-weight: bold;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #e00000,
-                    #ff0808
-                );
+    color: #111;
 
-            color: white;
+    margin-bottom: 10px;
+}
 
-            text-decoration: none;
 
-            display: flex;
+/* ============================= */
+/* MESSAGE BUTTONS */
+/* ============================= */
 
-            align-items: center;
+.message-grid {
 
-            justify-content: center;
+    display: grid;
 
-            gap: 7px;
+    grid-template-columns: 1fr 1fr;
 
-            text-align: center;
+    gap: 12px;
 
-            font-size: clamp(
-                18px,
-                4.5vw,
-                28px
-            );
+    padding: 0 16px;
+}
 
-            font-weight: 800;
+.facebook-button,
+.message-button {
 
-            line-height: 1.15;
+    min-height: 52px;
 
-            padding: 8px 5px;
+    border: none;
 
-            border: none;
+    border-radius: 13px;
 
-            cursor: pointer;
+    color: white;
 
-            user-select: none;
+    font-size: 16px;
 
-            transition:
-                transform 0.1s ease,
-                opacity 0.1s ease;
-        }
+    font-weight: bold;
 
+    cursor: pointer;
 
-        .call-button:active {
-            transform: scale(0.97);
-            opacity: 0.85;
-        }
+    padding: 8px 5px;
 
+    font-family: Arial, sans-serif;
+}
 
-        .phone-icon {
-            font-size: clamp(
-                25px,
-                6vw,
-                38px
-            );
+.facebook-button {
 
-            flex-shrink: 0;
-        }
+    background: #2874c6;
+}
 
+.message-button {
 
+    background: #16a63a;
+}
 
-        /* =========================
-           MESSAGE AREA
-        ========================= */
+.facebook-button:active,
+.message-button:active {
 
-        .message-title {
-            display: flex;
+    transform: scale(0.97);
+}
 
-            align-items: center;
 
-            gap: 10px;
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
 
-            font-size: clamp(
-                22px,
-                5.3vw,
-                34px
-            );
+@media (max-width: 400px) {
 
-            font-weight: 800;
+    .header {
 
-            white-space: nowrap;
-        }
+        height: 64px;
 
+        padding: 0 9px;
+    }
 
-        .message-icon {
-            font-size: clamp(
-                28px,
-                6vw,
-                40px
-            );
-        }
+    .back {
 
+        width: 38px;
 
-        .message-grid {
-            display: grid;
+        font-size: 27px;
+    }
 
-            grid-template-columns:
-                1fr 1fr;
+    .header-title {
 
-            gap: 12px;
-        }
+        font-size: 22px;
+    }
 
+    .section {
 
-        .message-button {
-            height: 58px;
+        margin-top: 12px;
 
-            border-radius: 15px;
+        padding: 0 13px;
+    }
 
-            display: flex;
+    .section-title {
 
-            align-items: center;
+        font-size: 19px;
 
-            justify-content: center;
+        margin-bottom: 8px;
+    }
 
-            text-decoration: none;
+    .grid {
 
-            color: white;
+        gap: 10px;
 
-            font-size: clamp(
-                16px,
-                4vw,
-                24px
-            );
+        padding: 0 13px;
+    }
 
-            font-weight: 800;
+    .card {
 
-            text-align: center;
+        border-radius: 15px;
 
-            line-height: 1.1;
+        padding: 8px 6px 7px;
+    }
 
-            padding: 6px;
+    .profile-img {
 
-            user-select: none;
-        }
+        width: 92px;
+        height: 92px;
 
+        margin-bottom: 7px;
+    }
 
-        .facebook {
-            background: #2867c7;
-        }
+    .call-button {
 
+        min-height: 52px;
 
-        .team-message {
-            background: #19a843;
-        }
+        font-size: 18px;
 
+        border-radius: 12px;
 
-        .message-button:active {
-            opacity: 0.8;
-            transform: scale(0.97);
-        }
+        gap: 5px;
+    }
 
+    .phone-icon {
 
+        font-size: 22px;
+    }
 
-        /* =========================
-           SMALL SCREEN
-        ========================= */
+    .message-section {
 
-        @media (max-height: 700px) {
+        margin-top: 14px;
 
-            .header {
-                height: 64px;
-                min-height: 64px;
-            }
+        padding: 0 13px;
+    }
 
+    .message-title {
 
-            .back {
-                width: 42px;
-                height: 42px;
-                font-size: 34px;
-            }
+        font-size: 19px;
 
+        margin-bottom: 8px;
+    }
 
-            .content {
-                padding:
-                    6px
-                    16px
-                    8px;
-            }
+    .message-grid {
 
+        gap: 10px;
 
-            .profile-image {
-                width: 78px;
-                height: 78px;
+        padding: 0 13px;
+    }
 
-                margin-bottom: 5px;
-            }
+    .facebook-button,
+    .message-button {
 
+        min-height: 48px;
 
-            .call-button {
-                min-height: 48px;
+        font-size: 14px;
 
-                font-size: 17px;
+        border-radius: 11px;
+    }
 
-                border-radius: 12px;
-            }
+}
 
-
-            .message-button {
-                height: 48px;
-
-                font-size: 15px;
-
-                border-radius: 12px;
-            }
-
-
-            .contact-grid,
-            .message-grid {
-                gap: 8px;
-            }
-
-        }
-
-
-
-        /* =========================
-           VERY SMALL WIDTH
-        ========================= */
-
-        @media (max-width: 380px) {
-
-            .content {
-                padding-left: 12px;
-                padding-right: 12px;
-            }
-
-
-            .contact-grid,
-            .message-grid {
-                gap: 7px;
-            }
-
-
-            .call-button {
-                font-size: 16px;
-            }
-
-
-            .message-button {
-                font-size: 14px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
-
 
 
 <body>
 
 
-<div class="page">
+<div class="container">
 
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
 
-    <header class="header">
+    <div class="header">
 
-        <a
-            href="index.html"
+        <div
             class="back"
-            aria-label="Back"
-        >
+            onclick="goBack()">
+
             ←
-        </a>
+
+        </div>
 
 
         <div class="header-title">
-            ইমার্জেন্সি যোগাযোগ
+
+            ইমারজেন্সি যোগাযোগ
+
         </div>
 
-    </header>
+    </div>
 
 
+    <!-- ========================= -->
+    <!-- ORGANIZATIONAL -->
+    <!-- ========================= -->
 
-    <!-- =========================
-         CONTENT
-    ========================== -->
-
-    <main class="content">
-
-
-        <!-- =====================
-             ORGANIZATION
-        ====================== -->
+    <div class="section">
 
         <div class="section-title">
 
-            <span class="section-icon">
-                👥
-            </span>
+            👥 সাংগঠনিক কার্যক্রম
 
-            <span>
-                সাংগঠনিক কার্যক্রম :
-            </span>
+        </div>
 
-            <span class="line"></span>
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- রিফাত -->
+
+        <div class="card">
+
+            <img
+                src="rifat.png"
+                class="profile-img"
+                alt="রিফাত">
+
+            <button
+                class="call-button"
+                onclick="callNumber('01859259020')">
+
+                <span class="phone-icon">
+                    ☎
+                </span>
+
+                <span>
+                    Call রিফাত
+                </span>
+
+            </button>
 
         </div>
 
 
+        <!-- মাঞ্জুরুল -->
 
-        <div class="contact-grid">
+        <div class="card">
 
+            <img
+                src="manjurul.png"
+                class="profile-img"
+                alt="মাঞ্জুরুল">
 
-            <!-- রিফাত -->
+            <button
+                class="call-button"
+                onclick="callNumber('01618848777')">
 
-            <div class="contact-card">
+                <span class="phone-icon">
+                    ☎
+                </span>
 
-                <img
-                    src="rifat.png"
-                    class="profile-image"
-                    alt="রিফাত"
-                >
+                <span>
+                    Call মাঞ্জুরুল
+                </span>
 
-
-                <a
-                    href="tel:+8801859259020"
-                    class="call-button"
-                    aria-label="Call রিফাত"
-                >
-
-                    <span class="phone-icon">
-                        ☎
-                    </span>
-
-                    <span>
-                        Call রিফাত
-                    </span>
-
-                </a>
-
-            </div>
-
-
-
-            <!-- মাঞ্জুরুল -->
-
-            <div class="contact-card">
-
-                <img
-                    src="manjurul.png"
-                    class="profile-image"
-                    alt="মাঞ্জুরুল"
-                >
-
-
-                <a
-                    href="tel:+8801618848777"
-                    class="call-button"
-                    aria-label="Call মাঞ্জুরুল"
-                >
-
-                    <span class="phone-icon">
-                        ☎
-                    </span>
-
-                    <span>
-                        Call মাঞ্জুরুল
-                    </span>
-
-                </a>
-
-            </div>
+            </button>
 
         </div>
 
+    </div>
 
 
-        <!-- =====================
-             BLOOD
-        ====================== -->
+    <!-- ========================= -->
+    <!-- BLOOD -->
+    <!-- ========================= -->
+
+    <div class="section">
 
         <div class="section-title">
 
-            <span class="section-icon">
-                🩸
-            </span>
+            🩸 জরুরী রক্তের প্রয়োজনে
 
-            <span>
-                জরুরী রক্তের প্রয়োজনে :
-            </span>
+        </div>
 
-            <span class="line"></span>
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- সোহাগ -->
+
+        <div class="card">
+
+            <img
+                src="sohag.png"
+                class="profile-img"
+                alt="সোহাগ">
+
+            <button
+                class="call-button"
+                onclick="callNumber('01812646476')">
+
+                <span class="phone-icon">
+                    ☎
+                </span>
+
+                <span>
+                    Call সোহাগ
+                </span>
+
+            </button>
 
         </div>
 
 
+        <!-- সাঈদ -->
 
-        <div class="contact-grid">
+        <div class="card">
 
+            <img
+                src="sayed.png"
+                class="profile-img"
+                alt="সাঈদ">
 
-            <!-- সোহাগ -->
+            <button
+                class="call-button"
+                onclick="callNumber('01897901243')">
 
-            <div class="contact-card">
+                <span class="phone-icon">
+                    ☎
+                </span>
 
-                <img
-                    src="sohag.png"
-                    class="profile-image"
-                    alt="সোহাগ"
-                >
+                <span>
+                    Call সাঈদ
+                </span>
 
-
-                <a
-                    href="tel:+8801812646476"
-                    class="call-button"
-                    aria-label="Call সোহাগ"
-                >
-
-                    <span class="phone-icon">
-                        ☎
-                    </span>
-
-                    <span>
-                        Call সোহাগ
-                    </span>
-
-                </a>
-
-            </div>
-
-
-
-            <!-- সাঈদ -->
-
-            <div class="contact-card">
-
-                <img
-                    src="sayed.png"
-                    class="profile-image"
-                    alt="সাঈদ"
-                >
-
-
-                <a
-                    href="tel:+8801897901243"
-                    class="call-button"
-                    aria-label="Call সাঈদ"
-                >
-
-                    <span class="phone-icon">
-                        ☎
-                    </span>
-
-                    <span>
-                        Call সাঈদ
-                    </span>
-
-                </a>
-
-            </div>
+            </button>
 
         </div>
 
+    </div>
 
 
-        <!-- =====================
-             MESSAGE
-        ====================== -->
+    <!-- ========================= -->
+    <!-- MESSAGE -->
+    <!-- ========================= -->
+
+    <div class="message-section">
 
         <div class="message-title">
 
-            <span class="message-icon">
-                💬
-            </span>
-
-            <span>
-                মেসেজ পাঠান :
-            </span>
-
-            <span class="line"></span>
+            💬 মেসেজ পাঠান
 
         </div>
 
+    </div>
 
 
-        <div class="message-grid">
+    <div class="message-grid">
 
 
-            <!-- FACEBOOK -->
+        <!-- FACEBOOK -->
 
-            <a
-                href="https://www.facebook.com/alawnbloodfighters"
-                class="message-button facebook"
-                aria-label="Open Facebook page"
-            >
+        <button
+            class="facebook-button"
+            onclick="openFacebook()">
 
-                <span>
-                    f&nbsp;&nbsp; Open Facebook Page
-                </span>
+            Open Facebook Page
 
-            </a>
+        </button>
 
 
+        <!-- MESSAGE AABF -->
 
-            <!-- MESSAGE - LATER -->
+        <button
+            class="message-button"
+            onclick="messageAABF()">
 
-            <a
-                href="javascript:void(0)"
-                class="message-button team-message"
-                aria-label="Message AABF Team"
-            >
+            💬 Message AABF Team
 
-                <span>
-                    💬&nbsp; Message AABF Team
-                </span>
+        </button>
 
-            </a>
+    </div>
 
-        </div>
-
-
-    </main>
 
 </div>
 
@@ -820,47 +650,102 @@
 
 <script>
 
+
+/* ============================= */
+/* BACK */
+/* ============================= */
+
+function goBack() {
+
+    if (window.history.length > 1) {
+
+        window.history.back();
+
+    } else {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+/* ============================= */
+/* CALL */
+/* ============================= */
+
+function callNumber(number) {
+
+
     /*
-     * Disable long press context menu
-     * for a cleaner mobile-app experience.
+     * MIT APP INVENTOR
+     *
+     * WebViewer থেকে CALL command
+     * পাঠানো হবে।
      */
 
-    document.addEventListener(
-        "contextmenu",
-        function(event) {
-            event.preventDefault();
-        }
-    );
+    if (
+        window.AppInventor &&
+        window.AppInventor.setWebViewString
+    ) {
+
+        window.AppInventor.setWebViewString(
+            "CALL:" + number
+        );
+
+        return;
+
+    }
 
 
     /*
-     * Prevent accidental double-tap zoom.
+     * সাধারণ Browser হলে
+     * ফোনের Dialer খুলবে।
      */
 
-    let lastTouchEnd = 0;
+    window.location.href =
+        "tel:+88" + number;
 
-    document.addEventListener(
-        "touchend",
-        function(event) {
+}
 
-            const now =
-                Date.now();
 
-            if (
-                now - lastTouchEnd <= 300
-            ) {
+/* ============================= */
+/* FACEBOOK */
+/* ============================= */
 
-                event.preventDefault();
+function openFacebook() {
 
-            }
+    window.location.href =
+        "https://www.facebook.com/alawnbloodfighters";
 
-            lastTouchEnd = now;
+}
 
-        },
-        {
-            passive: false
-        }
-    );
+
+/* ============================= */
+/* MESSAGE */
+/* ============================= */
+
+function messageAABF() {
+
+    if (
+        window.AppInventor &&
+        window.AppInventor.setWebViewString
+    ) {
+
+        window.AppInventor.setWebViewString(
+            "MESSAGE_AABF"
+        );
+
+    } else {
+
+        alert(
+            "Message AABF Team ফিচারটি পরে চালু করা হবে।"
+        );
+
+    }
+
+}
 
 </script>
 
