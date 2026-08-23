@@ -40,22 +40,12 @@ body {
     touch-action: manipulation;
 }
 
-
-/* ============================= */
-/* MAIN */
-/* ============================= */
-
 .container {
     width: 100%;
     max-width: 620px;
     margin: auto;
     padding-bottom: 12px;
 }
-
-
-/* ============================= */
-/* HEADER */
-/* ============================= */
 
 .header {
 
@@ -97,11 +87,6 @@ body {
     white-space: nowrap;
 }
 
-
-/* ============================= */
-/* SECTION */
-/* ============================= */
-
 .section {
 
     margin-top: 14px;
@@ -120,11 +105,6 @@ body {
     margin-bottom: 10px;
 }
 
-
-/* ============================= */
-/* CARD GRID */
-/* ============================= */
-
 .grid {
 
     display: grid;
@@ -135,11 +115,6 @@ body {
 
     padding: 0 16px;
 }
-
-
-/* ============================= */
-/* CARD */
-/* ============================= */
 
 .card {
 
@@ -156,11 +131,6 @@ body {
 
     min-width: 0;
 }
-
-
-/* ============================= */
-/* PROFILE IMAGE */
-/* ============================= */
 
 .profile-img {
 
@@ -179,11 +149,6 @@ body {
 
     margin: 0 auto 9px;
 }
-
-
-/* ============================= */
-/* CALL BUTTON */
-/* ============================= */
 
 .call-button {
 
@@ -235,11 +200,6 @@ body {
     flex-shrink: 0;
 }
 
-
-/* ============================= */
-/* MESSAGE */
-/* ============================= */
-
 .message-section {
 
     margin-top: 17px;
@@ -257,11 +217,6 @@ body {
 
     margin-bottom: 10px;
 }
-
-
-/* ============================= */
-/* MESSAGE BUTTONS */
-/* ============================= */
 
 .message-grid {
 
@@ -311,11 +266,6 @@ body {
 
     transform: scale(0.97);
 }
-
-
-/* ============================= */
-/* SMALL MOBILE */
-/* ============================= */
 
 @media (max-width: 400px) {
 
@@ -430,13 +380,9 @@ body {
 
 <body>
 
-
 <div class="container">
 
-
-    <!-- ========================= -->
     <!-- HEADER -->
-    <!-- ========================= -->
 
     <div class="header">
 
@@ -448,7 +394,6 @@ body {
 
         </div>
 
-
         <div class="header-title">
 
             ইমারজেন্সি যোগাযোগ
@@ -458,9 +403,7 @@ body {
     </div>
 
 
-    <!-- ========================= -->
     <!-- ORGANIZATIONAL -->
-    <!-- ========================= -->
 
     <div class="section">
 
@@ -475,7 +418,6 @@ body {
 
     <div class="grid">
 
-
         <!-- রিফাত -->
 
         <div class="card">
@@ -487,7 +429,7 @@ body {
 
             <button
                 class="call-button"
-                onclick="callNumber('01859259020')">
+                onclick="sendCommand('CALL_RIFAT')">
 
                 <span class="phone-icon">
                     ☎
@@ -513,7 +455,7 @@ body {
 
             <button
                 class="call-button"
-                onclick="callNumber('01618848777')">
+                onclick="sendCommand('CALL_MANJURUL')">
 
                 <span class="phone-icon">
                     ☎
@@ -530,9 +472,7 @@ body {
     </div>
 
 
-    <!-- ========================= -->
     <!-- BLOOD -->
-    <!-- ========================= -->
 
     <div class="section">
 
@@ -547,7 +487,6 @@ body {
 
     <div class="grid">
 
-
         <!-- সোহাগ -->
 
         <div class="card">
@@ -559,7 +498,7 @@ body {
 
             <button
                 class="call-button"
-                onclick="callNumber('01812646476')">
+                onclick="sendCommand('CALL_SOHAG')">
 
                 <span class="phone-icon">
                     ☎
@@ -585,7 +524,7 @@ body {
 
             <button
                 class="call-button"
-                onclick="callNumber('01897901243')">
+                onclick="sendCommand('CALL_SAYED')">
 
                 <span class="phone-icon">
                     ☎
@@ -602,9 +541,7 @@ body {
     </div>
 
 
-    <!-- ========================= -->
     <!-- MESSAGE -->
-    <!-- ========================= -->
 
     <div class="message-section">
 
@@ -619,12 +556,11 @@ body {
 
     <div class="message-grid">
 
-
         <!-- FACEBOOK -->
 
         <button
             class="facebook-button"
-            onclick="openFacebook()">
+            onclick="sendCommand('OPEN_FACEBOOK')">
 
             Open Facebook Page
 
@@ -635,7 +571,7 @@ body {
 
         <button
             class="message-button"
-            onclick="messageAABF()">
+            onclick="sendCommand('MESSAGE_AABF')">
 
             💬 Message AABF Team
 
@@ -643,12 +579,38 @@ body {
 
     </div>
 
-
 </div>
 
 
-
 <script>
+
+
+/* ============================= */
+/* SEND COMMAND TO MIT APP */
+/* ============================= */
+
+function sendCommand(command) {
+
+    if (
+        window.AppInventor &&
+        window.AppInventor.setWebViewString
+    ) {
+
+        window.AppInventor.setWebViewString(command);
+
+        return;
+
+    }
+
+
+    /*
+     * Browser-এ পরীক্ষা করলে
+     * command দেখাবে।
+     */
+
+    console.log("App Inventor Command:", command);
+
+}
 
 
 /* ============================= */
@@ -656,6 +618,20 @@ body {
 /* ============================= */
 
 function goBack() {
+
+    if (
+        window.AppInventor &&
+        window.AppInventor.setWebViewString
+    ) {
+
+        window.AppInventor.setWebViewString(
+            "BACK"
+        );
+
+        return;
+
+    }
+
 
     if (window.history.length > 1) {
 
@@ -665,83 +641,6 @@ function goBack() {
 
         window.location.href =
             "index.html";
-
-    }
-
-}
-
-
-/* ============================= */
-/* CALL */
-/* ============================= */
-
-function callNumber(number) {
-
-
-    /*
-     * MIT APP INVENTOR
-     *
-     * WebViewer থেকে CALL command
-     * পাঠানো হবে।
-     */
-
-    if (
-        window.AppInventor &&
-        window.AppInventor.setWebViewString
-    ) {
-
-        window.AppInventor.setWebViewString(
-            "CALL:" + number
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * সাধারণ Browser হলে
-     * ফোনের Dialer খুলবে।
-     */
-
-    window.location.href =
-        "tel:+88" + number;
-
-}
-
-
-/* ============================= */
-/* FACEBOOK */
-/* ============================= */
-
-function openFacebook() {
-
-    window.location.href =
-        "https://www.facebook.com/alawnbloodfighters";
-
-}
-
-
-/* ============================= */
-/* MESSAGE */
-/* ============================= */
-
-function messageAABF() {
-
-    if (
-        window.AppInventor &&
-        window.AppInventor.setWebViewString
-    ) {
-
-        window.AppInventor.setWebViewString(
-            "MESSAGE_AABF"
-        );
-
-    } else {
-
-        alert(
-            "Message AABF Team ফিচারটি পরে চালু করা হবে।"
-        );
 
     }
 
