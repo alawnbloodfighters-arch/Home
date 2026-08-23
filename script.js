@@ -333,6 +333,6 @@ onAuthStateChanged(
 window.emergency = function() {
 
     window.location.href =
-        "tel:YOUR_NUMBER";
+        "emergency.html";
 
 };
