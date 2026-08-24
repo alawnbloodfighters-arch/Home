@@ -1,266 +1,574 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Message AABF Team</title>
+<meta charset="UTF-8">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               minimum-scale=1.0,
+               user-scalable=no">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-        }
+<meta name="HandheldFriendly" content="true">
 
-        .message-container {
-            max-width: 500px;
-            min-height: 100vh;
-            margin: auto;
-            padding: 25px 18px;
-            display: flex;
-            flex-direction: column;
-        }
+<title>কর্তৃপক্ষকে মেসেজ দিন</title>
 
-        .header {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
 
-        .logo {
-            width: 70px;
-            height: 70px;
-            margin: auto;
-            border-radius: 50%;
-            background: #d62828;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-        }
+<style>
 
-        .header h1 {
-            margin: 15px 0 5px;
-            font-size: 25px;
-        }
+/* ==============================
+   MOBILE / MIT APP VIEW
+   ============================== */
 
-        .header p {
-            margin: 0;
-            color: #777;
-            font-size: 14px;
-        }
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-        .message-card {
-            background: white;
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 
-        .label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 15px;
-        }
+    touch-action: manipulation;
+}
 
-        textarea {
-            width: 100%;
-            min-height: 180px;
-            resize: vertical;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 16px;
-            font-family: inherit;
-            outline: none;
-        }
+body {
 
-        textarea:focus {
-            border-color: #d62828;
-            box-shadow: 0 0 0 3px rgba(214, 40, 40, 0.08);
-        }
+    width: 100%;
+    height: 100%;
 
-        .char-count {
-            text-align: right;
-            margin-top: 6px;
-            color: #888;
-            font-size: 12px;
-        }
+    margin: 0;
+    padding: 0;
 
-        .send-btn {
-            width: 100%;
-            margin-top: 18px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: #d62828;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    overflow: hidden;
 
-        .send-btn:active {
-            transform: scale(0.98);
-        }
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
 
-        .back-btn {
-            width: 100%;
-            margin-top: 12px;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            background: white;
-            color: #333;
-            font-size: 15px;
-            cursor: pointer;
-        }
+    background: #eeeae2;
 
-        .status {
-            display: none;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 14px;
-        }
+    /* Browser zoom বন্ধ */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
 
-        .status.success {
-            display: block;
-            background: #e8f7ed;
-            color: #16803c;
-        }
 
-        .status.error {
-            display: block;
-            background: #fdecec;
-            color: #c62828;
-        }
-    </style>
+/* ==============================
+   HEADER
+   ============================== */
+
+.header {
+
+    width: 100%;
+
+    height: 58px;
+
+    background: #086b61;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 10px;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==============================
+   CHAT AREA
+   ============================== */
+
+.chat {
+
+    position: absolute;
+
+    top: 58px;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 68px;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding: 12px 10px 15px;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* ==============================
+   MESSAGE
+   ============================== */
+
+.message {
+
+    max-width: 78%;
+
+    padding: 9px 13px;
+
+    margin-bottom: 9px;
+
+    border-radius: 13px;
+
+    font-size: 16px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+
+}
+
+
+/* ADMIN */
+
+.admin {
+
+    background: white;
+
+    margin-right: auto;
+
+    border-top-left-radius: 4px;
+
+}
+
+
+/* USER */
+
+.user {
+
+    background: #d7ffc9;
+
+    margin-left: auto;
+
+    border-top-right-radius: 4px;
+
+}
+
+
+/* TIME */
+
+.time {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #777;
+
+    text-align: right;
+}
+
+
+/* ==============================
+   EMPTY MESSAGE
+   ============================== */
+
+.empty {
+
+    text-align: center;
+
+    color: #888;
+
+    margin-top: 60px;
+
+    font-size: 14px;
+}
+
+
+/* ==============================
+   BOTTOM INPUT
+   ============================== */
+
+.input-area {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 68px;
+
+    background: white;
+
+    padding: 9px 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    border-top: 1px solid #ddd;
+
+}
+
+
+/* INPUT */
+
+#messageInput {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 48px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 25px;
+
+    padding: 0 15px;
+
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
+
+    font-size: 16px;
+
+    outline: none;
+
+    -webkit-appearance: none;
+
+    /* zoom আটকাতে */
+    transform: scale(1);
+
+}
+
+
+#messageInput:focus {
+
+    border-color: #086b61;
+
+}
+
+
+/* SEND BUTTON */
+
+#sendBtn {
+
+    flex: 0 0 112px;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: #086b61;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    padding: 0;
+
+    cursor: pointer;
+
+    -webkit-appearance: none;
+
+}
+
+
+#sendBtn:active {
+
+    transform: scale(.97);
+
+}
+
+
+/* ==============================
+   SMALL PHONE
+   ============================== */
+
+@media (max-width: 360px) {
+
+    .header {
+
+        height: 54px;
+
+        font-size: 19px;
+
+    }
+
+    .chat {
+
+        top: 54px;
+
+        bottom: 64px;
+
+        padding: 10px 8px;
+
+    }
+
+    .input-area {
+
+        height: 64px;
+
+        padding: 8px;
+
+    }
+
+    #messageInput {
+
+        height: 44px;
+
+        font-size: 15px;
+
+    }
+
+    #sendBtn {
+
+        flex-basis: 100px;
+
+        height: 44px;
+
+        font-size: 14px;
+
+    }
+
+    .message {
+
+        font-size: 15px;
+
+    }
+
+}
+
+
+/* ==============================
+   EXTRA SMALL PHONE
+   ============================== */
+
+@media (max-width: 320px) {
+
+    .header {
+
+        font-size: 17px;
+
+    }
+
+    #sendBtn {
+
+        flex-basis: 88px;
+
+        font-size: 13px;
+
+    }
+
+    .message {
+
+        max-width: 84%;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <div class="message-container">
 
-        <div class="header">
-            <div class="logo">♥</div>
+<!-- HEADER -->
 
-            <h1>Message AABF Team</h1>
+<div class="header">
 
-            <p>আপনার বার্তা আমাদের কাছে পাঠান</p>
-        </div>
+    কর্তৃপক্ষকে মেসেজ দিন
 
-        <div class="message-card">
+</div>
 
-            <label class="label" for="message">
-                আপনার Message
-            </label>
 
-            <textarea
-                id="message"
-                maxlength="1000"
-                placeholder="আপনার কথা এখানে লিখুন..."
-            ></textarea>
 
-            <div class="char-count">
-                <span id="charCount">0</span>/1000
-            </div>
+<!-- CHAT -->
 
-            <button class="send-btn" onclick="sendMessage()">
-                Send Message
-            </button>
+<div id="chat" class="chat">
 
-            <button class="back-btn" onclick="goBack()">
-                ← Back
-            </button>
+    <div class="empty">
 
-            <div id="status" class="status"></div>
-
-        </div>
+        আপনার মেসেজ এখানে দেখা যাবে
 
     </div>
 
-
-    <script>
-
-        const messageBox = document.getElementById("message");
-        const charCount = document.getElementById("charCount");
-        const statusBox = document.getElementById("status");
+</div>
 
 
-        // Character counter
-        messageBox.addEventListener("input", function () {
 
-            charCount.textContent = this.value.length;
+<!-- INPUT -->
 
-        });
+<div class="input-area">
+
+    <input
+        type="text"
+        id="messageInput"
+        placeholder="মেসেজ লিখুন"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="sentences"
+        spellcheck="false"
+    >
+
+    <button id="sendBtn">
+
+        Send
+
+    </button>
+
+</div>
 
 
-        // Send message
-        function sendMessage() {
 
-            const message = messageBox.value.trim();
+<script>
 
-            if (message.length === 0) {
+/* ==============================
+   DEMO CHAT
+   Firebase পরে বসাবো
+   ============================== */
 
-                showStatus(
-                    "দয়া করে একটি message লিখুন।",
-                    "error"
-                );
+const chat =
+    document.getElementById("chat");
 
-                return;
-            }
+const input =
+    document.getElementById("messageInput");
 
-            /*
-             * Firebase code এখানে পরে যোগ করা হবে।
-             *
-             * এখন শুধু UI প্রস্তুত করা হয়েছে।
-             */
+const sendBtn =
+    document.getElementById("sendBtn");
 
-            showStatus(
-                "Message প্রস্তুত আছে। Firebase connection পরের ধাপে যোগ হবে।",
-                "success"
-            );
+
+function sendMessage() {
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    /* প্রথম message হলে empty সরাবে */
+
+    const empty =
+        chat.querySelector(".empty");
+
+    if (empty) {
+
+        empty.remove();
+
+    }
+
+
+    /* Message তৈরি */
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message user";
+
+    message.textContent =
+        text;
+
+
+    /* Time */
+
+    const time =
+        document.createElement("span");
+
+    time.className =
+        "time";
+
+    const now =
+        new Date();
+
+    time.textContent =
+        now.getHours()
+        + ":"
+        +
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+
+    message.appendChild(time);
+
+    chat.appendChild(message);
+
+
+    /* নিচে নিয়ে যাবে */
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    input.value = "";
+
+    input.focus();
+
+}
+
+
+/* Send */
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/* Enter */
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
 
         }
 
+    }
+);
 
-        // Back
-        function goBack() {
+</script>
 
-            if (window.history.length > 1) {
-
-                window.history.back();
-
-            } else {
-
-                alert("Back button চাপা হয়েছে।");
-
-            }
-
-        }
-
-
-        // Status message
-        function showStatus(message, type) {
-
-            statusBox.textContent = message;
-
-            statusBox.className = "status " + type;
-
-        }
-
-    </script>
 
 </body>
+
 </html>
