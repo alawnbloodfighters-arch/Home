@@ -145,7 +145,7 @@ const urlUID =
 
 
 // =========================================
-// LOAD PUBLIC USER PROFILE
+// LOAD USER PROFILE
 // =========================================
 
 async function loadUserProfile(uid) {
@@ -170,13 +170,13 @@ async function loadUserProfile(uid) {
     try {
 
         // =================================
-        // PUBLIC PROFILE
+        // USER PROFILE
         // =================================
 
         const userRef =
             ref(
                 db,
-                "publicUsers/" + uid
+                "users/" + uid
             );
 
 
@@ -194,7 +194,7 @@ async function loadUserProfile(uid) {
         if (!snapshot.exists()) {
 
             console.error(
-                "publicUsers/" +
+                "users/" +
                 uid +
                 " পাওয়া যায়নি।"
             );
@@ -209,7 +209,7 @@ async function loadUserProfile(uid) {
 
 
         console.log(
-            "Public User:",
+            "Firebase User:",
             user
         );
 
