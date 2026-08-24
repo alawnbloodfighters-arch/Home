@@ -119,11 +119,10 @@ body {
     line-height: 1.45;
 
     word-break: break-word;
-
 }
 
 
-/* ADMIN MESSAGE */
+/* ADMIN */
 
 .admin {
 
@@ -135,7 +134,7 @@ body {
 }
 
 
-/* USER MESSAGE */
+/* USER */
 
 .user {
 
@@ -147,7 +146,7 @@ body {
 }
 
 
-/* MESSAGE NAME */
+/* NAME */
 
 .sender-name {
 
@@ -230,7 +229,7 @@ body {
 
 
 /* ==============================
-   INPUT AREA
+   INPUT
    ============================== */
 
 .input-area {
@@ -256,8 +255,6 @@ body {
     border-top: 1px solid #ddd;
 }
 
-
-/* INPUT */
 
 #messageInput {
 
@@ -287,13 +284,16 @@ body {
     transform: scale(1);
 }
 
+
 #messageInput:focus {
 
     border-color: #086b61;
 }
 
 
-/* SEND */
+/* ==============================
+   SEND
+   ============================== */
 
 #sendBtn {
 
@@ -320,10 +320,12 @@ body {
     -webkit-appearance: none;
 }
 
+
 #sendBtn:active {
 
     transform: scale(.97);
 }
+
 
 #sendBtn:disabled {
 
@@ -453,7 +455,10 @@ body {
         spellcheck="false"
     >
 
-    <button id="sendBtn">
+    <button
+        id="sendBtn"
+        disabled
+    >
 
         Send
 
@@ -467,7 +472,7 @@ body {
 
 
 /* =========================================
-   FIREBASE APP
+   FIREBASE
    ========================================= */
 
 import {
@@ -476,20 +481,12 @@ import {
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
-/* =========================================
-   FIREBASE AUTH
-   ========================================= */
-
 import {
     getAuth,
     onAuthStateChanged
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-
-/* =========================================
-   FIREBASE DATABASE
-   ========================================= */
 
 import {
     getDatabase,
@@ -531,6 +528,7 @@ const firebaseConfig = {
 
     measurementId:
         "G-D31EXKJWQ3"
+
 };
 
 
@@ -542,10 +540,8 @@ const firebaseConfig = {
 const app =
     initializeApp(firebaseConfig);
 
-
 const auth =
     getAuth(app);
-
 
 const db =
     getDatabase(app);
@@ -573,37 +569,11 @@ const ADMIN_UIDS = [
 const chat =
     document.getElementById("chat");
 
-
 const input =
     document.getElementById("messageInput");
 
-
 const sendBtn =
     document.getElementById("sendBtn");
-
-
-
-/* =========================================
-   USER ID FROM URL
-   ========================================= */
-
-/*
-   Normal User:
-   message.html?uid=USER_UID
-
-   Admin:
-   message.html?uid=USER_UID
-
-*/
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-
-const targetUID =
-    params.get("uid");
 
 
 
@@ -613,12 +583,32 @@ const targetUID =
 
 let currentUser = null;
 
-let isAdmin = false;
+
+
+/* =========================================
+   CURRENT CHAT UID
+   ========================================= */
+
+/*
+   User-এর ক্ষেত্রে:
+
+   Firebase Login UID
+   ↓
+   currentUser.uid
+   ↓
+   messages/currentUser.uid
+
+
+   তাই Home/Emergency page থেকে
+   UID পাঠানোর প্রয়োজন নেই।
+*/
+
+let chatUID = null;
 
 
 
 /* =========================================
-   SHOW ERROR
+   ERROR
    ========================================= */
 
 function showError(text) {
@@ -639,7 +629,7 @@ function showError(text) {
 
 
 /* =========================================
-   FORMAT TIME
+   TIME
    ========================================= */
 
 function formatTime(timestamp) {
@@ -649,6 +639,7 @@ function formatTime(timestamp) {
         return "";
 
     }
+
 
     const date =
         new Date(timestamp);
@@ -687,7 +678,7 @@ function formatTime(timestamp) {
 
 
 /* =========================================
-   DISPLAY MESSAGES
+   DISPLAY
    ========================================= */
 
 function displayMessages(data) {
@@ -726,7 +717,7 @@ function displayMessages(data) {
             );
 
 
-    if (messages.length === 0) {
+    if (!messages.length) {
 
         const empty =
             document.createElement("div");
@@ -768,17 +759,10 @@ function displayMessages(data) {
                 "sender-name";
 
 
-            if (senderIsAdmin) {
-
-                name.textContent =
-                    "কর্তৃপক্ষ";
-
-            } else {
-
-                name.textContent =
-                    "আপনি";
-
-            }
+            name.textContent =
+                senderIsAdmin
+                    ? "কর্তৃপক্ষ"
+                    : "আপনি";
 
 
             const text =
@@ -807,14 +791,11 @@ function displayMessages(data) {
 
             box.appendChild(time);
 
-
             chat.appendChild(box);
 
         }
     );
 
-
-    /* নিচে যাবে */
 
     setTimeout(
         () => {
@@ -836,10 +817,13 @@ function displayMessages(data) {
 
 function loadChat(uid) {
 
+    chatUID = uid;
+
+
     const messagesRef =
         ref(
             db,
-            "messages/" + uid
+            "messages/" + chatUID
         );
 
 
@@ -852,6 +836,7 @@ function loadChat(uid) {
 
     onValue(
         messagesQuery,
+
         snapshot => {
 
             displayMessages(
@@ -859,13 +844,13 @@ function loadChat(uid) {
             );
 
         },
+
         error => {
 
             console.error(
                 "Firebase Read Error:",
                 error
             );
-
 
             showError(
                 "মেসেজ লোড করা যাচ্ছে না।"
@@ -906,10 +891,10 @@ async function sendMessage() {
     }
 
 
-    if (!targetUID) {
+    if (!chatUID) {
 
         alert(
-            "User ID পাওয়া যায়নি।"
+            "Chat এখনো প্রস্তুত হয়নি।"
         );
 
         return;
@@ -930,7 +915,7 @@ async function sendMessage() {
                 ref(
                     db,
                     "messages/" +
-                    targetUID
+                    chatUID
                 )
             );
 
@@ -946,7 +931,9 @@ async function sendMessage() {
                     currentUser.uid,
 
                 senderType:
-                    isAdmin
+                    ADMIN_UIDS.includes(
+                        currentUser.uid
+                    )
                         ? "admin"
                         : "user",
 
@@ -1004,7 +991,7 @@ sendBtn.addEventListener(
 
 
 /* =========================================
-   ENTER KEY
+   ENTER
    ========================================= */
 
 input.addEventListener(
@@ -1027,77 +1014,72 @@ input.addEventListener(
 
 
 /* =========================================
-   AUTH STATE
+   AUTH
    ========================================= */
 
 onAuthStateChanged(
     auth,
+
     user => {
 
         if (!user) {
+
+            currentUser = null;
+
+            chatUID = null;
+
+            sendBtn.disabled = true;
+
+            input.disabled = true;
 
             showError(
                 "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"
             );
 
-            sendBtn.disabled = true;
-
-            input.disabled = true;
-
             return;
+
         }
 
+
+        /* ==============================
+           USER FOUND
+           ============================== */
 
         currentUser = user;
 
 
-        isAdmin =
-            ADMIN_UIDS.includes(
-                user.uid
-            );
+        /*
+           সবচেয়ে গুরুত্বপূর্ণ অংশ:
+
+           Firebase Login করা User-এর
+           নিজের UID ব্যবহার হচ্ছে।
+
+           URL থেকে UID নেওয়া হচ্ছে না।
+        */
+
+        const userUID =
+            currentUser.uid;
 
 
         /*
-           User হলে নিজের UID ছাড়া
-           অন্য কারো chat খুলতে পারবে না।
+           বর্তমানে এই page-এ
+           User chat খুলবে।
         */
 
-        if (
-            !isAdmin &&
-            targetUID !== user.uid
-        ) {
-
-            showError(
-                "এই Chat আপনার জন্য নয়।"
-            );
-
-            sendBtn.disabled = true;
-
-            input.disabled = true;
-
-            return;
-        }
+        loadChat(userUID);
 
 
         /*
-           UID না থাকলে
-           normal user-এর নিজের UID ব্যবহার।
+           Login করা User এখন
+           message পাঠাতে পারবে।
         */
 
-        const chatUID =
-            targetUID || user.uid;
+        input.disabled = false;
 
-
-        /*
-           Admin হলে URL-এর UID অনুযায়ী
-           সেই User-এর chat খুলবে।
-        */
-
-        loadChat(chatUID);
+        sendBtn.disabled = false;
 
     }
 );
-
 
 </script>
 
