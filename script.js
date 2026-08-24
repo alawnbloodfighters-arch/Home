@@ -151,6 +151,19 @@ const urlUID =
 
 
 
+console.log(
+    "Home URL:",
+    window.location.href
+);
+
+
+console.log(
+    "Login UID:",
+    urlUID
+);
+
+
+
 // =========================================
 // LOAD USER PROFILE
 // =========================================
@@ -168,13 +181,13 @@ async function loadUserProfile(uid) {
     }
 
 
-    console.log(
-        "Profile UID:",
-        uid
-    );
-
-
     try {
+
+        console.log(
+            "Profile Load হচ্ছে:",
+            uid
+        );
+
 
         const userRef =
             ref(
@@ -187,6 +200,7 @@ async function loadUserProfile(uid) {
             await get(userRef);
 
 
+
         // =================================
         // PROFILE NOT FOUND
         // =================================
@@ -194,14 +208,15 @@ async function loadUserProfile(uid) {
         if (!snapshot.exists()) {
 
             console.error(
-                "Firebase-এ users/" +
+                "users/" +
                 uid +
-                " পাওয়া যায়নি।"
+                " এ profile পাওয়া যায়নি।"
             );
 
             return;
 
         }
+
 
 
         const user =
@@ -227,17 +242,9 @@ async function loadUserProfile(uid) {
 
         if (userName) {
 
-            if (user.name) {
-
-                userName.textContent =
-                    user.name;
-
-            } else {
-
-                userName.textContent =
-                    "ব্যবহারকারী";
-
-            }
+            userName.textContent =
+                user.name ||
+                "ব্যবহারকারী";
 
         }
 
@@ -255,24 +262,16 @@ async function loadUserProfile(uid) {
 
         if (userAABFID) {
 
-            if (user.aabfID) {
-
-                userAABFID.textContent =
-                    user.aabfID;
-
-            } else {
-
-                userAABFID.textContent =
-                    "ID পাওয়া যায়নি";
-
-            }
+            userAABFID.textContent =
+                user.aabfID ||
+                "ID পাওয়া যায়নি";
 
         }
 
 
 
         // =================================
-        // PROFILE CARD CLICK
+        // PROFILE CARD
         // =================================
 
         const userCard =
@@ -294,6 +293,7 @@ async function loadUserProfile(uid) {
 
     }
 
+
     catch(error) {
 
         console.error(
@@ -308,18 +308,11 @@ async function loadUserProfile(uid) {
 
 
 // =========================================
-// FIRST: URL UID
+// LOAD PROFILE DIRECTLY FROM URL UID
 // =========================================
 
 if (urlUID) {
 
-    console.log(
-        "Login থেকে UID পাওয়া গেছে:",
-        urlUID
-    );
-
-
-    // URL-এর UID দিয়েই সরাসরি profile load
     loadUserProfile(
         urlUID
     );
@@ -329,15 +322,16 @@ if (urlUID) {
 
 
 // =========================================
-// FALLBACK: FIREBASE AUTH USER
+// FALLBACK FIREBASE AUTH
 // =========================================
 
 onAuthStateChanged(
     auth,
     function(user) {
 
-        // URL থেকে UID থাকলে
-        // আবার load করার দরকার নেই
+        // URL-এ UID থাকলে
+        // Firebase Auth-এর দরকার নেই
+
         if (urlUID) {
 
             return;
@@ -345,7 +339,8 @@ onAuthStateChanged(
         }
 
 
-        // Firebase login user
+        // Firebase user পাওয়া গেলে
+
         if (user) {
 
             console.log(
