@@ -382,6 +382,7 @@ body {
 
 <div class="container">
 
+
     <!-- HEADER -->
 
     <div class="header">
@@ -403,6 +404,7 @@ body {
     </div>
 
 
+
     <!-- ORGANIZATIONAL -->
 
     <div class="section">
@@ -416,7 +418,9 @@ body {
     </div>
 
 
+
     <div class="grid">
+
 
         <!-- রিফাত -->
 
@@ -442,6 +446,7 @@ body {
             </button>
 
         </div>
+
 
 
         <!-- মাঞ্জুরুল -->
@@ -472,6 +477,7 @@ body {
     </div>
 
 
+
     <!-- BLOOD -->
 
     <div class="section">
@@ -485,7 +491,9 @@ body {
     </div>
 
 
+
     <div class="grid">
+
 
         <!-- সোহাগ -->
 
@@ -511,6 +519,7 @@ body {
             </button>
 
         </div>
+
 
 
         <!-- সাঈদ -->
@@ -541,6 +550,7 @@ body {
     </div>
 
 
+
     <!-- MESSAGE -->
 
     <div class="message-section">
@@ -554,7 +564,9 @@ body {
     </div>
 
 
+
     <div class="message-grid">
+
 
         <!-- FACEBOOK -->
 
@@ -565,6 +577,7 @@ body {
             Open Facebook Page
 
         </button>
+
 
 
         <!-- MESSAGE AABF -->
@@ -582,6 +595,7 @@ body {
 </div>
 
 
+
 <script type="module">
 
 
@@ -594,10 +608,6 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
-/* =========================================
-   FIREBASE AUTH
-   ========================================= */
 
 import {
     getAuth,
@@ -639,12 +649,11 @@ const firebaseConfig = {
 
 
 /* =========================================
-   INITIALIZE FIREBASE
+   INITIALIZE
    ========================================= */
 
 const app =
     initializeApp(firebaseConfig);
-
 
 const auth =
     getAuth(app);
@@ -657,11 +666,9 @@ const auth =
 
 let currentUser = null;
 
+let authChecked = false;
 
-/*
-   Firebase Login state পাওয়া পর্যন্ত
-   অপেক্ষা করবে।
-*/
+
 
 onAuthStateChanged(
     auth,
@@ -669,8 +676,43 @@ onAuthStateChanged(
 
         currentUser = user;
 
+        authChecked = true;
+
     }
 );
+
+
+
+/* =========================================
+   SEND COMMAND
+   ========================================= */
+
+window.sendCommand =
+function(command) {
+
+    if (
+        window.AppInventor &&
+        typeof window.AppInventor
+            .setWebViewString ===
+            "function"
+    ) {
+
+        window.AppInventor
+            .setWebViewString(
+                command
+            );
+
+        return;
+
+    }
+
+
+    console.log(
+        "App Inventor Command:",
+        command
+    );
+
+};
 
 
 
@@ -678,12 +720,13 @@ onAuthStateChanged(
    OPEN MESSAGE CHAT
    ========================================= */
 
-function openMessageChat() {
+window.openMessageChat =
+function() {
 
 
     /*
-       প্রথমে Firebase Auth-এর
-       logged-in user পরীক্ষা।
+       Firebase Auth state পাওয়া গেলে
+       current user's UID ব্যবহার হবে।
     */
 
     if (currentUser) {
@@ -696,7 +739,6 @@ function openMessageChat() {
             "message.html?uid=" +
             encodeURIComponent(uid);
 
-
         return;
 
     }
@@ -704,100 +746,87 @@ function openMessageChat() {
 
 
     /*
-       Firebase Auth state এখনও
-       load না হয়ে থাকলে কিছুক্ষণ
-       অপেক্ষা করবে।
+       Auth state এখনও আসেনি।
+       সর্বোচ্চ ৫ সেকেন্ড অপেক্ষা।
     */
 
-    let count = 0;
+    if (!authChecked) {
+
+        let attempts = 0;
 
 
-    const waitForUser =
-        setInterval(
-            function() {
+        const timer =
+            setInterval(
+                function() {
+
+                    attempts++;
 
 
-                count++;
+                    if (currentUser) {
+
+                        clearInterval(
+                            timer
+                        );
 
 
-                if (currentUser) {
-
-                    clearInterval(
-                        waitForUser
-                    );
+                        const uid =
+                            currentUser.uid;
 
 
-                    const uid =
-                        currentUser.uid;
+                        window.location.href =
+                            "message.html?uid=" +
+                            encodeURIComponent(uid);
 
 
-                    window.location.href =
-                        "message.html?uid=" +
-                        encodeURIComponent(uid);
+                        return;
 
-                    return;
-
-                }
+                    }
 
 
-                /*
-                   5 সেকেন্ডের মধ্যে
-                   user পাওয়া না গেলে
-                   Login প্রয়োজন।
-                */
+                    if (authChecked) {
 
-                if (count >= 50) {
-
-                    clearInterval(
-                        waitForUser
-                    );
+                        clearInterval(
+                            timer
+                        );
 
 
-                    alert(
-                        "আপনার Login তথ্য পাওয়া যায়নি। আবার Login করুন।"
-                    );
+                        alert(
+                            "আপনার Login তথ্য পাওয়া যায়নি। আবার Login করুন।"
+                        );
 
-                }
+                        return;
 
-            },
-            100
-        );
-
-}
+                    }
 
 
+                    if (attempts >= 50) {
 
-/* =========================================
-   SEND COMMAND TO MIT APP
-   ========================================= */
+                        clearInterval(
+                            timer
+                        );
 
-function sendCommand(command) {
 
-    if (
-        window.AppInventor &&
-        window.AppInventor.setWebViewString
-    ) {
+                        alert(
+                            "Login তথ্য লোড হতে সমস্যা হয়েছে। আবার চেষ্টা করুন।"
+                        );
 
-        window.AppInventor.setWebViewString(
-            command
-        );
+                    }
+
+                },
+                100
+            );
 
         return;
 
     }
 
 
-    /*
-       Browser-এ পরীক্ষা করলে
-       console-এ command দেখাবে।
-    */
 
-    console.log(
-        "App Inventor Command:",
-        command
+    alert(
+        "আপনি Login করেননি।"
     );
 
-}
+};
 
 
 
@@ -805,23 +834,29 @@ function sendCommand(command) {
    BACK
    ========================================= */
 
-function goBack() {
+window.goBack =
+function() {
 
     if (
         window.AppInventor &&
-        window.AppInventor.setWebViewString
+        typeof window.AppInventor
+            .setWebViewString ===
+            "function"
     ) {
 
-        window.AppInventor.setWebViewString(
-            "BACK"
-        );
+        window.AppInventor
+            .setWebViewString(
+                "BACK"
+            );
 
         return;
 
     }
 
 
-    if (window.history.length > 1) {
+    if (
+        window.history.length > 1
+    ) {
 
         window.history.back();
 
@@ -832,7 +867,7 @@ function goBack() {
 
     }
 
-}
+};
 
 </script>
 
