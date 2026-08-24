@@ -1,22 +1,24 @@
 // =========================================
-// AABF HOME - PROFILE + NAVIGATION
+// AABF HOME - FIREBASE PROFILE + NAVIGATION
 // =========================================
 
-
 import {
-    initializeApp
+initializeApp
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+import {
+getAuth,
+onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-    getDatabase,
-    ref,
-    get
+getDatabase,
+ref,
+get
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
 
 // =========================================
 // FIREBASE CONFIGURATION
@@ -24,45 +26,41 @@ import {
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
+apiKey:  
+    "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",  
 
-    authDomain:
-        "al-awn-blood-fighters.firebaseapp.com",
+authDomain:  
+    "al-awn-blood-fighters.firebaseapp.com",  
 
-    projectId:
-        "al-awn-blood-fighters",
+projectId:  
+    "al-awn-blood-fighters",  
 
-    storageBucket:
-        "al-awn-blood-fighters.firebasestorage.app",
+storageBucket:  
+    "al-awn-blood-fighters.firebasestorage.app",  
 
-    messagingSenderId:
-        "299061496611",
+messagingSenderId:  
+    "299061496611",  
 
-    appId:
-        "1:299061496611:web:4762f74dbf311cd57f1a96",
+appId:  
+    "1:299061496611:web:4762f74dbf311cd57f1a96",  
 
-    measurementId:
-        "G-D31EXKJWQ3"
+measurementId:  
+    "G-D31EXKJWQ3"
 
 };
-
-
 
 // =========================================
 // INITIALIZE FIREBASE
 // =========================================
 
 const app =
-    initializeApp(
-        firebaseConfig
-    );
+initializeApp(firebaseConfig);
 
+const auth =
+getAuth(app);
 
 const db =
-    getDatabase(app);
-
-
+getDatabase(app);
 
 // =========================================
 // PAGE NAVIGATION
@@ -70,37 +68,35 @@ const db =
 
 window.goTo = function(page) {
 
-    const pages = {
+const pages = {  
 
-        "porichiti.html":
-            "https://sites.google.com/view/alawnbloodfighters/home",
+    "porichiti.html":  
+        "https://sites.google.com/view/alawnbloodfighters/home",  
 
-        "blood-request.html":
-            "https://alawnbloodfighters-arch.github.io/Blood-Request-/",
+    "blood-request.html":  
+        "https://alawnbloodfighters-arch.github.io/Blood-Request-/",  
 
-        "blood-requests.html":
-            "https://alawnbloodfighters-arch.github.io/Blood-Request-/requests.html",
+    "blood-requests.html":  
+        "https://alawnbloodfighters-arch.github.io/Blood-Request-/requests.html",  
 
-        "registration.html":
-            "https://alawnbloodfighters-arch.github.io/Registration/"
+    "registration.html":  
+        "https://alawnbloodfighters-arch.github.io/Registration/"  
 
-    };
-
-
-    const url =
-        pages[page];
+};  
 
 
-    if (url) {
+const url =  
+    pages[page];  
 
-        window.location.href =
-            url;
 
-    }
+if (url) {  
+
+    window.location.href =  
+        url;  
+
+}
 
 };
-
-
 
 // =========================================
 // LOGIN
@@ -108,12 +104,10 @@ window.goTo = function(page) {
 
 window.login = function() {
 
-    window.location.href =
-        "https://alawnbloodfighters-arch.github.io/App-sing-up/login.html";
+window.location.href =  
+    "https://alawnbloodfighters-arch.github.io/App-sing-up/login.html";
 
 };
-
-
 
 // =========================================
 // PROFILE
@@ -121,28 +115,21 @@ window.login = function() {
 
 window.openProfile = function() {
 
-    alert(
-        "আপনার প্রোফাইল"
-    );
+alert("আপনার প্রোফাইল");
 
 };
-
-
 
 // =========================================
 // GET UID FROM URL
 // =========================================
 
 const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
+new URLSearchParams(
+window.location.search
+);
 
 const urlUID =
-    urlParams.get("uid");
-
-
+urlParams.get("uid");
 
 // =========================================
 // LOAD USER PROFILE
@@ -150,189 +137,216 @@ const urlUID =
 
 async function loadUserProfile(uid) {
 
-    if (!uid) {
+if (!uid) {  
 
-        console.log(
-            "UID পাওয়া যায়নি।"
-        );
+    console.log(  
+        "UID পাওয়া যায়নি।"  
+    );  
 
-        return;
+    return;  
 
-    }
-
-
-    console.log(
-        "Home Profile UID:",
-        uid
-    );
+}  
 
 
-    try {
-
-        // =================================
-        // USER PROFILE
-        // =================================
-
-        const userRef =
-            ref(
-                db,
-                "users/" + uid
-            );
+console.log(  
+    "Profile UID:",  
+    uid  
+);  
 
 
-        const snapshot =
-            await get(
-                userRef
-            );
+try {  
+
+    const userRef =  
+        ref(  
+            db,  
+            "users/" + uid  
+        );  
 
 
-
-        // =================================
-        // PROFILE NOT FOUND
-        // =================================
-
-        if (!snapshot.exists()) {
-
-            console.error(
-                "users/" +
-                uid +
-                " পাওয়া যায়নি।"
-            );
-
-            return;
-
-        }
+    const snapshot =  
+        await get(userRef);  
 
 
-        const user =
-            snapshot.val();
+    // =================================  
+    // PROFILE NOT FOUND  
+    // =================================  
+
+    if (!snapshot.exists()) {  
+
+        console.error(  
+            "Firebase-এ users/" +  
+            uid +  
+            " পাওয়া যায়নি।"  
+        );  
+
+        return;  
+
+    }  
 
 
-        console.log(
-            "Firebase User:",
-            user
-        );
+    const user =  
+        snapshot.val();  
+
+
+    console.log(  
+        "Firebase User:",  
+        user  
+    );  
 
 
 
-        // =================================
-        // NAME
-        // =================================
+    // =================================  
+    // NAME  
+    // =================================  
 
-        const userName =
-            document.getElementById(
-                "userName"
-            );
-
-
-        if (userName) {
-
-            if (user.name) {
-
-                userName.textContent =
-                    user.name;
-
-            } else {
-
-                userName.textContent =
-                    "ব্যবহারকারী";
-
-            }
-
-        }
+    const userName =  
+        document.getElementById(  
+            "userName"  
+        );  
 
 
+    if (userName) {  
 
-        // =================================
-        // AABF ID
-        // =================================
+        if (user.name) {  
 
-        const userAABFID =
-            document.getElementById(
-                "userAABFID"
-            );
+            userName.textContent =  
+                user.name;  
 
+        } else {  
 
-        if (userAABFID) {
+            userName.textContent =  
+                "ব্যবহারকারী";  
 
-            if (user.aabfID) {
+        }  
 
-                userAABFID.textContent =
-                    user.aabfID;
-
-            } else {
-
-                userAABFID.textContent =
-                    "ID পাওয়া যায়নি";
-
-            }
-
-        }
+    }  
 
 
 
-        // =================================
-        // PROFILE CARD
-        // =================================
+    // =================================  
+    // AABF ID  
+    // =================================  
 
-        const userCard =
-            document.getElementById(
-                "userCard"
-            );
-
-
-        if (userCard) {
-
-            userCard.onclick =
-                function() {
-
-                    openProfile();
-
-                };
-
-        }
-
-    }
+    const userAABFID =  
+        document.getElementById(  
+            "userAABFID"  
+        );  
 
 
-    catch(error) {
+    if (userAABFID) {  
 
-        console.error(
-            "Profile Load Error:",
-            error
-        );
+        if (user.aabfID) {  
 
-    }
+            userAABFID.textContent =  
+                user.aabfID;  
+
+        } else {  
+
+            userAABFID.textContent =  
+                "ID পাওয়া যায়নি";  
+
+        }  
+
+    }  
+
+
+
+    // =================================  
+    // PROFILE CARD CLICK  
+    // =================================  
+
+    const userCard =  
+        document.getElementById(  
+            "userCard"  
+        );  
+
+
+    if (userCard) {  
+
+        userCard.onclick =  
+            function() {  
+
+                openProfile();  
+
+            };  
+
+    }  
+
+}  
+
+catch(error) {  
+
+    console.error(  
+        "Profile Load Error:",  
+        error  
+    );  
 
 }
 
-
+}
 
 // =========================================
-// LOAD PROFILE
+// FIRST: URL UID
 // =========================================
 
 if (urlUID) {
 
-    console.log(
-        "Login থেকে UID পাওয়া গেছে:",
-        urlUID
-    );
+console.log(  
+    "Login থেকে UID পাওয়া গেছে:",  
+    urlUID  
+);  
 
 
-    loadUserProfile(
-        urlUID
-    );
-
-} else {
-
-    console.log(
-        "Login করা নেই।"
-    );
+// URL-এর UID দিয়েই সরাসরি profile load  
+loadUserProfile(  
+    urlUID  
+);
 
 }
 
+// =========================================
+// FALLBACK: FIREBASE AUTH USER
+// =========================================
 
+onAuthStateChanged(
+auth,
+function(user) {
+
+// URL থেকে UID থাকলে  
+    // আবার load করার দরকার নেই  
+    if (urlUID) {  
+
+        return;  
+
+    }  
+
+
+    // Firebase login user  
+    if (user) {  
+
+        console.log(  
+            "Firebase Auth UID:",  
+            user.uid  
+        );  
+
+
+        loadUserProfile(  
+            user.uid  
+        );  
+
+
+        return;  
+
+    }  
+
+
+    console.log(  
+        "কোনো logged-in user পাওয়া যায়নি।"  
+    );  
+
+}
+
+);
 
 // =========================================
 // EMERGENCY
@@ -340,7 +354,7 @@ if (urlUID) {
 
 window.emergency = function() {
 
-    window.location.href =
-        "emergency.html";
+window.location.href =  
+    "emergency.html";
 
 };
