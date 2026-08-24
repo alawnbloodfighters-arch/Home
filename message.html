@@ -53,7 +53,9 @@ body {
 }
 
 
-/* HEADER */
+/* ==============================
+   HEADER
+   ============================== */
 
 .header {
 
@@ -76,7 +78,9 @@ body {
 }
 
 
-/* CHAT */
+/* ==============================
+   CHAT
+   ============================== */
 
 .chat {
 
@@ -96,7 +100,9 @@ body {
 }
 
 
-/* MESSAGE */
+/* ==============================
+   MESSAGE
+   ============================== */
 
 .message {
 
@@ -117,7 +123,7 @@ body {
 }
 
 
-/* ADMIN */
+/* ADMIN MESSAGE */
 
 .admin {
 
@@ -129,7 +135,7 @@ body {
 }
 
 
-/* USER */
+/* USER MESSAGE */
 
 .user {
 
@@ -138,6 +144,22 @@ body {
     margin-left: auto;
 
     border-top-right-radius: 4px;
+}
+
+
+/* MESSAGE NAME */
+
+.sender-name {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #086b61;
+
+    margin-bottom: 3px;
 }
 
 
@@ -157,23 +179,9 @@ body {
 }
 
 
-/* ADMIN NAME */
-
-.admin-name {
-
-    display: block;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    color: #086b61;
-
-    margin-bottom: 3px;
-}
-
-
-/* EMPTY */
+/* ==============================
+   EMPTY
+   ============================== */
 
 .empty {
 
@@ -187,7 +195,43 @@ body {
 }
 
 
-/* INPUT AREA */
+/* ==============================
+   LOADING
+   ============================== */
+
+.loading {
+
+    text-align: center;
+
+    color: #777;
+
+    margin-top: 60px;
+
+    font-size: 14px;
+}
+
+
+/* ==============================
+   ERROR
+   ============================== */
+
+.error {
+
+    text-align: center;
+
+    color: #c62828;
+
+    margin: 60px 20px 0;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ==============================
+   INPUT AREA
+   ============================== */
 
 .input-area {
 
@@ -243,7 +287,6 @@ body {
     transform: scale(1);
 }
 
-
 #messageInput:focus {
 
     border-color: #086b61;
@@ -277,32 +320,36 @@ body {
     -webkit-appearance: none;
 }
 
-
 #sendBtn:active {
 
     transform: scale(.97);
 }
 
-
 #sendBtn:disabled {
 
     opacity: .6;
+
+    cursor: not-allowed;
 }
 
 
-/* SMALL PHONE */
+/* ==============================
+   SMALL PHONE
+   ============================== */
 
 @media (max-width: 360px) {
 
     .header {
 
         height: 54px;
+
         font-size: 19px;
     }
 
     .chat {
 
         top: 54px;
+
         bottom: 64px;
 
         padding: 10px 8px;
@@ -311,12 +358,14 @@ body {
     .input-area {
 
         height: 64px;
+
         padding: 8px;
     }
 
     #messageInput {
 
         height: 44px;
+
         font-size: 15px;
     }
 
@@ -333,11 +382,12 @@ body {
 
         font-size: 15px;
     }
-
 }
 
 
-/* EXTRA SMALL */
+/* ==============================
+   EXTRA SMALL
+   ============================== */
 
 @media (max-width: 320px) {
 
@@ -357,7 +407,6 @@ body {
 
         max-width: 84%;
     }
-
 }
 
 </style>
@@ -368,6 +417,8 @@ body {
 <body>
 
 
+<!-- HEADER -->
+
 <div class="header">
 
     কর্তৃপক্ষকে মেসেজ দিন
@@ -375,9 +426,11 @@ body {
 </div>
 
 
+<!-- CHAT -->
+
 <div id="chat" class="chat">
 
-    <div class="empty" id="emptyMessage">
+    <div class="loading">
 
         মেসেজ লোড হচ্ছে...
 
@@ -385,6 +438,8 @@ body {
 
 </div>
 
+
+<!-- INPUT -->
 
 <div class="input-area">
 
@@ -412,41 +467,47 @@ body {
 
 
 /* =========================================
-   FIREBASE
-========================================= */
-
+   FIREBASE APP
+   ========================================= */
 
 import {
     initializeApp
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+
+/* =========================================
+   FIREBASE AUTH
+   ========================================= */
 
 import {
     getAuth,
     onAuthStateChanged
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+/* =========================================
+   FIREBASE DATABASE
+   ========================================= */
 
 import {
     getDatabase,
     ref,
     push,
     set,
-    onChildAdded
-}
-from
+    onValue,
+    query,
+    orderByChild,
+    serverTimestamp
+} from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
 
 /* =========================================
    FIREBASE CONFIG
-========================================= */
-
+   ========================================= */
 
 const firebaseConfig = {
 
@@ -455,9 +516,6 @@ const firebaseConfig = {
 
     authDomain:
         "al-awn-blood-fighters.firebaseapp.com",
-
-    databaseURL:
-        "https://al-awn-blood-fighters-default-rtdb.firebaseio.com",
 
     projectId:
         "al-awn-blood-fighters",
@@ -473,15 +531,13 @@ const firebaseConfig = {
 
     measurementId:
         "G-D31EXKJWQ3"
-
 };
 
 
 
 /* =========================================
    INITIALIZE
-========================================= */
-
+   ========================================= */
 
 const app =
     initializeApp(firebaseConfig);
@@ -498,8 +554,7 @@ const db =
 
 /* =========================================
    ADMIN UID
-========================================= */
-
+   ========================================= */
 
 const ADMIN_UIDS = [
 
@@ -513,8 +568,7 @@ const ADMIN_UIDS = [
 
 /* =========================================
    ELEMENTS
-========================================= */
-
+   ========================================= */
 
 const chat =
     document.getElementById("chat");
@@ -528,141 +582,104 @@ const sendBtn =
     document.getElementById("sendBtn");
 
 
-const emptyMessage =
-    document.getElementById("emptyMessage");
+
+/* =========================================
+   USER ID FROM URL
+   ========================================= */
+
+/*
+   Normal User:
+   message.html?uid=USER_UID
+
+   Admin:
+   message.html?uid=USER_UID
+
+*/
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const targetUID =
+    params.get("uid");
 
 
 
 /* =========================================
    CURRENT USER
-========================================= */
-
+   ========================================= */
 
 let currentUser = null;
 
-let chatUserUID = null;
+let isAdmin = false;
 
 
 
 /* =========================================
-   CHECK LOGIN
-========================================= */
+   SHOW ERROR
+   ========================================= */
+
+function showError(text) {
+
+    chat.innerHTML = "";
+
+    const div =
+        document.createElement("div");
+
+    div.className = "error";
+
+    div.textContent = text;
+
+    chat.appendChild(div);
+
+}
 
 
-onAuthStateChanged(
-    auth,
-    function(user) {
 
-        if (!user) {
+/* =========================================
+   FORMAT TIME
+   ========================================= */
 
-            alert(
-                "আপনি Login করা নেই।"
-            );
+function formatTime(timestamp) {
 
-            return;
-        }
+    if (!timestamp) {
 
-
-        currentUser = user;
-
-
-        /*
-         * সাধারণ User হলে
-         * নিজের UID দিয়েই chat হবে।
-         */
-
-        if (
-            ADMIN_UIDS.includes(
-                user.uid
-            )
-        ) {
-
-            /*
-             * Admin-এর ক্ষেত্রে
-             * URL থেকে user UID নেওয়া হবে।
-             *
-             * উদাহরণ:
-             *
-             * message.html?uid=USER_UID
-             */
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-
-            chatUserUID =
-                params.get("uid");
-
-
-            if (!chatUserUID) {
-
-                emptyMessage.textContent =
-                    "Admin-এর জন্য User UID প্রয়োজন।";
-
-                sendBtn.disabled = true;
-
-                return;
-            }
-
-        } else {
-
-            /*
-             * User
-             */
-
-            chatUserUID =
-                user.uid;
-
-        }
-
-
-        /*
-         * Firebase থেকে পুরোনো
-         * message load করা
-         */
-
-        loadMessages();
+        return "";
 
     }
-);
+
+    const date =
+        new Date(timestamp);
 
 
-
-/* =========================================
-   LOAD MESSAGES
-========================================= */
+    let hours =
+        date.getHours();
 
 
-function loadMessages() {
-
-    const messagesRef =
-        ref(
-            db,
-            "messages/" +
-            chatUserUID
-        );
+    const minutes =
+        String(
+            date.getMinutes()
+        ).padStart(2, "0");
 
 
-    onChildAdded(
-        messagesRef,
-        function(snapshot) {
-
-            const data =
-                snapshot.val();
+    const ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
 
 
-            if (!data) {
-
-                return;
-
-            }
+    hours =
+        hours % 12 || 12;
 
 
-            showMessage(data);
-
-        }
+    return (
+        hours +
+        ":" +
+        minutes +
+        " " +
+        ampm
     );
 
 }
@@ -670,130 +687,192 @@ function loadMessages() {
 
 
 /* =========================================
-   SHOW MESSAGE
-========================================= */
+   DISPLAY MESSAGES
+   ========================================= */
+
+function displayMessages(data) {
+
+    chat.innerHTML = "";
 
 
-function showMessage(data) {
+    if (!data) {
 
+        const empty =
+            document.createElement("div");
 
-    /*
-     * প্রথম message এলে
-     * Empty text সরানো
-     */
+        empty.className = "empty";
 
-    if (emptyMessage) {
+        empty.textContent =
+            "এখনো কোনো মেসেজ নেই।";
 
-        emptyMessage.remove();
+        chat.appendChild(empty);
 
+        return;
     }
 
 
-    const message =
-        document.createElement("div");
-
-
-    const isAdmin =
-        data.senderRole === "admin";
-
-
-    message.className =
-        "message " +
-        (
-            isAdmin
-            ? "admin"
-            : "user"
-        );
-
-
-
-    /* ADMIN NAME */
-
-
-    if (isAdmin) {
-
-        const adminName =
-            document.createElement("span");
-
-        adminName.className =
-            "admin-name";
-
-        adminName.textContent =
-            "AABF Team";
-
-        message.appendChild(
-            adminName
-        );
-
-    }
-
-
-
-    /* TEXT */
-
-
-    const text =
-        document.createElement("div");
-
-    text.textContent =
-        data.text || "";
-
-
-    message.appendChild(
-        text
-    );
-
-
-
-    /* TIME */
-
-
-    const time =
-        document.createElement("span");
-
-    time.className =
-        "time";
-
-
-    if (data.timestamp) {
-
-        const date =
-            new Date(
-                data.timestamp
+    const messages =
+        Object.entries(data)
+            .map(
+                ([id, message]) => ({
+                    id,
+                    ...message
+                })
+            )
+            .sort(
+                (a, b) =>
+                    (a.timestamp || 0) -
+                    (b.timestamp || 0)
             );
 
 
-        time.textContent =
-            date.getHours()
-            +
-            ":"
-            +
-            String(
-                date.getMinutes()
-            ).padStart(
-                2,
-                "0"
-            );
+    if (messages.length === 0) {
 
+        const empty =
+            document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.textContent =
+            "এখনো কোনো মেসেজ নেই।";
+
+        chat.appendChild(empty);
+
+        return;
     }
 
 
-    message.appendChild(
-        time
+    messages.forEach(
+        message => {
+
+            const box =
+                document.createElement("div");
+
+
+            const senderIsAdmin =
+                ADMIN_UIDS.includes(
+                    message.senderUid
+                );
+
+
+            box.className =
+                senderIsAdmin
+                    ? "message admin"
+                    : "message user";
+
+
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "sender-name";
+
+
+            if (senderIsAdmin) {
+
+                name.textContent =
+                    "কর্তৃপক্ষ";
+
+            } else {
+
+                name.textContent =
+                    "আপনি";
+
+            }
+
+
+            const text =
+                document.createElement("div");
+
+            text.textContent =
+                message.text || "";
+
+
+            const time =
+                document.createElement("span");
+
+            time.className =
+                "time";
+
+
+            time.textContent =
+                formatTime(
+                    message.timestamp
+                );
+
+
+            box.appendChild(name);
+
+            box.appendChild(text);
+
+            box.appendChild(time);
+
+
+            chat.appendChild(box);
+
+        }
     );
 
 
-    chat.appendChild(
-        message
+    /* নিচে যাবে */
+
+    setTimeout(
+        () => {
+
+            chat.scrollTop =
+                chat.scrollHeight;
+
+        },
+        50
     );
 
+}
 
-    /*
-     * নিচে নিয়ে যাওয়া
-     */
 
-    chat.scrollTop =
-        chat.scrollHeight;
+
+/* =========================================
+   LOAD CHAT
+   ========================================= */
+
+function loadChat(uid) {
+
+    const messagesRef =
+        ref(
+            db,
+            "messages/" + uid
+        );
+
+
+    const messagesQuery =
+        query(
+            messagesRef,
+            orderByChild("timestamp")
+        );
+
+
+    onValue(
+        messagesQuery,
+        snapshot => {
+
+            displayMessages(
+                snapshot.val()
+            );
+
+        },
+        error => {
+
+            console.error(
+                "Firebase Read Error:",
+                error
+            );
+
+
+            showError(
+                "মেসেজ লোড করা যাচ্ছে না।"
+            );
+
+        }
+    );
 
 }
 
@@ -801,11 +880,9 @@ function showMessage(data) {
 
 /* =========================================
    SEND MESSAGE
-========================================= */
-
+   ========================================= */
 
 async function sendMessage() {
-
 
     const text =
         input.value.trim();
@@ -821,7 +898,7 @@ async function sendMessage() {
     if (!currentUser) {
 
         alert(
-            "Login করা নেই।"
+            "আপনি Login করেননি।"
         );
 
         return;
@@ -829,10 +906,10 @@ async function sendMessage() {
     }
 
 
-    if (!chatUserUID) {
+    if (!targetUID) {
 
         alert(
-            "Chat পাওয়া যায়নি।"
+            "User ID পাওয়া যায়নি।"
         );
 
         return;
@@ -842,45 +919,39 @@ async function sendMessage() {
 
     sendBtn.disabled = true;
 
+    sendBtn.textContent =
+        "Sending...";
+
 
     try {
 
-
-        const isAdmin =
-            ADMIN_UIDS.includes(
-                currentUser.uid
+        const messageRef =
+            push(
+                ref(
+                    db,
+                    "messages/" +
+                    targetUID
+                )
             );
-
-
-        const messagesRef =
-            ref(
-                db,
-                "messages/" +
-                chatUserUID
-            );
-
-
-        const newMessage =
-            push(messagesRef);
 
 
         await set(
-            newMessage,
+            messageRef,
             {
-
-                senderId:
-                    currentUser.uid,
-
-                senderRole:
-                    isAdmin
-                    ? "admin"
-                    : "user",
 
                 text:
                     text,
 
+                senderUid:
+                    currentUser.uid,
+
+                senderType:
+                    isAdmin
+                        ? "admin"
+                        : "user",
+
                 timestamp:
-                    Date.now()
+                    serverTimestamp()
 
             }
         );
@@ -890,25 +961,32 @@ async function sendMessage() {
 
         input.focus();
 
-
     }
+
 
     catch (error) {
 
         console.error(
-            "Message Error:",
+            "Firebase Send Error:",
             error
         );
 
 
         alert(
-            "মেসেজ পাঠানো যায়নি।"
+            "মেসেজ পাঠানো যায়নি। আবার চেষ্টা করুন।"
         );
 
     }
 
 
-    sendBtn.disabled = false;
+    finally {
+
+        sendBtn.disabled = false;
+
+        sendBtn.textContent =
+            "Send";
+
+    }
 
 }
 
@@ -916,8 +994,7 @@ async function sendMessage() {
 
 /* =========================================
    SEND BUTTON
-========================================= */
-
+   ========================================= */
 
 sendBtn.addEventListener(
     "click",
@@ -927,13 +1004,12 @@ sendBtn.addEventListener(
 
 
 /* =========================================
-   ENTER
-========================================= */
-
+   ENTER KEY
+   ========================================= */
 
 input.addEventListener(
     "keydown",
-    function(event) {
+    event => {
 
         if (
             event.key === "Enter"
@@ -949,8 +1025,81 @@ input.addEventListener(
 );
 
 
-</script>
 
+/* =========================================
+   AUTH STATE
+   ========================================= */
+
+onAuthStateChanged(
+    auth,
+    user => {
+
+        if (!user) {
+
+            showError(
+                "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"
+            );
+
+            sendBtn.disabled = true;
+
+            input.disabled = true;
+
+            return;
+        }
+
+
+        currentUser = user;
+
+
+        isAdmin =
+            ADMIN_UIDS.includes(
+                user.uid
+            );
+
+
+        /*
+           User হলে নিজের UID ছাড়া
+           অন্য কারো chat খুলতে পারবে না।
+        */
+
+        if (
+            !isAdmin &&
+            targetUID !== user.uid
+        ) {
+
+            showError(
+                "এই Chat আপনার জন্য নয়।"
+            );
+
+            sendBtn.disabled = true;
+
+            input.disabled = true;
+
+            return;
+        }
+
+
+        /*
+           UID না থাকলে
+           normal user-এর নিজের UID ব্যবহার।
+        */
+
+        const chatUID =
+            targetUID || user.uid;
+
+
+        /*
+           Admin হলে URL-এর UID অনুযায়ী
+           সেই User-এর chat খুলবে।
+        */
+
+        loadChat(chatUID);
+
+    }
+);
+
+
+</script>
 
 </body>
 
