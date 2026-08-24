@@ -571,7 +571,7 @@ body {
 
         <button
             class="message-button"
-            onclick="window.location.href='https://alawnbloodfighters-arch.github.io/Home/message.html'">
+            onclick="openMessageChat()">
 
             💬 Message AABF Team
 
@@ -582,12 +582,194 @@ body {
 </div>
 
 
-<script>
+<script type="module">
 
 
-/* ============================= */
-/* SEND COMMAND TO MIT APP */
-/* ============================= */
+/* =========================================
+   FIREBASE APP
+   ========================================= */
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+/* =========================================
+   FIREBASE AUTH
+   ========================================= */
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+/* =========================================
+   FIREBASE CONFIG
+   ========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
+
+    authDomain:
+        "al-awn-blood-fighters.firebaseapp.com",
+
+    projectId:
+        "al-awn-blood-fighters",
+
+    storageBucket:
+        "al-awn-blood-fighters.firebasestorage.app",
+
+    messagingSenderId:
+        "299061496611",
+
+    appId:
+        "1:299061496611:web:4762f74dbf311cd57f1a96",
+
+    measurementId:
+        "G-D31EXKJWQ3"
+
+};
+
+
+
+/* =========================================
+   INITIALIZE FIREBASE
+   ========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+
+/* =========================================
+   CURRENT USER
+   ========================================= */
+
+let currentUser = null;
+
+
+/*
+   Firebase Login state পাওয়া পর্যন্ত
+   অপেক্ষা করবে।
+*/
+
+onAuthStateChanged(
+    auth,
+    user => {
+
+        currentUser = user;
+
+    }
+);
+
+
+
+/* =========================================
+   OPEN MESSAGE CHAT
+   ========================================= */
+
+function openMessageChat() {
+
+
+    /*
+       প্রথমে Firebase Auth-এর
+       logged-in user পরীক্ষা।
+    */
+
+    if (currentUser) {
+
+        const uid =
+            currentUser.uid;
+
+
+        window.location.href =
+            "message.html?uid=" +
+            encodeURIComponent(uid);
+
+
+        return;
+
+    }
+
+
+
+    /*
+       Firebase Auth state এখনও
+       load না হয়ে থাকলে কিছুক্ষণ
+       অপেক্ষা করবে।
+    */
+
+    let count = 0;
+
+
+    const waitForUser =
+        setInterval(
+            function() {
+
+
+                count++;
+
+
+                if (currentUser) {
+
+                    clearInterval(
+                        waitForUser
+                    );
+
+
+                    const uid =
+                        currentUser.uid;
+
+
+                    window.location.href =
+                        "message.html?uid=" +
+                        encodeURIComponent(uid);
+
+                    return;
+
+                }
+
+
+                /*
+                   5 সেকেন্ডের মধ্যে
+                   user পাওয়া না গেলে
+                   Login প্রয়োজন।
+                */
+
+                if (count >= 50) {
+
+                    clearInterval(
+                        waitForUser
+                    );
+
+
+                    alert(
+                        "আপনার Login তথ্য পাওয়া যায়নি। আবার Login করুন।"
+                    );
+
+                }
+
+            },
+            100
+        );
+
+}
+
+
+
+/* =========================================
+   SEND COMMAND TO MIT APP
+   ========================================= */
 
 function sendCommand(command) {
 
@@ -596,7 +778,9 @@ function sendCommand(command) {
         window.AppInventor.setWebViewString
     ) {
 
-        window.AppInventor.setWebViewString(command);
+        window.AppInventor.setWebViewString(
+            command
+        );
 
         return;
 
@@ -604,18 +788,22 @@ function sendCommand(command) {
 
 
     /*
-     * Browser-এ পরীক্ষা করলে
-     * command দেখাবে।
-     */
+       Browser-এ পরীক্ষা করলে
+       console-এ command দেখাবে।
+    */
 
-    console.log("App Inventor Command:", command);
+    console.log(
+        "App Inventor Command:",
+        command
+    );
 
 }
 
 
-/* ============================= */
-/* BACK */
-/* ============================= */
+
+/* =========================================
+   BACK
+   ========================================= */
 
 function goBack() {
 
