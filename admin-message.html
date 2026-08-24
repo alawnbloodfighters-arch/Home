@@ -44,6 +44,11 @@ body {
     text-size-adjust: 100%;
 }
 
+
+/* ==============================
+   HEADER
+============================== */
+
 .header {
 
     width: 100%;
@@ -62,7 +67,13 @@ body {
     font-size: 21px;
 
     font-weight: bold;
+
 }
+
+
+/* ==============================
+   CONTAINER
+============================== */
 
 .container {
 
@@ -75,6 +86,11 @@ body {
     padding: 12px;
 }
 
+
+/* ==============================
+   TITLE
+============================== */
+
 .title {
 
     font-size: 20px;
@@ -84,7 +100,13 @@ body {
     margin-bottom: 12px;
 
     color: #222;
+
 }
+
+
+/* ==============================
+   STATUS
+============================== */
 
 .loading,
 .empty,
@@ -99,12 +121,19 @@ body {
     font-size: 15px;
 
     line-height: 1.6;
+
 }
 
 .error {
 
     color: #c62828;
+
 }
+
+
+/* ==============================
+   USER CARD
+============================== */
 
 .user-card {
 
@@ -128,17 +157,26 @@ body {
         0 3px 12px rgba(0,0,0,0.10);
 
     cursor: pointer;
+
+    transition: transform .1s;
+
 }
 
 .user-card:active {
 
     transform: scale(.98);
+
 }
+
+
+/* ==============================
+   AVATAR
+============================== */
 
 .avatar {
 
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
 
     flex-shrink: 0;
 
@@ -154,28 +192,55 @@ body {
 
     justify-content: center;
 
-    font-size: 22px;
+    font-size: 23px;
 
     font-weight: bold;
+
 }
+
+
+/* ==============================
+   USER INFO
+============================== */
 
 .user-info {
 
     flex: 1;
 
     min-width: 0;
+
 }
+
 
 .user-name {
 
-    font-size: 16px;
+    font-size: 17px;
 
     font-weight: bold;
 
     color: #222;
 
     margin-bottom: 4px;
+
 }
+
+
+.user-uid {
+
+    font-size: 10px;
+
+    color: #999;
+
+    margin-bottom: 4px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
 
 .last-message {
 
@@ -188,7 +253,13 @@ body {
     overflow: hidden;
 
     text-overflow: ellipsis;
+
 }
+
+
+/* ==============================
+   TIME
+============================== */
 
 .message-time {
 
@@ -200,10 +271,17 @@ body {
 
 }
 
+
+/* ==============================
+   UNREAD
+============================== */
+
 .unread {
 
     background: #e8f8f5;
+
 }
+
 
 </style>
 
@@ -213,12 +291,21 @@ body {
 <body>
 
 
+<!-- ==============================
+     HEADER
+============================== -->
+
 <div class="header">
 
     💬 AABF Team Messages
 
 </div>
 
+
+
+<!-- ==============================
+     MAIN
+============================== -->
 
 <div class="container">
 
@@ -247,7 +334,7 @@ body {
 
 
 /* =========================================
-   FIREBASE
+   FIREBASE APP
 ========================================= */
 
 import {
@@ -257,6 +344,10 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
+/* =========================================
+   FIREBASE AUTH
+========================================= */
+
 import {
     getAuth,
     onAuthStateChanged
@@ -264,6 +355,10 @@ import {
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+/* =========================================
+   FIREBASE DATABASE
+========================================= */
 
 import {
     getDatabase,
@@ -301,6 +396,7 @@ const firebaseConfig = {
 
     measurementId:
         "G-D31EXKJWQ3"
+
 };
 
 
@@ -395,7 +491,53 @@ function formatTime(timestamp) {
 
 
 /* =========================================
-   LOAD ALL CHATS
+   CREATE ERROR
+========================================= */
+
+function showError(text) {
+
+    userList.innerHTML = "";
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "error";
+
+    div.textContent =
+        text;
+
+    userList.appendChild(div);
+
+}
+
+
+
+/* =========================================
+   CREATE EMPTY
+========================================= */
+
+function showEmpty() {
+
+    userList.innerHTML = "";
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "empty";
+
+    div.textContent =
+        "এখনো কোনো User মেসেজ করেনি।";
+
+    userList.appendChild(div);
+
+}
+
+
+
+/* =========================================
+   LOAD ALL USER CHATS
 ========================================= */
 
 function loadChats() {
@@ -417,25 +559,12 @@ function loadChats() {
                 snapshot.val();
 
 
-            userList.innerHTML = "";
-
-
             if (!data) {
 
-                const empty =
-                    document.createElement("div");
-
-                empty.className =
-                    "empty";
-
-                empty.textContent =
-                    "এখনো কোনো User মেসেজ করেনি।";
-
-                userList.appendChild(
-                    empty
-                );
+                showEmpty();
 
                 return;
+
             }
 
 
@@ -443,13 +572,17 @@ function loadChats() {
 
 
             /*
-             * messages/
-             *     USER_UID/
-             *         messageID/
-             *             text
-             *             senderUid
-             *             timestamp
+             * DATABASE STRUCTURE:
+             *
+             * messages
+             *    USER_UID
+             *       MESSAGE_ID
+             *           text
+             *           senderUid
+             *           senderType
+             *           timestamp
              */
+
 
             Object.entries(data)
                 .forEach(
@@ -481,9 +614,17 @@ function loadChats() {
                          */
 
                         messageArray.sort(
+
                             (a, b) =>
-                                (b.timestamp || 0) -
-                                (a.timestamp || 0)
+
+                                (
+                                    b.timestamp || 0
+                                )
+                                -
+                                (
+                                    a.timestamp || 0
+                                )
+
                         );
 
 
@@ -500,7 +641,10 @@ function loadChats() {
                                 latest,
 
                             timestamp:
-                                latest.timestamp || 0
+                                latest.timestamp || 0,
+
+                            count:
+                                messageArray.length
 
                         });
 
@@ -513,26 +657,18 @@ function loadChats() {
              */
 
             users.sort(
+
                 (a, b) =>
+
                     b.timestamp -
                     a.timestamp
+
             );
 
 
             if (users.length === 0) {
 
-                const empty =
-                    document.createElement("div");
-
-                empty.className =
-                    "empty";
-
-                empty.textContent =
-                    "এখনো কোনো User মেসেজ করেনি।";
-
-                userList.appendChild(
-                    empty
-                );
+                showEmpty();
 
                 return;
 
@@ -540,17 +676,38 @@ function loadChats() {
 
 
             /*
-             * USER CARD
+             * CLEAR LIST
+             */
+
+            userList.innerHTML = "";
+
+
+            /*
+             * CREATE USER CARDS
              */
 
             users.forEach(
+
                 user => {
 
+
                     const card =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
+
 
                     card.className =
                         "user-card";
+
+
+                    /*
+                     * সর্বশেষ মেসেজ
+                     */
+
+                    const latestText =
+                        user.latest.text ||
+                        "মেসেজ";
 
 
                     /*
@@ -558,7 +715,9 @@ function loadChats() {
                      */
 
                     const avatar =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     avatar.className =
                         "avatar";
@@ -568,18 +727,26 @@ function loadChats() {
 
 
                     /*
-                     * Info
+                     * User Info
                      */
 
                     const info =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     info.className =
                         "user-info";
 
 
+                    /*
+                     * User Name
+                     */
+
                     const name =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     name.className =
                         "user-name";
@@ -588,39 +755,63 @@ function loadChats() {
                         "User";
 
 
+                    /*
+                     * UID
+                     */
+
+                    const uidText =
+                        document.createElement(
+                            "div"
+                        );
+
+                    uidText.className =
+                        "user-uid";
+
+                    uidText.textContent =
+                        user.uid;
+
+
+                    /*
+                     * Last Message
+                     */
+
                     const lastMessage =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     lastMessage.className =
                         "last-message";
 
 
-                    const senderIsAdmin =
+                    if (
                         ADMIN_UIDS.includes(
                             user.latest.senderUid
-                        );
-
-
-                    if (senderIsAdmin) {
+                        )
+                    ) {
 
                         lastMessage.textContent =
                             "কর্তৃপক্ষ: " +
-                            (
-                                user.latest.text ||
-                                ""
-                            );
+                            latestText;
 
                     } else {
 
                         lastMessage.textContent =
-                            user.latest.text ||
-                            "";
+                            latestText;
 
                     }
 
 
+                    /*
+                     * Info append
+                     */
+
                     info.appendChild(
                         name
+                    );
+
+                    info.appendChild(
+                        uidText
                     );
 
                     info.appendChild(
@@ -633,7 +824,9 @@ function loadChats() {
                      */
 
                     const time =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     time.className =
                         "message-time";
@@ -645,7 +838,7 @@ function loadChats() {
 
 
                     /*
-                     * Card
+                     * Card append
                      */
 
                     card.appendChild(
@@ -666,7 +859,9 @@ function loadChats() {
                      */
 
                     card.addEventListener(
+
                         "click",
+
                         function() {
 
                             window.location.href =
@@ -676,39 +871,35 @@ function loadChats() {
                                 );
 
                         }
+
                     );
 
+
+                    /*
+                     * Add card
+                     */
 
                     userList.appendChild(
                         card
                     );
 
                 }
+
             );
 
         },
 
+
         error => {
 
             console.error(
-                "Firebase Error:",
+                "Firebase Messages Error:",
                 error
             );
 
 
-            userList.innerHTML = "";
-
-            const errorDiv =
-                document.createElement("div");
-
-            errorDiv.className =
-                "error";
-
-            errorDiv.textContent =
-                "মেসেজ লোড করা যাচ্ছে না।";
-
-            userList.appendChild(
-                errorDiv
+            showError(
+                "মেসেজ লোড করা যাচ্ছে না। Firebase Rules অথবা Login পরীক্ষা করুন।"
             );
 
         }
@@ -729,59 +920,45 @@ onAuthStateChanged(
 
     user => {
 
-        if (!user) {
-
-            userList.innerHTML = "";
-
-            const error =
-                document.createElement("div");
-
-            error.className =
-                "error";
-
-            error.textContent =
-                "Admin Login করা হয়নি।";
-
-            userList.appendChild(
-                error
-            );
-
-            return;
-        }
-
 
         /*
-         * শুধুমাত্র ২ জন Admin
+         * LOGIN নেই
          */
 
-        if (
-            !ADMIN_UIDS.includes(
-                user.uid
-            )
-        ) {
+        if (!user) {
 
-            userList.innerHTML = "";
-
-            const error =
-                document.createElement("div");
-
-            error.className =
-                "error";
-
-            error.textContent =
-                "এই পেজ শুধুমাত্র Admin-এর জন্য।";
-
-            userList.appendChild(
-                error
+            showError(
+                "Admin Login করা হয়নি।"
             );
 
             return;
+
         }
 
 
         /*
-         * Admin হলে
-         * সব User-এর chat load হবে
+         * ADMIN CHECK
+         */
+
+        const isAdmin =
+            ADMIN_UIDS.includes(
+                user.uid
+            );
+
+
+        if (!isAdmin) {
+
+            showError(
+                "এই পেজ শুধুমাত্র Admin-এর জন্য।"
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * ADMIN OK
          */
 
         loadChats();
@@ -789,6 +966,7 @@ onAuthStateChanged(
     }
 
 );
+
 
 </script>
 
