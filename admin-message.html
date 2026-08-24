@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>AABF Admin Messages</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
+
+    background: #eeeae2;
+}
+
+
+/* ==============================
+   HEADER
+   ============================== */
+
+.header {
+
+    height: 58px;
+
+    background: #086b61;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   USER LIST
+   ============================== */
+
+.user-list {
+
+    position: absolute;
+
+    top: 58px;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    overflow-y: auto;
+
+    padding: 10px;
+}
+
+
+/* USER CARD */
+
+.user-card {
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 13px;
+
+    margin-bottom: 10px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.10);
+
+    cursor: pointer;
+}
+
+
+.user-card:active {
+
+    transform: scale(.98);
+}
+
+
+.user-title {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #086b61;
+
+    margin-bottom: 5px;
+}
+
+
+.user-last {
+
+    font-size: 14px;
+
+    color: #555;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.user-time {
+
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    color: #888;
+
+    text-align: right;
+}
+
+
+/* ==============================
+   LOADING / EMPTY
+   ============================== */
+
+.status {
+
+    text-align: center;
+
+    margin-top: 60px;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+/* ==============================
+   CHAT WINDOW
+   ============================== */
+
+.chat-window {
+
+    display: none;
+
+    position: absolute;
+
+    top: 58px;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    background: #eeeae2;
+}
+
+
+/* CHAT HEADER */
+
+.chat-header {
+
+    height: 52px;
+
+    background: white;
+
+    border-bottom: 1px solid #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 10px;
+}
+
+
+.back-btn {
+
+    width: 42px;
+
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+
+.chat-title {
+
+    flex: 1;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #086b61;
+}
+
+
+/* CHAT */
+
+.chat {
+
+    position: absolute;
+
+    top: 52px;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 68px;
+
+    overflow-y: auto;
+
+    padding: 12px 10px;
+}
+
+
+/* MESSAGE */
+
+.message {
+
+    max-width: 78%;
+
+    padding: 9px 13px;
+
+    margin-bottom: 9px;
+
+    border-radius: 13px;
+
+    font-size: 16px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+
+.admin {
+
+    background: #d7ffc9;
+
+    margin-left: auto;
+
+    border-top-right-radius: 4px;
+}
+
+
+.user {
+
+    background: white;
+
+    margin-right: auto;
+
+    border-top-left-radius: 4px;
+}
+
+
+.sender-name {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #086b61;
+
+    margin-bottom: 3px;
+}
+
+
+.time {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #777;
+
+    text-align: right;
+}
+
+
+/* ==============================
+   INPUT
+   ============================== */
+
+.chat-input {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 68px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    padding: 9px 10px;
+
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+}
+
+
+#messageInput {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 48px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 25px;
+
+    padding: 0 15px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    font-family:
+        Arial,
+        "Noto Sans Bengali",
+        sans-serif;
+}
+
+
+#sendBtn {
+
+    flex: 0 0 105px;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: #086b61;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+#sendBtn:disabled {
+
+    opacity: .6;
+}
+
+
+/* ==============================
+   MOBILE
+   ============================== */
+
+@media (max-width: 360px) {
+
+    .header {
+
+        font-size: 19px;
+    }
+
+    .message {
+
+        font-size: 15px;
+    }
+
+    #sendBtn {
+
+        flex-basis: 95px;
+
+        font-size: 14px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     MAIN HEADER
+     ============================== -->
+
+<div class="header">
+
+    AABF Team — Messages
+
+</div>
+
+
+<!-- ==============================
+     USER LIST
+     ============================== -->
+
+<div
+    id="userList"
+    class="user-list"
+>
+
+    <div class="status">
+
+        মেসেজ লোড হচ্ছে...
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     CHAT WINDOW
+     ============================== -->
+
+<div
+    id="chatWindow"
+    class="chat-window"
+>
+
+
+    <div class="chat-header">
+
+        <button
+            id="backBtn"
+            class="back-btn"
+        >
+
+            ←
+
+        </button>
+
+
+        <div
+            id="chatTitle"
+            class="chat-title"
+        >
+
+            Chat
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="chat"
+        class="chat"
+    >
+
+        <div class="status">
+
+            মেসেজ লোড হচ্ছে...
+
+        </div>
+
+    </div>
+
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="messageInput"
+            placeholder="Reply লিখুন"
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+
+        <button
+            id="sendBtn"
+        >
+
+            Send
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script type="module">
+
+
+/* =========================================
+   FIREBASE
+   ========================================= */
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getDatabase,
+    ref,
+    push,
+    set,
+    onValue,
+    query,
+    orderByChild,
+    serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+
+/* =========================================
+   FIREBASE CONFIG
+   ========================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
+
+    authDomain:
+        "al-awn-blood-fighters.firebaseapp.com",
+
+    projectId:
+        "al-awn-blood-fighters",
+
+    storageBucket:
+        "al-awn-blood-fighters.firebasestorage.app",
+
+    messagingSenderId:
+        "299061496611",
+
+    appId:
+        "1:299061496611:web:4762f74dbf311cd57f1a96",
+
+    measurementId:
+        "G-D31EXKJWQ3"
+
+};
+
+
+
+/* =========================================
+   INITIALIZE
+   ========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getDatabase(app);
+
+
+
+/* =========================================
+   ADMIN UID
+   ========================================= */
+
+const ADMIN_UIDS = [
+
+    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
+
+    "y3HwNswW8wYIi6GOEbZauIhcyis1"
+
+];
+
+
+
+/* =========================================
+   ELEMENTS
+   ========================================= */
+
+const userList =
+    document.getElementById(
+        "userList"
+    );
+
+
+const chatWindow =
+    document.getElementById(
+        "chatWindow"
+    );
+
+
+const chat =
+    document.getElementById(
+        "chat"
+    );
+
+
+const chatTitle =
+    document.getElementById(
+        "chatTitle"
+    );
+
+
+const backBtn =
+    document.getElementById(
+        "backBtn"
+    );
+
+
+const input =
+    document.getElementById(
+        "messageInput"
+    );
+
+
+const sendBtn =
+    document.getElementById(
+        "sendBtn"
+    );
+
+
+
+/* =========================================
+   CURRENT ADMIN
+   ========================================= */
+
+let currentAdmin = null;
+
+
+/* বর্তমানে যে User-এর chat খোলা */
+
+let selectedUserUID = null;
+
+
+/* =========================================
+   FORMAT TIME
+   ========================================= */
+
+function formatTime(timestamp) {
+
+    if (!timestamp) {
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(timestamp);
+
+
+    let hours =
+        date.getHours();
+
+
+    const minutes =
+        String(
+            date.getMinutes()
+        ).padStart(2, "0");
+
+
+    const ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
+
+
+    hours =
+        hours % 12 || 12;
+
+
+    return (
+        hours +
+        ":" +
+        minutes +
+        " " +
+        ampm
+    );
+
+}
+
+
+
+/* =========================================
+   SHOW STATUS
+   ========================================= */
+
+function showStatus(text) {
+
+    userList.innerHTML = "";
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.className = "status";
+
+    div.textContent = text;
+
+    userList.appendChild(div);
+
+}
+
+
+
+/* =========================================
+   LOAD ALL USER CHATS
+   ========================================= */
+
+function loadUserList() {
+
+    const messagesRef =
+        ref(
+            db,
+            "messages"
+        );
+
+
+    onValue(
+        messagesRef,
+
+        snapshot => {
+
+            const data =
+                snapshot.val();
+
+
+            userList.innerHTML = "";
+
+
+            if (!data) {
+
+                showStatus(
+                    "এখনো কোনো User মেসেজ করেনি।"
+                );
+
+                return;
+
+            }
+
+
+            const users = [];
+
+
+            Object.entries(data)
+                .forEach(
+                    ([uid, messages]) => {
+
+                        if (!messages) {
+
+                            return;
+
+                        }
+
+
+                        const messageArray =
+                            Object.values(
+                                messages
+                            );
+
+
+                        if (
+                            !messageArray.length
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        messageArray.sort(
+                            (a, b) =>
+                                (b.timestamp || 0) -
+                                (a.timestamp || 0)
+                        );
+
+
+                        const latest =
+                            messageArray[0];
+
+
+                        users.push({
+
+                            uid:
+                                uid,
+
+                            latest:
+                                latest
+
+                        });
+
+                    }
+                );
+
+
+            users.sort(
+                (a, b) =>
+                    (b.latest.timestamp || 0) -
+                    (a.latest.timestamp || 0)
+            );
+
+
+            if (!users.length) {
+
+                showStatus(
+                    "এখনো কোনো User মেসেজ করেনি।"
+                );
+
+                return;
+
+            }
+
+
+            users.forEach(
+                user => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "user-card";
+
+
+                    const title =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    title.className =
+                        "user-title";
+
+
+                    title.textContent =
+                        "👤 User";
+
+
+                    const last =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    last.className =
+                        "user-last";
+
+
+                    last.textContent =
+                        user.latest.text ||
+                        "মেসেজ";
+
+
+                    const time =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    time.className =
+                        "user-time";
+
+
+                    time.textContent =
+                        formatTime(
+                            user.latest.timestamp
+                        );
+
+
+                    card.appendChild(
+                        title
+                    );
+
+
+                    card.appendChild(
+                        last
+                    );
+
+
+                    card.appendChild(
+                        time
+                    );
+
+
+                    card.addEventListener(
+                        "click",
+                        () => {
+
+                            openChat(
+                                user.uid
+                            );
+
+                        }
+                    );
+
+
+                    userList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        },
+
+        error => {
+
+            console.error(
+                error
+            );
+
+
+            showStatus(
+                "User list লোড করা যাচ্ছে না।"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   OPEN CHAT
+   ========================================= */
+
+function openChat(uid) {
+
+    selectedUserUID = uid;
+
+
+    userList.style.display =
+        "none";
+
+
+    chatWindow.style.display =
+        "block";
+
+
+    chatTitle.textContent =
+        "👤 User Chat";
+
+
+    loadChat(uid);
+
+}
+
+
+
+/* =========================================
+   LOAD CHAT
+   ========================================= */
+
+function loadChat(uid) {
+
+    chat.innerHTML = "";
+
+
+    const messagesRef =
+        ref(
+            db,
+            "messages/" + uid
+        );
+
+
+    const messagesQuery =
+        query(
+            messagesRef,
+            orderByChild("timestamp")
+        );
+
+
+    onValue(
+        messagesQuery,
+
+        snapshot => {
+
+            chat.innerHTML = "";
+
+
+            const data =
+                snapshot.val();
+
+
+            if (!data) {
+
+                const status =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                status.className =
+                    "status";
+
+
+                status.textContent =
+                    "এখনো কোনো মেসেজ নেই।";
+
+
+                chat.appendChild(
+                    status
+                );
+
+
+                return;
+
+            }
+
+
+            const messages =
+                Object.values(
+                    data
+                ).sort(
+                    (a, b) =>
+                        (a.timestamp || 0) -
+                        (b.timestamp || 0)
+                );
+
+
+            messages.forEach(
+                message => {
+
+                    const box =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    const isAdmin =
+                        ADMIN_UIDS.includes(
+                            message.senderUid
+                        );
+
+
+                    box.className =
+                        isAdmin
+                            ? "message admin"
+                            : "message user";
+
+
+                    const name =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    name.className =
+                        "sender-name";
+
+
+                    name.textContent =
+                        isAdmin
+                            ? "কর্তৃপক্ষ"
+                            : "User";
+
+
+                    const text =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    text.textContent =
+                        message.text || "";
+
+
+                    const time =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    time.className =
+                        "time";
+
+
+                    time.textContent =
+                        formatTime(
+                            message.timestamp
+                        );
+
+
+                    box.appendChild(
+                        name
+                    );
+
+
+                    box.appendChild(
+                        text
+                    );
+
+
+                    box.appendChild(
+                        time
+                    );
+
+
+                    chat.appendChild(
+                        box
+                    );
+
+                }
+            );
+
+
+            setTimeout(
+                () => {
+
+                    chat.scrollTop =
+                        chat.scrollHeight;
+
+                },
+                50
+            );
+
+        },
+
+        error => {
+
+            console.error(
+                error
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   SEND ADMIN REPLY
+   ========================================= */
+
+async function sendMessage() {
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    if (!currentAdmin) {
+
+        alert(
+            "Admin Login পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedUserUID) {
+
+        alert(
+            "আগে একটি User Chat নির্বাচন করুন।"
+        );
+
+        return;
+
+    }
+
+
+    sendBtn.disabled = true;
+
+    sendBtn.textContent =
+        "Sending...";
+
+
+    try {
+
+        const messageRef =
+            push(
+                ref(
+                    db,
+                    "messages/" +
+                    selectedUserUID
+                )
+            );
+
+
+        await set(
+            messageRef,
+            {
+
+                text:
+                    text,
+
+                senderUid:
+                    currentAdmin.uid,
+
+                senderType:
+                    "admin",
+
+                timestamp:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Send Error:",
+            error
+        );
+
+
+        alert(
+            "Reply পাঠানো যায়নি।"
+        );
+
+    }
+
+
+    finally {
+
+        sendBtn.disabled = false;
+
+        sendBtn.textContent =
+            "Send";
+
+    }
+
+}
+
+
+
+/* =========================================
+   SEND BUTTON
+   ========================================= */
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+
+/* =========================================
+   ENTER
+   ========================================= */
+
+input.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   BACK TO USER LIST
+   ========================================= */
+
+backBtn.addEventListener(
+    "click",
+    () => {
+
+        selectedUserUID = null;
+
+
+        chatWindow.style.display =
+            "none";
+
+
+        userList.style.display =
+            "block";
+
+
+        input.value = "";
+
+    }
+);
+
+
+
+/* =========================================
+   AUTH
+   ========================================= */
+
+onAuthStateChanged(
+    auth,
+
+    user => {
+
+        if (!user) {
+
+            currentAdmin = null;
+
+            showStatus(
+                "Admin Login প্রয়োজন।"
+            );
+
+            return;
+
+        }
+
+
+        /*
+           শুধুমাত্র নির্ধারিত দুই Admin
+           এই page ব্যবহার করতে পারবে।
+        */
+
+        if (
+            !ADMIN_UIDS.includes(
+                user.uid
+            )
+        ) {
+
+            currentAdmin = null;
+
+            showStatus(
+                "❌ আপনার Admin access নেই।"
+            );
+
+            return;
+
+        }
+
+
+        currentAdmin = user;
+
+
+        /*
+           Admin verified.
+        */
+
+        loadUserList();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
