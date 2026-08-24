@@ -148,12 +148,6 @@ if (!uid) {
 }  
 
 
-console.log(  
-    "Profile UID:",  
-    uid  
-);  
-
-
 try {  
 
     const userRef =  
@@ -167,16 +161,11 @@ try {
         await get(userRef);  
 
 
-    // =================================  
-    // PROFILE NOT FOUND  
-    // =================================  
-
     if (!snapshot.exists()) {  
 
         console.error(  
-            "Firebase-এ users/" +  
-            uid +  
-            " পাওয়া যায়নি।"  
+            "users/" + uid +  
+            " এ কোনো profile পাওয়া যায়নি।"  
         );  
 
         return;  
@@ -205,19 +194,13 @@ try {
         );  
 
 
-    if (userName) {  
+    if (  
+        userName &&  
+        user.name  
+    ) {  
 
-        if (user.name) {  
-
-            userName.textContent =  
-                user.name;  
-
-        } else {  
-
-            userName.textContent =  
-                "ব্যবহারকারী";  
-
-        }  
+        userName.textContent =  
+            user.name;  
 
     }  
 
@@ -233,19 +216,13 @@ try {
         );  
 
 
-    if (userAABFID) {  
+    if (  
+        userAABFID &&  
+        user.aabfID  
+    ) {  
 
-        if (user.aabfID) {  
-
-            userAABFID.textContent =  
-                user.aabfID;  
-
-        } else {  
-
-            userAABFID.textContent =  
-                "ID পাওয়া যায়নি";  
-
-        }  
+        userAABFID.textContent =  
+            user.aabfID;  
 
     }  
 
@@ -286,60 +263,38 @@ catch(error) {
 }
 
 // =========================================
-// FIRST: URL UID
-// =========================================
-
-if (urlUID) {
-
-console.log(  
-    "Login থেকে UID পাওয়া গেছে:",  
-    urlUID  
-);  
-
-
-// URL-এর UID দিয়েই সরাসরি profile load  
-loadUserProfile(  
-    urlUID  
-);
-
-}
-
-// =========================================
-// FALLBACK: FIREBASE AUTH USER
+// AUTH STATE
 // =========================================
 
 onAuthStateChanged(
 auth,
 function(user) {
 
-// URL থেকে UID থাকলে  
-    // আবার load করার দরকার নেই  
+// Login থেকে UID এসেছে  
     if (urlUID) {  
+
+        loadUserProfile(  
+            urlUID  
+        );  
 
         return;  
 
     }  
 
 
-    // Firebase login user  
+    // Firebase current user আছে  
     if (user) {  
-
-        console.log(  
-            "Firebase Auth UID:",  
-            user.uid  
-        );  
-
 
         loadUserProfile(  
             user.uid  
         );  
 
-
         return;  
 
     }  
 
 
+    // কোনো login নেই  
     console.log(  
         "কোনো logged-in user পাওয়া যায়নি।"  
     );  
