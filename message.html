@@ -16,7 +16,6 @@
 
 <title>কর্তৃপক্ষকে মেসেজ দিন</title>
 
-
 <style>
 
 * {
@@ -32,13 +31,10 @@ html {
 }
 
 body {
-
     width: 100%;
     height: 100%;
-
     margin: 0;
     padding: 0;
-
     overflow: hidden;
 
     font-family:
@@ -52,13 +48,7 @@ body {
     text-size-adjust: 100%;
 }
 
-
-/* ==============================
-   HEADER
-   ============================== */
-
 .header {
-
     width: 100%;
     height: 58px;
 
@@ -77,13 +67,7 @@ body {
     white-space: nowrap;
 }
 
-
-/* ==============================
-   CHAT
-   ============================== */
-
 .chat {
-
     position: absolute;
 
     top: 58px;
@@ -99,13 +83,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-
-/* ==============================
-   MESSAGE
-   ============================== */
-
 .message {
-
     max-width: 78%;
 
     padding: 9px 13px;
@@ -115,45 +93,27 @@ body {
     border-radius: 13px;
 
     font-size: 16px;
-
     line-height: 1.45;
 
     word-break: break-word;
 }
 
-
-/* ADMIN */
-
 .admin {
-
     background: white;
-
     margin-right: auto;
-
     border-top-left-radius: 4px;
 }
 
-
-/* USER */
-
 .user {
-
     background: #d7ffc9;
-
     margin-left: auto;
-
     border-top-right-radius: 4px;
 }
 
-
-/* NAME */
-
 .sender-name {
-
     display: block;
 
     font-size: 11px;
-
     font-weight: bold;
 
     color: #086b61;
@@ -161,11 +121,7 @@ body {
     margin-bottom: 3px;
 }
 
-
-/* TIME */
-
 .time {
-
     display: block;
 
     margin-top: 3px;
@@ -177,13 +133,7 @@ body {
     text-align: right;
 }
 
-
-/* ==============================
-   EMPTY
-   ============================== */
-
 .empty {
-
     text-align: center;
 
     color: #888;
@@ -193,29 +143,7 @@ body {
     font-size: 14px;
 }
 
-
-/* ==============================
-   LOADING
-   ============================== */
-
-.loading {
-
-    text-align: center;
-
-    color: #777;
-
-    margin-top: 60px;
-
-    font-size: 14px;
-}
-
-
-/* ==============================
-   ERROR
-   ============================== */
-
 .error {
-
     text-align: center;
 
     color: #c62828;
@@ -227,13 +155,7 @@ body {
     line-height: 1.6;
 }
 
-
-/* ==============================
-   INPUT
-   ============================== */
-
 .input-area {
-
     position: absolute;
 
     left: 0;
@@ -247,7 +169,6 @@ body {
     padding: 9px 10px;
 
     display: flex;
-
     align-items: center;
 
     gap: 8px;
@@ -255,11 +176,8 @@ body {
     border-top: 1px solid #ddd;
 }
 
-
 #messageInput {
-
     flex: 1;
-
     min-width: 0;
 
     height: 48px;
@@ -280,23 +198,13 @@ body {
     outline: none;
 
     -webkit-appearance: none;
-
-    transform: scale(1);
 }
 
-
 #messageInput:focus {
-
     border-color: #086b61;
 }
 
-
-/* ==============================
-   SEND
-   ============================== */
-
 #sendBtn {
-
     flex: 0 0 112px;
 
     height: 48px;
@@ -310,7 +218,6 @@ body {
     color: white;
 
     font-size: 15px;
-
     font-weight: bold;
 
     padding: 0;
@@ -320,93 +227,61 @@ body {
     -webkit-appearance: none;
 }
 
-
 #sendBtn:active {
-
     transform: scale(.97);
 }
 
-
 #sendBtn:disabled {
-
     opacity: .6;
-
     cursor: not-allowed;
 }
-
-
-/* ==============================
-   SMALL PHONE
-   ============================== */
 
 @media (max-width: 360px) {
 
     .header {
-
         height: 54px;
-
         font-size: 19px;
     }
 
     .chat {
-
         top: 54px;
-
         bottom: 64px;
-
         padding: 10px 8px;
     }
 
     .input-area {
-
         height: 64px;
-
         padding: 8px;
     }
 
     #messageInput {
-
         height: 44px;
-
         font-size: 15px;
     }
 
     #sendBtn {
-
         flex-basis: 100px;
-
         height: 44px;
-
         font-size: 14px;
     }
 
     .message {
-
         font-size: 15px;
     }
 }
 
-
-/* ==============================
-   EXTRA SMALL
-   ============================== */
-
 @media (max-width: 320px) {
 
     .header {
-
         font-size: 17px;
     }
 
     #sendBtn {
-
         flex-basis: 88px;
-
         font-size: 13px;
     }
 
     .message {
-
         max-width: 84%;
     }
 }
@@ -415,33 +290,19 @@ body {
 
 </head>
 
-
 <body>
 
-
-<!-- HEADER -->
-
 <div class="header">
-
     কর্তৃপক্ষকে মেসেজ দিন
-
 </div>
-
-
-<!-- CHAT -->
 
 <div id="chat" class="chat">
 
-    <div class="loading">
-
+    <div class="empty">
         মেসেজ লোড হচ্ছে...
-
     </div>
 
 </div>
-
-
-<!-- INPUT -->
 
 <div class="input-area">
 
@@ -455,38 +316,31 @@ body {
         spellcheck="false"
     >
 
-    <button
-        id="sendBtn"
-        disabled
-    >
-
+    <button id="sendBtn">
         Send
-
     </button>
 
 </div>
 
 
-
 <script type="module">
-
 
 /* =========================================
    FIREBASE
-   ========================================= */
+========================================= */
 
 import {
     initializeApp
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 
 import {
     getAuth,
     onAuthStateChanged
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 
 import {
     getDatabase,
@@ -497,14 +351,14 @@ import {
     query,
     orderByChild,
     serverTimestamp
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-
 /* =========================================
-   FIREBASE CONFIG
-   ========================================= */
+   CONFIG
+========================================= */
 
 const firebaseConfig = {
 
@@ -528,14 +382,12 @@ const firebaseConfig = {
 
     measurementId:
         "G-D31EXKJWQ3"
-
 };
-
 
 
 /* =========================================
    INITIALIZE
-   ========================================= */
+========================================= */
 
 const app =
     initializeApp(firebaseConfig);
@@ -547,10 +399,9 @@ const db =
     getDatabase(app);
 
 
-
 /* =========================================
    ADMIN UID
-   ========================================= */
+========================================= */
 
 const ADMIN_UIDS = [
 
@@ -561,10 +412,9 @@ const ADMIN_UIDS = [
 ];
 
 
-
 /* =========================================
    ELEMENTS
-   ========================================= */
+========================================= */
 
 const chat =
     document.getElementById("chat");
@@ -576,40 +426,31 @@ const sendBtn =
     document.getElementById("sendBtn");
 
 
+/* =========================================
+   URL UID
+========================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const targetUID =
+    params.get("uid");
+
 
 /* =========================================
    CURRENT USER
-   ========================================= */
+========================================= */
 
 let currentUser = null;
 
-
-
-/* =========================================
-   CURRENT CHAT UID
-   ========================================= */
-
-/*
-   User-এর ক্ষেত্রে:
-
-   Firebase Login UID
-   ↓
-   currentUser.uid
-   ↓
-   messages/currentUser.uid
-
-
-   তাই Home/Emergency page থেকে
-   UID পাঠানোর প্রয়োজন নেই।
-*/
-
-let chatUID = null;
-
+let isAdmin = false;
 
 
 /* =========================================
    ERROR
-   ========================================= */
+========================================= */
 
 function showError(text) {
 
@@ -627,43 +468,34 @@ function showError(text) {
 }
 
 
-
 /* =========================================
    TIME
-   ========================================= */
+========================================= */
 
 function formatTime(timestamp) {
 
     if (!timestamp) {
-
         return "";
-
     }
-
 
     const date =
         new Date(timestamp);
 
-
     let hours =
         date.getHours();
-
 
     const minutes =
         String(
             date.getMinutes()
         ).padStart(2, "0");
 
-
     const ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
-
     hours =
         hours % 12 || 12;
-
 
     return (
         hours +
@@ -676,15 +508,13 @@ function formatTime(timestamp) {
 }
 
 
-
 /* =========================================
    DISPLAY
-   ========================================= */
+========================================= */
 
 function displayMessages(data) {
 
     chat.innerHTML = "";
-
 
     if (!data) {
 
@@ -717,7 +547,7 @@ function displayMessages(data) {
             );
 
 
-    if (!messages.length) {
+    if (messages.length === 0) {
 
         const empty =
             document.createElement("div");
@@ -775,9 +605,7 @@ function displayMessages(data) {
             const time =
                 document.createElement("span");
 
-            time.className =
-                "time";
-
+            time.className = "time";
 
             time.textContent =
                 formatTime(
@@ -810,29 +638,23 @@ function displayMessages(data) {
 }
 
 
-
 /* =========================================
    LOAD CHAT
-   ========================================= */
+========================================= */
 
 function loadChat(uid) {
-
-    chatUID = uid;
-
 
     const messagesRef =
         ref(
             db,
-            "messages/" + chatUID
+            "messages/" + uid
         );
-
 
     const messagesQuery =
         query(
             messagesRef,
             orderByChild("timestamp")
         );
-
 
     onValue(
         messagesQuery,
@@ -862,10 +684,9 @@ function loadChat(uid) {
 }
 
 
-
 /* =========================================
    SEND MESSAGE
-   ========================================= */
+========================================= */
 
 async function sendMessage() {
 
@@ -874,9 +695,7 @@ async function sendMessage() {
 
 
     if (!text) {
-
         return;
-
     }
 
 
@@ -887,18 +706,29 @@ async function sendMessage() {
         );
 
         return;
-
     }
+
+
+    /*
+       User নিজের UID ব্যবহার করবে।
+
+       Admin User-এর chat-এ ঢুকলে
+       URL-এর UID ব্যবহার করবে।
+    */
+
+    const chatUID =
+        isAdmin
+            ? targetUID
+            : currentUser.uid;
 
 
     if (!chatUID) {
 
         alert(
-            "Chat এখনো প্রস্তুত হয়নি।"
+            "User ID পাওয়া যায়নি।"
         );
 
         return;
-
     }
 
 
@@ -910,6 +740,10 @@ async function sendMessage() {
 
     try {
 
+        /* ==============================
+           1. SAVE MESSAGE
+        ============================== */
+
         const messageRef =
             push(
                 ref(
@@ -918,6 +752,10 @@ async function sendMessage() {
                     chatUID
                 )
             );
+
+
+        const timestamp =
+            Date.now();
 
 
         await set(
@@ -931,16 +769,50 @@ async function sendMessage() {
                     currentUser.uid,
 
                 senderType:
-                    ADMIN_UIDS.includes(
-                        currentUser.uid
-                    )
+                    isAdmin
                         ? "admin"
                         : "user",
 
                 timestamp:
-                    serverTimestamp()
+                    timestamp
 
             }
+        );
+
+
+        /* ==============================
+           2. UPDATE ADMIN CHAT LIST
+        ============================== */
+
+        await set(
+
+            ref(
+                db,
+                "chatList/" +
+                chatUID
+            ),
+
+            {
+
+                uid:
+                    chatUID,
+
+                lastMessage:
+                    text,
+
+                lastSenderUid:
+                    currentUser.uid,
+
+                lastSenderType:
+                    isAdmin
+                        ? "admin"
+                        : "user",
+
+                timestamp:
+                    timestamp
+
+            }
+
         );
 
 
@@ -950,7 +822,6 @@ async function sendMessage() {
 
     }
 
-
     catch (error) {
 
         console.error(
@@ -958,13 +829,11 @@ async function sendMessage() {
             error
         );
 
-
         alert(
             "মেসেজ পাঠানো যায়নি। আবার চেষ্টা করুন।"
         );
 
     }
-
 
     finally {
 
@@ -978,10 +847,9 @@ async function sendMessage() {
 }
 
 
-
 /* =========================================
    SEND BUTTON
-   ========================================= */
+========================================= */
 
 sendBtn.addEventListener(
     "click",
@@ -989,10 +857,9 @@ sendBtn.addEventListener(
 );
 
 
-
 /* =========================================
    ENTER
-   ========================================= */
+========================================= */
 
 input.addEventListener(
     "keydown",
@@ -1012,12 +879,12 @@ input.addEventListener(
 );
 
 
-
 /* =========================================
    AUTH
-   ========================================= */
+========================================= */
 
 onAuthStateChanged(
+
     auth,
 
     user => {
@@ -1026,59 +893,87 @@ onAuthStateChanged(
 
             currentUser = null;
 
-            chatUID = null;
+            showError(
+                "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"
+            );
 
             sendBtn.disabled = true;
 
             input.disabled = true;
 
-            showError(
-                "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"
-            );
-
             return;
-
         }
 
-
-        /* ==============================
-           USER FOUND
-           ============================== */
 
         currentUser = user;
 
 
-        /*
-           সবচেয়ে গুরুত্বপূর্ণ অংশ:
-
-           Firebase Login করা User-এর
-           নিজের UID ব্যবহার হচ্ছে।
-
-           URL থেকে UID নেওয়া হচ্ছে না।
-        */
-
-        const userUID =
-            currentUser.uid;
+        isAdmin =
+            ADMIN_UIDS.includes(
+                user.uid
+            );
 
 
         /*
-           বর্তমানে এই page-এ
-           User chat খুলবে।
+           USER
         */
 
-        loadChat(userUID);
+        if (!isAdmin) {
+
+            /*
+               User URL UID না দিলেও
+               নিজের UID ব্যবহার করবে।
+            */
+
+            if (
+                targetUID &&
+                targetUID !== user.uid
+            ) {
+
+                showError(
+                    "এই Chat আপনার জন্য নয়।"
+                );
+
+                sendBtn.disabled = true;
+
+                input.disabled = true;
+
+                return;
+            }
+
+
+            loadChat(
+                user.uid
+            );
+
+            return;
+        }
 
 
         /*
-           Login করা User এখন
-           message পাঠাতে পারবে।
+           ADMIN
         */
 
-        input.disabled = false;
+        if (!targetUID) {
 
-        sendBtn.disabled = false;
+            showError(
+                "Admin-এর জন্য User Chat UID প্রয়োজন।"
+            );
+
+            sendBtn.disabled = true;
+
+            input.disabled = true;
+
+            return;
+        }
+
+
+        loadChat(
+            targetUID
+        );
 
     }
+
 );
 
 </script>
