@@ -601,25 +601,27 @@ body {
 
 /* =========================================
    FIREBASE APP
-   ========================================= */
+========================================= */
 
 import {
     initializeApp
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
     getAuth,
     onAuthStateChanged
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 
 /* =========================================
    FIREBASE CONFIG
-   ========================================= */
+========================================= */
 
 const firebaseConfig = {
 
@@ -649,8 +651,8 @@ const firebaseConfig = {
 
 
 /* =========================================
-   INITIALIZE
-   ========================================= */
+   INITIALIZE FIREBASE
+========================================= */
 
 const app =
     initializeApp(firebaseConfig);
@@ -661,8 +663,22 @@ const auth =
 
 
 /* =========================================
+   ADMIN UID
+========================================= */
+
+const ADMIN_UIDS = [
+
+    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
+
+    "y3HwNswW8wYIi6GOEbZauIhcyis1"
+
+];
+
+
+
+/* =========================================
    CURRENT USER
-   ========================================= */
+========================================= */
 
 let currentUser = null;
 
@@ -670,8 +686,14 @@ let authChecked = false;
 
 
 
+/* =========================================
+   AUTH STATE
+========================================= */
+
 onAuthStateChanged(
+
     auth,
+
     user => {
 
         currentUser = user;
@@ -679,13 +701,14 @@ onAuthStateChanged(
         authChecked = true;
 
     }
+
 );
 
 
 
 /* =========================================
    SEND COMMAND
-   ========================================= */
+========================================= */
 
 window.sendCommand =
 function(command) {
@@ -718,15 +741,16 @@ function(command) {
 
 /* =========================================
    OPEN MESSAGE CHAT
-   ========================================= */
+========================================= */
 
 window.openMessageChat =
 function() {
 
 
     /*
-       Firebase Auth state পাওয়া গেলে
-       current user's UID ব্যবহার হবে।
+       =====================================
+       CURRENT USER ALREADY AVAILABLE
+       =====================================
     */
 
     if (currentUser) {
@@ -734,6 +758,36 @@ function() {
         const uid =
             currentUser.uid;
 
+
+        /*
+           =================================
+           ADMIN
+           =================================
+
+           Admin Message AABF Team চাপলে
+           chatlist.html খুলবে।
+        */
+
+        if (
+            ADMIN_UIDS.includes(uid)
+        ) {
+
+            window.location.href =
+                "chatlist.html";
+
+            return;
+
+        }
+
+
+        /*
+           =================================
+           NORMAL USER
+           =================================
+
+           User নিজের UID দিয়ে
+           message.html খুলবে।
+        */
 
         window.location.href =
             "message.html?uid=" +
@@ -746,8 +800,9 @@ function() {
 
 
     /*
-       Auth state এখনও আসেনি।
-       সর্বোচ্চ ৫ সেকেন্ড অপেক্ষা।
+       =====================================
+       AUTH STATE এখনও CHECK হচ্ছে
+       =====================================
     */
 
     if (!authChecked) {
@@ -757,10 +812,15 @@ function() {
 
         const timer =
             setInterval(
+
                 function() {
 
                     attempts++;
 
+
+                    /*
+                       Auth পাওয়া গেছে
+                    */
 
                     if (currentUser) {
 
@@ -773,15 +833,40 @@ function() {
                             currentUser.uid;
 
 
+                        /*
+                           Admin
+                        */
+
+                        if (
+                            ADMIN_UIDS.includes(uid)
+                        ) {
+
+                            window.location.href =
+                                "chatlist.html";
+
+                            return;
+
+                        }
+
+
+                        /*
+                           User
+                        */
+
                         window.location.href =
                             "message.html?uid=" +
                             encodeURIComponent(uid);
-
 
                         return;
 
                     }
 
+
+
+                    /*
+                       Auth check শেষ,
+                       কিন্তু user নেই
+                    */
 
                     if (authChecked) {
 
@@ -799,6 +884,11 @@ function() {
                     }
 
 
+
+                    /*
+                       ৫ সেকেন্ডের বেশি অপেক্ষা নয়
+                    */
+
                     if (attempts >= 50) {
 
                         clearInterval(
@@ -807,13 +897,15 @@ function() {
 
 
                         alert(
-                            "Login তথ্য লোড হতে সমস্যা হয়েছে। আবার চেষ্টা করুন।"
+                            "Login তথ্য লোড হতে সমস্যা হয়েছে। আবার Login করুন।"
                         );
 
                     }
 
                 },
+
                 100
+
             );
 
         return;
@@ -821,6 +913,12 @@ function() {
     }
 
 
+
+    /*
+       =====================================
+       LOGIN করা নেই
+       =====================================
+    */
 
     alert(
         "আপনি Login করেননি।"
@@ -832,7 +930,7 @@ function() {
 
 /* =========================================
    BACK
-   ========================================= */
+========================================= */
 
 window.goBack =
 function() {
@@ -860,7 +958,9 @@ function() {
 
         window.history.back();
 
-    } else {
+    }
+
+    else {
 
         window.location.href =
             "index.html";
