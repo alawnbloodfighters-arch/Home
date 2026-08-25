@@ -259,6 +259,13 @@ body {
 .message-button {
 
     background: #16a63a;
+
+    /*
+     * Unread badge-এর জন্য
+     * button-কে relative করা হয়েছে
+     */
+
+    position: relative;
 }
 
 .facebook-button:active,
@@ -266,6 +273,50 @@ body {
 
     transform: scale(0.97);
 }
+
+
+/* =========================================
+   UNREAD BADGE
+========================================= */
+
+.unread-badge {
+
+    position: absolute;
+
+    top: -7px;
+    right: -7px;
+
+    min-width: 23px;
+    height: 23px;
+
+    padding: 0 6px;
+
+    background: #e60000;
+
+    color: white;
+
+    border-radius: 50%;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    border: 2px solid white;
+
+    z-index: 10;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   SMALL SCREEN
+========================================= */
 
 @media (max-width: 400px) {
 
@@ -373,6 +424,26 @@ body {
 
 }
 
+
+/* =========================================
+   VERY SMALL SCREEN
+========================================= */
+
+@media (max-width: 320px) {
+
+    .unread-badge {
+
+        top: -6px;
+        right: -6px;
+
+        min-width: 21px;
+        height: 21px;
+
+        font-size: 11px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -383,7 +454,9 @@ body {
 <div class="container">
 
 
-    <!-- HEADER -->
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <div class="header">
 
@@ -405,7 +478,9 @@ body {
 
 
 
-    <!-- ORGANIZATIONAL -->
+    <!-- =====================================
+         ORGANIZATIONAL
+    ====================================== -->
 
     <div class="section">
 
@@ -478,7 +553,9 @@ body {
 
 
 
-    <!-- BLOOD -->
+    <!-- =====================================
+         BLOOD
+    ====================================== -->
 
     <div class="section">
 
@@ -551,7 +628,9 @@ body {
 
 
 
-    <!-- MESSAGE -->
+    <!-- =====================================
+         MESSAGE
+    ====================================== -->
 
     <div class="message-section">
 
@@ -571,362 +650,4 @@ body {
         <!-- FACEBOOK -->
 
         <button
-            class="facebook-button"
-            onclick="sendCommand('OPEN_FACEBOOK')">
-
-            Open Facebook Page
-
-        </button>
-
-
-
-        <!-- MESSAGE AABF -->
-
-        <button
-            class="message-button"
-            onclick="openMessageChat()">
-
-            💬 Message AABF Team
-
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<script type="module">
-
-
-/* =========================================
-   FIREBASE APP
-========================================= */
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-
-/* =========================================
-   FIREBASE AUTH
-========================================= */
-
-import {
-    getAuth,
-    onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
-
-    authDomain:
-        "al-awn-blood-fighters.firebaseapp.com",
-
-    projectId:
-        "al-awn-blood-fighters",
-
-    storageBucket:
-        "al-awn-blood-fighters.firebasestorage.app",
-
-    messagingSenderId:
-        "299061496611",
-
-    appId:
-        "1:299061496611:web:4762f74dbf311cd57f1a96",
-
-    measurementId:
-        "G-D31EXKJWQ3"
-
-};
-
-
-/* =========================================
-   INITIALIZE FIREBASE
-========================================= */
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-
-/* =========================================
-   ADMIN UID
-========================================= */
-
-const ADMIN_UIDS = [
-
-    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
-
-    "y3HwNswW8wYIi6GOEbZauIhcyis1"
-
-];
-
-
-/* =========================================
-   CURRENT USER
-========================================= */
-
-let currentUser = null;
-
-let authChecked = false;
-
-
-/* =========================================
-   AUTH STATE
-========================================= */
-
-onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-        currentUser = user;
-
-        authChecked = true;
-
-    }
-
-);
-
-
-/* =========================================
-   SEND COMMAND TO APP INVENTOR
-========================================= */
-
-window.sendCommand =
-function(command) {
-
-    if (
-        window.AppInventor &&
-        typeof window.AppInventor.setWebViewString ===
-        "function"
-    ) {
-
-        window.AppInventor.setWebViewString(
-            command
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Browser-এ পরীক্ষা করলে
-     * console-এ command দেখাবে।
-     */
-
-    console.log(
-        "App Inventor Command:",
-        command
-    );
-
-};
-
-
-/* =========================================
-   OPEN MESSAGE / CHAT LIST
-========================================= */
-
-window.openMessageChat =
-function() {
-
-
-    /*
-     * Auth state এখনও পাওয়া যায়নি
-     */
-
-    if (!authChecked) {
-
-        let attempts = 0;
-
-
-        const timer =
-            setInterval(
-
-                function() {
-
-                    attempts++;
-
-
-                    /*
-                     * Auth পাওয়া গেলে
-                     */
-
-                    if (authChecked) {
-
-                        clearInterval(
-                            timer
-                        );
-
-
-                        openCorrectPage();
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * ৫ সেকেন্ড পরেও না হলে
-                     */
-
-                    if (attempts >= 50) {
-
-                        clearInterval(
-                            timer
-                        );
-
-
-                        alert(
-                            "Login তথ্য লোড হতে সমস্যা হয়েছে। আবার Login করুন।"
-                        );
-
-                    }
-
-                },
-
-                100
-
-            );
-
-
-        return;
-
-    }
-
-
-    openCorrectPage();
-
-};
-
-
-/* =========================================
-   ROUTE USER / ADMIN
-========================================= */
-
-function openCorrectPage() {
-
-
-    /*
-     * Login নেই
-     */
-
-    if (!currentUser) {
-
-        alert(
-            "আপনি Login করেননি।"
-        );
-
-        return;
-
-    }
-
-
-    const uid =
-        currentUser.uid;
-
-
-    /*
-     * ==============================
-     * ADMIN
-     * ==============================
-     *
-     * Admin সরাসরি Chat List-এ যাবে।
-     */
-
-    if (
-        ADMIN_UIDS.includes(uid)
-    ) {
-
-        window.location.href =
-            "chatlist.html";
-
-        return;
-
-    }
-
-
-    /*
-     * ==============================
-     * USER
-     * ==============================
-     *
-     * User নিজের Chat-এ যাবে।
-     */
-
-    window.location.href =
-        "message.html?uid=" +
-        encodeURIComponent(uid);
-
-}
-
-
-/* =========================================
-   BACK
-========================================= */
-
-window.goBack =
-function() {
-
-
-    /*
-     * App Inventor WebView
-     */
-
-    if (
-        window.AppInventor &&
-        typeof window.AppInventor.setWebViewString ===
-        "function"
-    ) {
-
-        window.AppInventor.setWebViewString(
-            "BACK"
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Browser
-     */
-
-    if (
-        window.history.length > 1
-    ) {
-
-        window.history.back();
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "index.html";
-
-};
-
-</script>
-
-
-</body>
-
-</html>
+            class="
