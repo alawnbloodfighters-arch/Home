@@ -610,13 +610,16 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
+/* =========================================
+   FIREBASE AUTH
+========================================= */
+
 import {
     getAuth,
     onAuthStateChanged
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 
 
 /* =========================================
@@ -649,7 +652,6 @@ const firebaseConfig = {
 };
 
 
-
 /* =========================================
    INITIALIZE FIREBASE
 ========================================= */
@@ -659,7 +661,6 @@ const app =
 
 const auth =
     getAuth(app);
-
 
 
 /* =========================================
@@ -675,7 +676,6 @@ const ADMIN_UIDS = [
 ];
 
 
-
 /* =========================================
    CURRENT USER
 ========================================= */
@@ -683,7 +683,6 @@ const ADMIN_UIDS = [
 let currentUser = null;
 
 let authChecked = false;
-
 
 
 /* =========================================
@@ -705,9 +704,8 @@ onAuthStateChanged(
 );
 
 
-
 /* =========================================
-   SEND COMMAND
+   SEND COMMAND TO APP INVENTOR
 ========================================= */
 
 window.sendCommand =
@@ -715,20 +713,23 @@ function(command) {
 
     if (
         window.AppInventor &&
-        typeof window.AppInventor
-            .setWebViewString ===
-            "function"
+        typeof window.AppInventor.setWebViewString ===
+        "function"
     ) {
 
-        window.AppInventor
-            .setWebViewString(
-                command
-            );
+        window.AppInventor.setWebViewString(
+            command
+        );
 
         return;
 
     }
 
+
+    /*
+     * Browser-এ পরীক্ষা করলে
+     * console-এ command দেখাবে।
+     */
 
     console.log(
         "App Inventor Command:",
@@ -738,9 +739,8 @@ function(command) {
 };
 
 
-
 /* =========================================
-   OPEN MESSAGE CHAT
+   OPEN MESSAGE / CHAT LIST
 ========================================= */
 
 window.openMessageChat =
@@ -748,62 +748,8 @@ function() {
 
 
     /*
-       =====================================
-       CURRENT USER ALREADY AVAILABLE
-       =====================================
-    */
-
-    if (currentUser) {
-
-        const uid =
-            currentUser.uid;
-
-
-        /*
-           =================================
-           ADMIN
-           =================================
-
-           Admin Message AABF Team চাপলে
-           chatlist.html খুলবে।
-        */
-
-        if (
-            ADMIN_UIDS.includes(uid)
-        ) {
-
-            window.location.href =
-                "chatlist.html";
-
-            return;
-
-        }
-
-
-        /*
-           =================================
-           NORMAL USER
-           =================================
-
-           User নিজের UID দিয়ে
-           message.html খুলবে।
-        */
-
-        window.location.href =
-            "message.html?uid=" +
-            encodeURIComponent(uid);
-
-        return;
-
-    }
-
-
-
-    /*
-       =====================================
-       AUTH STATE এখনও CHECK হচ্ছে
-       =====================================
-    */
+     * Auth state এখনও পাওয়া যায়নি
+     */
 
     if (!authChecked) {
 
@@ -819,54 +765,8 @@ function() {
 
 
                     /*
-                       Auth পাওয়া গেছে
-                    */
-
-                    if (currentUser) {
-
-                        clearInterval(
-                            timer
-                        );
-
-
-                        const uid =
-                            currentUser.uid;
-
-
-                        /*
-                           Admin
-                        */
-
-                        if (
-                            ADMIN_UIDS.includes(uid)
-                        ) {
-
-                            window.location.href =
-                                "chatlist.html";
-
-                            return;
-
-                        }
-
-
-                        /*
-                           User
-                        */
-
-                        window.location.href =
-                            "message.html?uid=" +
-                            encodeURIComponent(uid);
-
-                        return;
-
-                    }
-
-
-
-                    /*
-                       Auth check শেষ,
-                       কিন্তু user নেই
-                    */
+                     * Auth পাওয়া গেলে
+                     */
 
                     if (authChecked) {
 
@@ -875,19 +775,16 @@ function() {
                         );
 
 
-                        alert(
-                            "আপনার Login তথ্য পাওয়া যায়নি। আবার Login করুন।"
-                        );
+                        openCorrectPage();
 
                         return;
 
                     }
 
 
-
                     /*
-                       ৫ সেকেন্ডের বেশি অপেক্ষা নয়
-                    */
+                     * ৫ সেকেন্ড পরেও না হলে
+                     */
 
                     if (attempts >= 50) {
 
@@ -908,24 +805,76 @@ function() {
 
             );
 
+
         return;
 
     }
 
 
-
-    /*
-       =====================================
-       LOGIN করা নেই
-       =====================================
-    */
-
-    alert(
-        "আপনি Login করেননি।"
-    );
+    openCorrectPage();
 
 };
 
+
+/* =========================================
+   ROUTE USER / ADMIN
+========================================= */
+
+function openCorrectPage() {
+
+
+    /*
+     * Login নেই
+     */
+
+    if (!currentUser) {
+
+        alert(
+            "আপনি Login করেননি।"
+        );
+
+        return;
+
+    }
+
+
+    const uid =
+        currentUser.uid;
+
+
+    /*
+     * ==============================
+     * ADMIN
+     * ==============================
+     *
+     * Admin সরাসরি Chat List-এ যাবে।
+     */
+
+    if (
+        ADMIN_UIDS.includes(uid)
+    ) {
+
+        window.location.href =
+            "chatlist.html";
+
+        return;
+
+    }
+
+
+    /*
+     * ==============================
+     * USER
+     * ==============================
+     *
+     * User নিজের Chat-এ যাবে।
+     */
+
+    window.location.href =
+        "message.html?uid=" +
+        encodeURIComponent(uid);
+
+}
 
 
 /* =========================================
@@ -935,22 +884,29 @@ function() {
 window.goBack =
 function() {
 
+
+    /*
+     * App Inventor WebView
+     */
+
     if (
         window.AppInventor &&
-        typeof window.AppInventor
-            .setWebViewString ===
-            "function"
+        typeof window.AppInventor.setWebViewString ===
+        "function"
     ) {
 
-        window.AppInventor
-            .setWebViewString(
-                "BACK"
-            );
+        window.AppInventor.setWebViewString(
+            "BACK"
+        );
 
         return;
 
     }
 
+
+    /*
+     * Browser
+     */
 
     if (
         window.history.length > 1
@@ -958,14 +914,13 @@ function() {
 
         window.history.back();
 
-    }
-
-    else {
-
-        window.location.href =
-            "index.html";
+        return;
 
     }
+
+
+    window.location.href =
+        "index.html";
 
 };
 
