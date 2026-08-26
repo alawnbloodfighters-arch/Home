@@ -1,14 +1,11 @@
 // =========================================
 // AABF HOME - FIREBASE PROFILE + NAVIGATION
-// + UNREAD MESSAGE COUNT
 // =========================================
-
 
 import {
     initializeApp
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
 
 import {
     getAuth,
@@ -16,12 +13,10 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-
 import {
     getDatabase,
     ref,
-    get,
-    onValue
+    get
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -63,26 +58,11 @@ const firebaseConfig = {
 const app =
     initializeApp(firebaseConfig);
 
-
 const auth =
     getAuth(app);
 
-
 const db =
     getDatabase(app);
-
-
-// =========================================
-// ADMIN UID
-// =========================================
-
-const ADMIN_UIDS = [
-
-    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
-
-    "y3HwNswW8wYIi6GOEbZauIhcyis1"
-
-];
 
 
 // =========================================
@@ -156,7 +136,6 @@ const urlParams =
         window.location.search
     );
 
-
 const urlUID =
     urlParams.get("uid");
 
@@ -194,8 +173,7 @@ async function loadUserProfile(uid) {
         if (!snapshot.exists()) {
 
             console.error(
-                "users/" +
-                uid +
+                "users/" + uid +
                 " এ কোনো profile পাওয়া যায়নি।"
             );
 
@@ -214,10 +192,6 @@ async function loadUserProfile(uid) {
         );
 
 
-        // =================================
-        // NAME
-        // =================================
-
         const userName =
             document.getElementById(
                 "userName"
@@ -234,10 +208,6 @@ async function loadUserProfile(uid) {
 
         }
 
-
-        // =================================
-        // AABF ID
-        // =================================
 
         const userAABFID =
             document.getElementById(
@@ -256,9 +226,85 @@ async function loadUserProfile(uid) {
         }
 
 
-        // =================================
-        // PROFILE CARD CLICK
-        // =================================
-
         const userCard =
             document.getElementById(
+                "userCard"
+            );
+
+
+        if (userCard) {
+
+            userCard.onclick =
+                function() {
+
+                    openProfile();
+
+                };
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Profile Load Error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
+// AUTH STATE
+// =========================================
+
+onAuthStateChanged(
+
+    auth,
+
+    function(user) {
+
+        if (urlUID) {
+
+            loadUserProfile(
+                urlUID
+            );
+
+            return;
+
+        }
+
+
+        if (user) {
+
+            loadUserProfile(
+                user.uid
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "কোনো logged-in user পাওয়া যায়নি।"
+        );
+
+    }
+
+);
+
+
+// =========================================
+// EMERGENCY
+// =========================================
+
+window.emergency = function() {
+
+    window.location.href =
+        "emergency.html";
+
+};
