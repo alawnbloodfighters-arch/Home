@@ -1,1009 +1,951 @@
-<!DOCTYPE html>
-<html lang="bn">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               minimum-scale=1.0,
-               user-scalable=no">
-
-<meta name="HandheldFriendly" content="true">
-
-<title>কর্তৃপক্ষকে মেসেজ দিন</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    touch-action: manipulation;
-}
-
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-
-    font-family:
-        Arial,
-        "Noto Sans Bengali",
-        sans-serif;
-
-    background: #eeeae2;
-
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-
-.header {
-    width: 100%;
-    height: 58px;
-
-    background: #086b61;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0 10px;
-
-    font-size: 21px;
-    font-weight: bold;
-
-    white-space: nowrap;
-}
-
-.chat {
-    position: absolute;
-
-    top: 58px;
-    left: 0;
-    right: 0;
-    bottom: 68px;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    padding: 12px 10px 15px;
-
-    -webkit-overflow-scrolling: touch;
-}
-
-.message {
-    max-width: 78%;
-
-    padding: 9px 13px;
-
-    margin-bottom: 9px;
-
-    border-radius: 13px;
-
-    font-size: 16px;
-    line-height: 1.45;
-
-    word-break: break-word;
-}
-
-.admin {
-    background: white;
-    margin-right: auto;
-    border-top-left-radius: 4px;
-}
-
-.user {
-    background: #d7ffc9;
-    margin-left: auto;
-    border-top-right-radius: 4px;
-}
-
-.sender-name {
-    display: block;
-
-    font-size: 11px;
-    font-weight: bold;
-
-    color: #086b61;
-
-    margin-bottom: 3px;
-}
-
-.time {
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 10px;
-
-    color: #777;
-
-    text-align: right;
-}
-
-.empty {
-    text-align: center;
-
-    color: #888;
-
-    margin-top: 60px;
-
-    font-size: 14px;
-}
-
-.error {
-    text-align: center;
-
-    color: #c62828;
-
-    margin: 60px 20px 0;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-}
-
-.input-area {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 68px;
-
-    background: white;
-
-    padding: 9px 10px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    border-top: 1px solid #ddd;
-}
-
-#messageInput {
-    flex: 1;
-    min-width: 0;
-
-    height: 48px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 25px;
-
-    padding: 0 15px;
-
-    font-family:
-        Arial,
-        "Noto Sans Bengali",
-        sans-serif;
-
-    font-size: 16px;
-
-    outline: none;
-
-    -webkit-appearance: none;
-}
-
-#messageInput:focus {
-    border-color: #086b61;
-}
-
-#sendBtn {
-    flex: 0 0 112px;
-
-    height: 48px;
-
-    border: none;
-
-    border-radius: 25px;
-
-    background: #086b61;
-
-    color: white;
-
-    font-size: 15px;
-    font-weight: bold;
-
-    padding: 0;
-
-    cursor: pointer;
-
-    -webkit-appearance: none;
-}
-
-#sendBtn:active {
-    transform: scale(.97);
-}
-
-#sendBtn:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-}
-
-@media (max-width: 360px) {
-
-    .header {
-        height: 54px;
-        font-size: 19px;
-    }
-
-    .chat {
-        top: 54px;
-        bottom: 64px;
-        padding: 10px 8px;
-    }
-
-    .input-area {
-        height: 64px;
-        padding: 8px;
-    }
-
-    #messageInput {
-        height: 44px;
-        font-size: 15px;
-    }
-
-    #sendBtn {
-        flex-basis: 100px;
-        height: 44px;
-        font-size: 14px;
-    }
-
-    .message {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 320px) {
-
-    .header {
-        font-size: 17px;
-    }
-
-    #sendBtn {
-        flex-basis: 88px;
-        font-size: 13px;
-    }
-
-    .message {
-        max-width: 84%;
-    }
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-    কর্তৃপক্ষকে মেসেজ দিন
+<!DOCTYPE html>  <html lang="bn">  <head>  <meta charset="UTF-8">  <meta name="viewport"  
+content="width=device-width,  
+initial-scale=1.0,  
+maximum-scale=1.0,  
+minimum-scale=1.0,  
+user-scalable=no">
+
+<meta name="HandheldFriendly" content="true">  <title>কর্তৃপক্ষকে মেসেজ দিন</title>  <style>  
+  
+* {  
+    box-sizing: border-box;  
+    -webkit-tap-highlight-color: transparent;  
+}  
+  
+html {  
+    width: 100%;  
+    height: 100%;  
+    overflow: hidden;  
+    touch-action: manipulation;  
+}  
+  
+body {  
+    width: 100%;  
+    height: 100%;  
+    margin: 0;  
+    padding: 0;  
+    overflow: hidden;  
+  
+    font-family:  
+        Arial,  
+        "Noto Sans Bengali",  
+        sans-serif;  
+  
+    background: #eeeae2;  
+  
+    -webkit-text-size-adjust: 100%;  
+    text-size-adjust: 100%;  
+}  
+  
+.header {  
+    width: 100%;  
+    height: 58px;  
+  
+    background: #086b61;  
+    color: white;  
+  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+  
+    padding: 0 10px;  
+  
+    font-size: 21px;  
+    font-weight: bold;  
+  
+    white-space: nowrap;  
+}  
+  
+.chat {  
+    position: absolute;  
+  
+    top: 58px;  
+    left: 0;  
+    right: 0;  
+    bottom: 68px;  
+  
+    overflow-y: auto;  
+    overflow-x: hidden;  
+  
+    padding: 12px 10px 15px;  
+  
+    -webkit-overflow-scrolling: touch;  
+}  
+  
+.message {  
+    max-width: 78%;  
+  
+    padding: 9px 13px;  
+  
+    margin-bottom: 9px;  
+  
+    border-radius: 13px;  
+  
+    font-size: 16px;  
+    line-height: 1.45;  
+  
+    word-break: break-word;  
+}  
+  
+.admin {  
+    background: white;  
+    margin-right: auto;  
+    border-top-left-radius: 4px;  
+}  
+  
+.user {  
+    background: #d7ffc9;  
+    margin-left: auto;  
+    border-top-right-radius: 4px;  
+}  
+  
+.sender-name {  
+    display: block;  
+  
+    font-size: 11px;  
+    font-weight: bold;  
+  
+    color: #086b61;  
+  
+    margin-bottom: 3px;  
+}  
+  
+.time {  
+    display: block;  
+  
+    margin-top: 3px;  
+  
+    font-size: 10px;  
+  
+    color: #777;  
+  
+    text-align: right;  
+}  
+  
+.empty {  
+    text-align: center;  
+  
+    color: #888;  
+  
+    margin-top: 60px;  
+  
+    font-size: 14px;  
+}  
+  
+.error {  
+    text-align: center;  
+  
+    color: #c62828;  
+  
+    margin: 60px 20px 0;  
+  
+    font-size: 14px;  
+  
+    line-height: 1.6;  
+}  
+  
+.input-area {  
+    position: absolute;  
+  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+  
+    height: 68px;  
+  
+    background: white;  
+  
+    padding: 9px 10px;  
+  
+    display: flex;  
+    align-items: center;  
+  
+    gap: 8px;  
+  
+    border-top: 1px solid #ddd;  
+}  
+  
+#messageInput {  
+    flex: 1;  
+    min-width: 0;  
+  
+    height: 48px;  
+  
+    border: 1px solid #ddd;  
+  
+    border-radius: 25px;  
+  
+    padding: 0 15px;  
+  
+    font-family:  
+        Arial,  
+        "Noto Sans Bengali",  
+        sans-serif;  
+  
+    font-size: 16px;  
+  
+    outline: none;  
+  
+    -webkit-appearance: none;  
+}  
+  
+#messageInput:focus {  
+    border-color: #086b61;  
+}  
+  
+#sendBtn {  
+    flex: 0 0 112px;  
+  
+    height: 48px;  
+  
+    border: none;  
+  
+    border-radius: 25px;  
+  
+    background: #086b61;  
+  
+    color: white;  
+  
+    font-size: 15px;  
+    font-weight: bold;  
+  
+    padding: 0;  
+  
+    cursor: pointer;  
+  
+    -webkit-appearance: none;  
+}  
+  
+#sendBtn:active {  
+    transform: scale(.97);  
+}  
+  
+#sendBtn:disabled {  
+    opacity: .6;  
+    cursor: not-allowed;  
+}  
+  
+@media (max-width: 360px) {  
+  
+    .header {  
+        height: 54px;  
+        font-size: 19px;  
+    }  
+  
+    .chat {  
+        top: 54px;  
+        bottom: 64px;  
+        padding: 10px 8px;  
+    }  
+  
+    .input-area {  
+        height: 64px;  
+        padding: 8px;  
+    }  
+  
+    #messageInput {  
+        height: 44px;  
+        font-size: 15px;  
+    }  
+  
+    #sendBtn {  
+        flex-basis: 100px;  
+        height: 44px;  
+        font-size: 14px;  
+    }  
+  
+    .message {  
+        font-size: 15px;  
+    }  
+}  
+  
+@media (max-width: 320px) {  
+  
+    .header {  
+        font-size: 17px;  
+    }  
+  
+    #sendBtn {  
+        flex-basis: 88px;  
+        font-size: 13px;  
+    }  
+  
+    .message {  
+        max-width: 84%;  
+    }  
+}  
+  
+</style>  </head>  <body>  <div class="header">  
+    কর্তৃপক্ষকে মেসেজ দিন  
+</div>  <div id="chat" class="chat">  <div class="empty">  
+    মেসেজ লোড হচ্ছে...  
 </div>
 
-<div id="chat" class="chat">
-
-    <div class="empty">
-        মেসেজ লোড হচ্ছে...
-    </div>
-
-</div>
-
-<div class="input-area">
-
-    <input
-        type="text"
-        id="messageInput"
-        placeholder="মেসেজ লিখুন"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="sentences"
-        spellcheck="false"
-    >
-
-    <button id="sendBtn">
-        Send
-    </button>
-
-</div>
-
-
-<script type="module">
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getAuth,
-    onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-    getDatabase,
-    ref,
-    push,
-    set,
-    onValue,
-    query,
-    orderByChild
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
-
-    authDomain:
-        "al-awn-blood-fighters.firebaseapp.com",
-
-    projectId:
-        "al-awn-blood-fighters",
-
-    storageBucket:
-        "al-awn-blood-fighters.firebasestorage.app",
-
-    messagingSenderId:
-        "299061496611",
-
-    appId:
-        "1:299061496611:web:4762f74dbf311cd57f1a96",
-
-    measurementId:
-        "G-D31EXKJWQ3"
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getDatabase(app);
-
-
-const ADMIN_UIDS = [
-
-    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
-
-    "y3HwNswW8wYIi6GOEbZauIhcyis1"
-
-];
-
-
-const chat =
-    document.getElementById("chat");
-
-const input =
-    document.getElementById("messageInput");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const targetUID =
-    params.get("uid");
-
-
-let currentUser = null;
-
-let isAdmin = false;
-
-
-function showError(text) {
-
-    chat.innerHTML = "";
-
-    const div =
-        document.createElement("div");
-
-    div.className = "error";
-
-    div.textContent = text;
-
-    chat.appendChild(div);
-
-}
-
-
-function formatTime(timestamp) {
-
-    if (!timestamp) {
-        return "";
-    }
-
-    const date =
-        new Date(timestamp);
-
-    let hours =
-        date.getHours();
-
-    const minutes =
-        String(
-            date.getMinutes()
-        ).padStart(2, "0");
-
-    const ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
-
-    hours =
-        hours % 12 || 12;
-
-    return (
-        hours +
-        ":" +
-        minutes +
-        " " +
-        ampm
-    );
-
-}
-
-
-function displayMessages(data) {
-
-    chat.innerHTML = "";
-
-    if (!data) {
-
-        const empty =
-            document.createElement("div");
-
-        empty.className = "empty";
-
-        empty.textContent =
-            "এখনো কোনো মেসেজ নেই।";
-
-        chat.appendChild(empty);
-
-        return;
-    }
-
-
-    const messages =
-        Object.entries(data)
-            .map(
-                ([id, message]) => ({
-                    id,
-                    ...message
-                })
-            )
-            .sort(
-                (a, b) =>
-                    (a.timestamp || 0) -
-                    (b.timestamp || 0)
-            );
-
-
-    if (messages.length === 0) {
-
-        const empty =
-            document.createElement("div");
-
-        empty.className = "empty";
-
-        empty.textContent =
-            "এখনো কোনো মেসেজ নেই।";
-
-        chat.appendChild(empty);
-
-        return;
-    }
-
-
-    messages.forEach(
-        message => {
-
-            const box =
-                document.createElement("div");
-
-
-            const senderIsAdmin =
-                ADMIN_UIDS.includes(
-                    message.senderUid
-                );
-
-
-            box.className =
-                senderIsAdmin
-                    ? "message admin"
-                    : "message user";
-
-
-            const name =
-                document.createElement("span");
-
-            name.className =
-                "sender-name";
-
-
-            name.textContent =
-                senderIsAdmin
-                    ? "কর্তৃপক্ষ"
-                    : "আপনি";
-
-
-            const text =
-                document.createElement("div");
-
-            text.textContent =
-                message.text || "";
-
-
-            const time =
-                document.createElement("span");
-
-            time.className = "time";
-
-            time.textContent =
-                formatTime(
-                    message.timestamp
-                );
-
-
-            box.appendChild(name);
-
-            box.appendChild(text);
-
-            box.appendChild(time);
-
-            chat.appendChild(box);
-
-        }
-    );
-
-
-    setTimeout(
-        () => {
-
-            chat.scrollTop =
-                chat.scrollHeight;
-
-        },
-        50
-    );
-
-}
-
-
-/*
-   User-এর unread reset
-   Admin chat খুললে targetUID-এর unread reset
-*/
-
-async function markChatAsRead(uid) {
-
-    if (!uid) {
-        return;
-    }
-
-    try {
-
-        await set(
-            ref(
-                db,
-                "unread/" + uid
-            ),
-            0
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Unread reset error:",
-            error
-        );
-
-    }
-
-}
-
-
-function loadChat(uid) {
-
-    const messagesRef =
-        ref(
-            db,
-            "messages/" + uid
-        );
-
-    const messagesQuery =
-        query(
-            messagesRef,
-            orderByChild("timestamp")
-        );
-
-    onValue(
-        messagesQuery,
-
-        snapshot => {
-
-            displayMessages(
-                snapshot.val()
-            );
-
-        },
-
-        error => {
-
-            console.error(
-                "Firebase Read Error:",
-                error
-            );
-
-            showError(
-                "মেসেজ লোড করা যাচ্ছে না।"
-            );
-
-        }
-    );
-
-
-    markChatAsRead(uid);
-
-}
-
-
-async function sendMessage() {
-
-    const text =
-        input.value.trim();
-
-
-    if (!text) {
-        return;
-    }
-
-
-    if (!currentUser) {
-
-        alert(
-            "আপনি Login করেননি।"
-        );
-
-        return;
-    }
-
-
-    const chatUID =
-        isAdmin
-            ? targetUID
-            : currentUser.uid;
-
-
-    if (!chatUID) {
-
-        alert(
-            "User ID পাওয়া যায়নি।"
-        );
-
-        return;
-    }
-
-
-    sendBtn.disabled = true;
-
-    sendBtn.textContent =
-        "Sending...";
-
-
-    try {
-
-        const messageRef =
-            push(
-                ref(
-                    db,
-                    "messages/" +
-                    chatUID
-                )
-            );
-
-
-        const timestamp =
-            Date.now();
-
-
-        await set(
-            messageRef,
-            {
-
-                text:
-                    text,
-
-                senderUid:
-                    currentUser.uid,
-
-                senderType:
-                    isAdmin
-                        ? "admin"
-                        : "user",
-
-                timestamp:
-                    timestamp
-
-            }
-        );
-
-
-        await set(
-
-            ref(
-                db,
-                "chatList/" +
-                chatUID
-            ),
-
-            {
-
-                uid:
-                    chatUID,
-
-                lastMessage:
-                    text,
-
-                lastSenderUid:
-                    currentUser.uid,
-
-                lastSenderType:
-                    isAdmin
-                        ? "admin"
-                        : "user",
-
-                timestamp:
-                    timestamp
-
-            }
-
-        );
-
-
-        /*
-           User message হলে Admin-এর জন্য
-           unread count বাড়বে।
-
-           Admin message হলে User-এর জন্য
-           unread count বাড়বে।
-        */
-
-        if (isAdmin) {
-
-            await set(
-
-                ref(
-                    db,
-                    "unread/" +
-                    chatUID
-                ),
-
-                0
-
-            );
-
-        }
-
-        else {
-
-            const unreadRef =
-                ref(
-                    db,
-                    "unread/" +
-                    chatUID
-                );
-
-            const currentUnread =
-                await new Promise(
-                    resolve => {
-
-                        onValue(
-
-                            unreadRef,
-
-                            snapshot => {
-
-                                resolve(
-                                    Number(
-                                        snapshot.val() || 0
-                                    )
-                                );
-
-                            },
-
-                            {
-                                onlyOnce: true
-                            }
-
-                        );
-
-                    }
-                );
-
-
-            await set(
-                unreadRef,
-                currentUnread + 1
-            );
-
-        }
-
-
-        input.value = "";
-
-        input.focus();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Firebase Send Error:",
-            error
-        );
-
-        alert(
-            "মেসেজ পাঠানো যায়নি। আবার চেষ্টা করুন।"
-        );
-
-    }
-
-    finally {
-
-        sendBtn.disabled = false;
-
-        sendBtn.textContent =
-            "Send";
-
-    }
-
-}
-
-
-sendBtn.addEventListener(
-    "click",
-    sendMessage
-);
-
-
-input.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            event.preventDefault();
-
-            sendMessage();
-
-        }
-
-    }
-);
-
-
-onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-        if (!user) {
-
-            currentUser = null;
-
-            showError(
-                "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"
-            );
-
-            sendBtn.disabled = true;
-
-            input.disabled = true;
-
-            return;
-        }
-
-
-        currentUser = user;
-
-
-        isAdmin =
-            ADMIN_UIDS.includes(
-                user.uid
-            );
-
-
-        /*
-           সাধারণ User
-        */
-
-        if (!isAdmin) {
-
-            if (
-                targetUID &&
-                targetUID !== user.uid
-            ) {
-
-                showError(
-                    "এই Chat আপনার জন্য নয়।"
-                );
-
-                sendBtn.disabled = true;
-
-                input.disabled = true;
-
-                return;
-            }
-
-
-            loadChat(
-                user.uid
-            );
-
-            return;
-        }
-
-
-        /*
-           Admin
-        */
-
-        if (!targetUID) {
-
-            showError(
-                "Admin-এর জন্য User Chat UID প্রয়োজন।"
-            );
-
-            sendBtn.disabled = true;
-
-            input.disabled = true;
-
-            return;
-        }
-
-
-        loadChat(
-            targetUID
-        );
-
-    }
-
-);
-
-</script>
-
-</body>
-
-</html>
+</div>  <div class="input-area">  <input  
+    type="text"  
+    id="messageInput"  
+    placeholder="মেসেজ লিখুন"  
+    autocomplete="off"  
+    autocorrect="off"  
+    autocapitalize="sentences"  
+    spellcheck="false"  
+>  
+
+<button id="sendBtn">  
+    Send  
+</button>
+
+</div>  <script type="module">  
+  
+/* =========================================  
+   FIREBASE  
+========================================= */  
+  
+import {  
+    initializeApp  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";  
+  
+import {  
+    getAuth,  
+    onAuthStateChanged  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";  
+  
+import {  
+    getDatabase,  
+    ref,  
+    push,  
+    set,  
+    onValue,  
+    query,  
+    orderByChild,  
+    serverTimestamp  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";  
+  
+  
+/* =========================================  
+   CONFIG  
+========================================= */  
+  
+const firebaseConfig = {  
+  
+    apiKey:  
+        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",  
+  
+    authDomain:  
+        "al-awn-blood-fighters.firebaseapp.com",  
+  
+    projectId:  
+        "al-awn-blood-fighters",  
+  
+    storageBucket:  
+        "al-awn-blood-fighters.firebasestorage.app",  
+  
+    messagingSenderId:  
+        "299061496611",  
+  
+    appId:  
+        "1:299061496611:web:4762f74dbf311cd57f1a96",  
+  
+    measurementId:  
+        "G-D31EXKJWQ3"  
+};  
+  
+  
+/* =========================================  
+   INITIALIZE  
+========================================= */  
+  
+const app =  
+    initializeApp(firebaseConfig);  
+  
+const auth =  
+    getAuth(app);  
+  
+const db =  
+    getDatabase(app);  
+  
+  
+/* =========================================  
+   ADMIN UID  
+========================================= */  
+  
+const ADMIN_UIDS = [  
+  
+    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",  
+  
+    "y3HwNswW8wYIi6GOEbZauIhcyis1"  
+  
+];  
+  
+  
+/* =========================================  
+   ELEMENTS  
+========================================= */  
+  
+const chat =  
+    document.getElementById("chat");  
+  
+const input =  
+    document.getElementById("messageInput");  
+  
+const sendBtn =  
+    document.getElementById("sendBtn");  
+  
+  
+/* =========================================  
+   URL UID  
+========================================= */  
+  
+const params =  
+    new URLSearchParams(  
+        window.location.search  
+    );  
+  
+const targetUID =  
+    params.get("uid");  
+  
+  
+/* =========================================  
+   CURRENT USER  
+========================================= */  
+  
+let currentUser = null;  
+  
+let isAdmin = false;  
+  
+  
+/* =========================================  
+   ERROR  
+========================================= */  
+  
+function showError(text) {  
+  
+    chat.innerHTML = "";  
+  
+    const div =  
+        document.createElement("div");  
+  
+    div.className = "error";  
+  
+    div.textContent = text;  
+  
+    chat.appendChild(div);  
+  
+}  
+  
+  
+/* =========================================  
+   TIME  
+========================================= */  
+  
+function formatTime(timestamp) {  
+  
+    if (!timestamp) {  
+        return "";  
+    }  
+  
+    const date =  
+        new Date(timestamp);  
+  
+    let hours =  
+        date.getHours();  
+  
+    const minutes =  
+        String(  
+            date.getMinutes()  
+        ).padStart(2, "0");  
+  
+    const ampm =  
+        hours >= 12  
+            ? "PM"  
+            : "AM";  
+  
+    hours =  
+        hours % 12 || 12;  
+  
+    return (  
+        hours +  
+        ":" +  
+        minutes +  
+        " " +  
+        ampm  
+    );  
+  
+}  
+  
+  
+/* =========================================  
+   DISPLAY  
+========================================= */  
+  
+function displayMessages(data) {  
+  
+    chat.innerHTML = "";  
+  
+    if (!data) {  
+  
+        const empty =  
+            document.createElement("div");  
+  
+        empty.className = "empty";  
+  
+        empty.textContent =  
+            "এখনো কোনো মেসেজ নেই।";  
+  
+        chat.appendChild(empty);  
+  
+        return;  
+    }  
+  
+  
+    const messages =  
+        Object.entries(data)  
+            .map(  
+                ([id, message]) => ({  
+                    id,  
+                    ...message  
+                })  
+            )  
+            .sort(  
+                (a, b) =>  
+                    (a.timestamp || 0) -  
+                    (b.timestamp || 0)  
+            );  
+  
+  
+    if (messages.length === 0) {  
+  
+        const empty =  
+            document.createElement("div");  
+  
+        empty.className = "empty";  
+  
+        empty.textContent =  
+            "এখনো কোনো মেসেজ নেই।";  
+  
+        chat.appendChild(empty);  
+  
+        return;  
+    }  
+  
+  
+    messages.forEach(  
+        message => {  
+  
+            const box =  
+                document.createElement("div");  
+  
+  
+            const senderIsAdmin =  
+                ADMIN_UIDS.includes(  
+                    message.senderUid  
+                );  
+  
+  
+            box.className =  
+                senderIsAdmin  
+                    ? "message admin"  
+                    : "message user";  
+  
+  
+            const name =  
+                document.createElement("span");  
+  
+            name.className =  
+                "sender-name";  
+  
+  
+            name.textContent =  
+                senderIsAdmin  
+                    ? "কর্তৃপক্ষ"  
+                    : "আপনি";  
+  
+  
+            const text =  
+                document.createElement("div");  
+  
+            text.textContent =  
+                message.text || "";  
+  
+  
+            const time =  
+                document.createElement("span");  
+  
+            time.className = "time";  
+  
+            time.textContent =  
+                formatTime(  
+                    message.timestamp  
+                );  
+  
+  
+            box.appendChild(name);  
+  
+            box.appendChild(text);  
+  
+            box.appendChild(time);  
+  
+            chat.appendChild(box);  
+  
+        }  
+    );  
+  
+  
+    setTimeout(  
+        () => {  
+  
+            chat.scrollTop =  
+                chat.scrollHeight;  
+  
+        },  
+        50  
+    );  
+  
+}  
+  
+  
+/* =========================================  
+   LOAD CHAT  
+========================================= */  
+  
+function loadChat(uid) {  
+  
+    const messagesRef =  
+        ref(  
+            db,  
+            "messages/" + uid  
+        );  
+  
+    const messagesQuery =  
+        query(  
+            messagesRef,  
+            orderByChild("timestamp")  
+        );  
+  
+    onValue(  
+        messagesQuery,  
+  
+        snapshot => {  
+  
+            displayMessages(  
+                snapshot.val()  
+            );  
+  
+        },  
+  
+        error => {  
+  
+            console.error(  
+                "Firebase Read Error:",  
+                error  
+            );  
+  
+            showError(  
+                "মেসেজ লোড করা যাচ্ছে না।"  
+            );  
+  
+        }  
+    );  
+  
+}  
+  
+  
+/* =========================================  
+   SEND MESSAGE  
+========================================= */  
+  
+async function sendMessage() {  
+  
+    const text =  
+        input.value.trim();  
+  
+  
+    if (!text) {  
+        return;  
+    }  
+  
+  
+    if (!currentUser) {  
+  
+        alert(  
+            "আপনি Login করেননি।"  
+        );  
+  
+        return;  
+    }  
+  
+  
+    /*  
+       User নিজের UID ব্যবহার করবে।  
+  
+       Admin User-এর chat-এ ঢুকলে  
+       URL-এর UID ব্যবহার করবে।  
+    */  
+  
+    const chatUID =  
+        isAdmin  
+            ? targetUID  
+            : currentUser.uid;  
+  
+  
+    if (!chatUID) {  
+  
+        alert(  
+            "User ID পাওয়া যায়নি।"  
+        );  
+  
+        return;  
+    }  
+  
+  
+    sendBtn.disabled = true;  
+  
+    sendBtn.textContent =  
+        "Sending...";  
+  
+  
+    try {  
+  
+        /* ==============================  
+           1. SAVE MESSAGE  
+        ============================== */  
+  
+        const messageRef =  
+            push(  
+                ref(  
+                    db,  
+                    "messages/" +  
+                    chatUID  
+                )  
+            );  
+  
+  
+        const timestamp =  
+            Date.now();  
+  
+  
+        await set(  
+            messageRef,  
+            {  
+  
+                text:  
+                    text,  
+  
+                senderUid:  
+                    currentUser.uid,  
+  
+                senderType:  
+                    isAdmin  
+                        ? "admin"  
+                        : "user",  
+  
+                timestamp:  
+                    timestamp  
+  
+            }  
+        );  
+  
+  
+        /* ==============================  
+           2. UPDATE ADMIN CHAT LIST  
+        ============================== */  
+  
+        await set(  
+  
+            ref(  
+                db,  
+                "chatList/" +  
+                chatUID  
+            ),  
+  
+            {  
+  
+                uid:  
+                    chatUID,  
+  
+                lastMessage:  
+                    text,  
+  
+                lastSenderUid:  
+                    currentUser.uid,  
+  
+                lastSenderType:  
+                    isAdmin  
+                        ? "admin"  
+                        : "user",  
+  
+                timestamp:  
+                    timestamp  
+  
+            }  
+  
+        );  
+  
+  
+        input.value = "";  
+  
+        input.focus();  
+  
+    }  
+  
+    catch (error) {  
+  
+        console.error(  
+            "Firebase Send Error:",  
+            error  
+        );  
+  
+        alert(  
+            "মেসেজ পাঠানো যায়নি। আবার চেষ্টা করুন।"  
+        );  
+  
+    }  
+  
+    finally {  
+  
+        sendBtn.disabled = false;  
+  
+        sendBtn.textContent =  
+            "Send";  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================  
+   SEND BUTTON  
+========================================= */  
+  
+sendBtn.addEventListener(  
+    "click",  
+    sendMessage  
+);  
+  
+  
+/* =========================================  
+   ENTER  
+========================================= */  
+  
+input.addEventListener(  
+    "keydown",  
+    event => {  
+  
+        if (  
+            event.key === "Enter"  
+        ) {  
+  
+            event.preventDefault();  
+  
+            sendMessage();  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================================  
+   AUTH  
+========================================= */  
+  
+onAuthStateChanged(  
+  
+    auth,  
+  
+    user => {  
+  
+        if (!user) {  
+  
+            currentUser = null;  
+  
+            showError(  
+                "এই মেসেজ দেখতে হলে আগে Login করতে হবে।"  
+            );  
+  
+            sendBtn.disabled = true;  
+  
+            input.disabled = true;  
+  
+            return;  
+        }  
+  
+  
+        currentUser = user;  
+  
+  
+        isAdmin =  
+            ADMIN_UIDS.includes(  
+                user.uid  
+            );  
+  
+  
+        /*  
+           USER  
+        */  
+  
+        if (!isAdmin) {  
+  
+            /*  
+               User URL UID না দিলেও  
+               নিজের UID ব্যবহার করবে।  
+            */  
+  
+            if (  
+                targetUID &&  
+                targetUID !== user.uid  
+            ) {  
+  
+                showError(  
+                    "এই Chat আপনার জন্য নয়।"  
+                );  
+  
+                sendBtn.disabled = true;  
+  
+                input.disabled = true;  
+  
+                return;  
+            }  
+  
+  
+            loadChat(  
+                user.uid  
+            );  
+  
+            return;  
+        }  
+  
+  
+        /*  
+           ADMIN  
+        */  
+  
+        if (!targetUID) {  
+  
+            showError(  
+                "Admin-এর জন্য User Chat UID প্রয়োজন।"  
+            );  
+  
+            sendBtn.disabled = true;  
+  
+            input.disabled = true;  
+  
+            return;  
+        }  
+  
+  
+        loadChat(  
+            targetUID  
+        );  
+  
+    }  
+  
+);  
+  
+</script>  </body>  </html>
