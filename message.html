@@ -325,10 +325,6 @@ body {
 
 <script type="module">
 
-/* =========================================
-   FIREBASE
-========================================= */
-
 import {
     initializeApp
 }
@@ -349,21 +345,16 @@ import {
     set,
     onValue,
     query,
-    orderByChild,
-    update
+    orderByChild
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-/* =========================================
-   CONFIG
-========================================= */
-
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
+        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
 
     authDomain:
         "al-awn-blood-fighters.firebaseapp.com",
@@ -385,10 +376,6 @@ const firebaseConfig = {
 };
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
-
 const app =
     initializeApp(firebaseConfig);
 
@@ -399,10 +386,6 @@ const db =
     getDatabase(app);
 
 
-/* =========================================
-   ADMIN UID
-========================================= */
-
 const ADMIN_UIDS = [
 
     "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
@@ -411,10 +394,6 @@ const ADMIN_UIDS = [
 
 ];
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
 
 const chat =
     document.getElementById("chat");
@@ -426,10 +405,6 @@ const sendBtn =
     document.getElementById("sendBtn");
 
 
-/* =========================================
-   URL UID
-========================================= */
-
 const params =
     new URLSearchParams(
         window.location.search
@@ -439,18 +414,10 @@ const targetUID =
     params.get("uid");
 
 
-/* =========================================
-   CURRENT USER
-========================================= */
-
 let currentUser = null;
 
 let isAdmin = false;
 
-
-/* =========================================
-   ERROR
-========================================= */
 
 function showError(text) {
 
@@ -467,10 +434,6 @@ function showError(text) {
 
 }
 
-
-/* =========================================
-   TIME
-========================================= */
 
 function formatTime(timestamp) {
 
@@ -507,10 +470,6 @@ function formatTime(timestamp) {
 
 }
 
-
-/* =========================================
-   DISPLAY
-========================================= */
 
 function displayMessages(data) {
 
@@ -638,9 +597,10 @@ function displayMessages(data) {
 }
 
 
-/* =========================================
-   MARK CHAT AS READ
-========================================= */
+/*
+   User-এর unread reset
+   Admin chat খুললে targetUID-এর unread reset
+*/
 
 async function markChatAsRead(uid) {
 
@@ -671,10 +631,6 @@ async function markChatAsRead(uid) {
 
 }
 
-
-/* =========================================
-   LOAD CHAT
-========================================= */
 
 function loadChat(uid) {
 
@@ -716,19 +672,10 @@ function loadChat(uid) {
     );
 
 
-    /*
-       Chat খুলে ফেলায়
-       unread count zero
-    */
-
     markChatAsRead(uid);
 
 }
 
-
-/* =========================================
-   SEND MESSAGE
-========================================= */
 
 async function sendMessage() {
 
@@ -750,13 +697,6 @@ async function sendMessage() {
         return;
     }
 
-
-    /*
-       User নিজের UID ব্যবহার করবে।
-
-       Admin User-এর chat-এ ঢুকলে
-       URL-এর UID ব্যবহার করবে।
-    */
 
     const chatUID =
         isAdmin
@@ -781,10 +721,6 @@ async function sendMessage() {
 
 
     try {
-
-        /* ==============================
-           1. SAVE MESSAGE
-        ============================== */
 
         const messageRef =
             push(
@@ -822,10 +758,6 @@ async function sendMessage() {
         );
 
 
-        /* ==============================
-           2. UPDATE CHAT LIST
-        ============================== */
-
         await set(
 
             ref(
@@ -859,15 +791,72 @@ async function sendMessage() {
 
 
         /*
-           Admin message হলে
-           user-এর unread বাড়বে না।
+           User message হলে Admin-এর জন্য
+           unread count বাড়বে।
 
-           User message হলে
-           admin-এর chatList-এ message থাকবে,
-           এবং unread count বাড়ানোর কাজ
-           পরের step-এ chatList badge-এর সাথে
-           করা হবে।
+           Admin message হলে User-এর জন্য
+           unread count বাড়বে।
         */
+
+        if (isAdmin) {
+
+            await set(
+
+                ref(
+                    db,
+                    "unread/" +
+                    chatUID
+                ),
+
+                0
+
+            );
+
+        }
+
+        else {
+
+            const unreadRef =
+                ref(
+                    db,
+                    "unread/" +
+                    chatUID
+                );
+
+            const currentUnread =
+                await new Promise(
+                    resolve => {
+
+                        onValue(
+
+                            unreadRef,
+
+                            snapshot => {
+
+                                resolve(
+                                    Number(
+                                        snapshot.val() || 0
+                                    )
+                                );
+
+                            },
+
+                            {
+                                onlyOnce: true
+                            }
+
+                        );
+
+                    }
+                );
+
+
+            await set(
+                unreadRef,
+                currentUnread + 1
+            );
+
+        }
 
 
         input.value = "";
@@ -901,19 +890,11 @@ async function sendMessage() {
 }
 
 
-/* =========================================
-   SEND BUTTON
-========================================= */
-
 sendBtn.addEventListener(
     "click",
     sendMessage
 );
 
-
-/* =========================================
-   ENTER
-========================================= */
 
 input.addEventListener(
     "keydown",
@@ -932,10 +913,6 @@ input.addEventListener(
     }
 );
 
-
-/* =========================================
-   AUTH
-========================================= */
 
 onAuthStateChanged(
 
@@ -969,15 +946,10 @@ onAuthStateChanged(
 
 
         /*
-           USER
+           সাধারণ User
         */
 
         if (!isAdmin) {
-
-            /*
-               User URL UID না দিলেও
-               নিজের UID ব্যবহার করবে।
-            */
 
             if (
                 targetUID &&
@@ -1005,7 +977,7 @@ onAuthStateChanged(
 
 
         /*
-           ADMIN
+           Admin
         */
 
         if (!targetUID) {
