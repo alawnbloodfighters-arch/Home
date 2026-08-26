@@ -2,6 +2,7 @@
 <html lang="bn">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -47,6 +48,8 @@ body {
 }
 
 .chat-item {
+    position: relative;
+
     background: white;
 
     margin-bottom: 10px;
@@ -58,6 +61,8 @@ body {
 
     box-shadow:
         0 1px 4px rgba(0,0,0,.08);
+
+    padding-right: 55px;
 }
 
 .chat-item:active {
@@ -91,6 +96,30 @@ body {
     text-align: right;
 
     margin-top: 5px;
+}
+
+.unread {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    min-width: 24px;
+    height: 24px;
+
+    padding: 0 6px;
+
+    border-radius: 50px;
+
+    background: #e60000;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .empty {
@@ -132,10 +161,6 @@ body {
 
 <script type="module">
 
-/* =========================================
-   FIREBASE
-========================================= */
-
 import {
     initializeApp
 }
@@ -158,14 +183,10 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-/* =========================================
-   CONFIG
-========================================= */
-
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
+        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
 
     authDomain:
         "al-awn-blood-fighters.firebaseapp.com",
@@ -187,10 +208,6 @@ const firebaseConfig = {
 };
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
-
 const app =
     initializeApp(firebaseConfig);
 
@@ -201,10 +218,6 @@ const db =
     getDatabase(app);
 
 
-/* =========================================
-   ADMIN UID
-========================================= */
-
 const ADMIN_UIDS = [
 
     "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
@@ -214,17 +227,9 @@ const ADMIN_UIDS = [
 ];
 
 
-/* =========================================
-   ELEMENT
-========================================= */
-
 const chatList =
     document.getElementById("chatList");
 
-
-/* =========================================
-   TIME
-========================================= */
 
 function formatTime(timestamp) {
 
@@ -258,12 +263,9 @@ function formatTime(timestamp) {
         " " +
         ampm
     );
+
 }
 
-
-/* =========================================
-   LOAD CHAT LIST
-========================================= */
 
 function loadChatList() {
 
@@ -271,6 +273,13 @@ function loadChatList() {
         ref(
             db,
             "chatList"
+        );
+
+
+    const unreadRef =
+        ref(
+            db,
+            "unread"
         );
 
 
@@ -314,10 +323,38 @@ function loadChatList() {
                 );
 
 
+            let unreadData = {};
+
+
             /*
-               প্রতিটি User-এর তথ্য
-               users থেকে নেওয়া হবে
+               unread আলাদাভাবে load
             */
+
+            await new Promise(
+                resolve => {
+
+                    onValue(
+
+                        unreadRef,
+
+                        snapshot => {
+
+                            unreadData =
+                                snapshot.val() || {};
+
+                            resolve();
+
+                        },
+
+                        {
+                            onlyOnce: true
+                        }
+
+                    );
+
+                }
+            );
+
 
             for (const chat of chats) {
 
@@ -434,10 +471,35 @@ function loadChatList() {
                 item.appendChild(time);
 
 
-                /*
-                   Chat খুললে
-                   message.html?uid=USER_UID
-                */
+                const unreadCount =
+                    Number(
+                        unreadData[chat.uid] || 0
+                    );
+
+
+                if (
+                    unreadCount > 0
+                ) {
+
+                    const badge =
+                        document.createElement(
+                            "div"
+                        );
+
+                    badge.className =
+                        "unread";
+
+                    badge.textContent =
+                        unreadCount > 99
+                            ? "99+"
+                            : unreadCount;
+
+                    item.appendChild(
+                        badge
+                    );
+
+                }
+
 
                 item.addEventListener(
                     "click",
@@ -480,10 +542,6 @@ function loadChatList() {
 }
 
 
-/* =========================================
-   AUTH
-========================================= */
-
 onAuthStateChanged(
 
     auth,
@@ -501,10 +559,6 @@ onAuthStateChanged(
             return;
         }
 
-
-        /*
-           শুধু Admin Chat List দেখতে পারবে
-        */
 
         if (
             !ADMIN_UIDS.includes(
