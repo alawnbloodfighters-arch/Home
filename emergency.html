@@ -48,7 +48,6 @@ body {
 }
 
 .header {
-
     width: 100%;
     height: 68px;
 
@@ -63,7 +62,6 @@ body {
 }
 
 .back {
-
     width: 42px;
 
     font-size: 30px;
@@ -75,7 +73,6 @@ body {
 }
 
 .header-title {
-
     flex: 1;
 
     text-align: center;
@@ -88,36 +85,25 @@ body {
 }
 
 .section {
-
     margin-top: 14px;
-
     padding: 0 16px;
 }
 
 .section-title {
-
     font-size: 21px;
-
     font-weight: bold;
-
     color: #111;
-
     margin-bottom: 10px;
 }
 
 .grid {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 12px;
-
     padding: 0 16px;
 }
 
 .card {
-
     background: #ffffff;
 
     border-radius: 17px;
@@ -133,7 +119,6 @@ body {
 }
 
 .profile-img {
-
     width: 105px;
     height: 105px;
 
@@ -151,7 +136,6 @@ body {
 }
 
 .call-button {
-
     width: 100%;
 
     min-height: 57px;
@@ -189,49 +173,35 @@ body {
 }
 
 .call-button:active {
-
     transform: scale(0.97);
 }
 
 .phone-icon {
-
     font-size: 25px;
-
     flex-shrink: 0;
 }
 
 .message-section {
-
     margin-top: 17px;
-
     padding: 0 16px;
 }
 
 .message-title {
-
     font-size: 21px;
-
     font-weight: bold;
-
     color: #111;
-
     margin-bottom: 10px;
 }
 
 .message-grid {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 12px;
-
     padding: 0 16px;
 }
 
 .facebook-button,
 .message-button {
-
     min-height: 52px;
 
     border: none;
@@ -252,194 +222,91 @@ body {
 }
 
 .facebook-button {
-
     background: #2874c6;
 }
 
 .message-button {
-
     background: #16a63a;
-
-    /*
-     * Unread badge-এর জন্য
-     * button-কে relative করা হয়েছে
-     */
-
-    position: relative;
 }
 
 .facebook-button:active,
 .message-button:active {
-
     transform: scale(0.97);
 }
-
-
-/* =========================================
-   UNREAD BADGE
-========================================= */
-
-.unread-badge {
-
-    position: absolute;
-
-    top: -7px;
-    right: -7px;
-
-    min-width: 23px;
-    height: 23px;
-
-    padding: 0 6px;
-
-    background: #e60000;
-
-    color: white;
-
-    border-radius: 50%;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    border: 2px solid white;
-
-    z-index: 10;
-
-    line-height: 1;
-}
-
-
-/* =========================================
-   SMALL SCREEN
-========================================= */
 
 @media (max-width: 400px) {
 
     .header {
-
         height: 64px;
-
         padding: 0 9px;
     }
 
     .back {
-
         width: 38px;
-
         font-size: 27px;
     }
 
     .header-title {
-
         font-size: 22px;
     }
 
     .section {
-
         margin-top: 12px;
-
         padding: 0 13px;
     }
 
     .section-title {
-
         font-size: 19px;
-
         margin-bottom: 8px;
     }
 
     .grid {
-
         gap: 10px;
-
         padding: 0 13px;
     }
 
     .card {
-
         border-radius: 15px;
-
         padding: 8px 6px 7px;
     }
 
     .profile-img {
-
         width: 92px;
         height: 92px;
-
         margin-bottom: 7px;
     }
 
     .call-button {
-
         min-height: 52px;
-
         font-size: 18px;
-
         border-radius: 12px;
-
         gap: 5px;
     }
 
     .phone-icon {
-
         font-size: 22px;
     }
 
     .message-section {
-
         margin-top: 14px;
-
         padding: 0 13px;
     }
 
     .message-title {
-
         font-size: 19px;
-
         margin-bottom: 8px;
     }
 
     .message-grid {
-
         gap: 10px;
-
         padding: 0 13px;
     }
 
     .facebook-button,
     .message-button {
-
         min-height: 48px;
-
         font-size: 14px;
-
         border-radius: 11px;
-    }
-
-}
-
-
-/* =========================================
-   VERY SMALL SCREEN
-========================================= */
-
-@media (max-width: 320px) {
-
-    .unread-badge {
-
-        top: -6px;
-        right: -6px;
-
-        min-width: 21px;
-        height: 21px;
-
-        font-size: 11px;
     }
 
 }
@@ -448,15 +315,9 @@ body {
 
 </head>
 
-
 <body>
 
 <div class="container">
-
-
-    <!-- =====================================
-         HEADER
-    ====================================== -->
 
     <div class="header">
 
@@ -477,11 +338,6 @@ body {
     </div>
 
 
-
-    <!-- =====================================
-         ORGANIZATIONAL
-    ====================================== -->
-
     <div class="section">
 
         <div class="section-title">
@@ -493,161 +349,4 @@ body {
     </div>
 
 
-
     <div class="grid">
-
-
-        <!-- রিফাত -->
-
-        <div class="card">
-
-            <img
-                src="rifat.png"
-                class="profile-img"
-                alt="রিফাত">
-
-            <button
-                class="call-button"
-                onclick="sendCommand('CALL_RIFAT')">
-
-                <span class="phone-icon">
-                    ☎
-                </span>
-
-                <span>
-                    Call রিফাত
-                </span>
-
-            </button>
-
-        </div>
-
-
-
-        <!-- মাঞ্জুরুল -->
-
-        <div class="card">
-
-            <img
-                src="manjurul.png"
-                class="profile-img"
-                alt="মাঞ্জুরুল">
-
-            <button
-                class="call-button"
-                onclick="sendCommand('CALL_MANJURUL')">
-
-                <span class="phone-icon">
-                    ☎
-                </span>
-
-                <span>
-                    Call মাঞ্জুরুল
-                </span>
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         BLOOD
-    ====================================== -->
-
-    <div class="section">
-
-        <div class="section-title">
-
-            🩸 জরুরী রক্তের প্রয়োজনে
-
-        </div>
-
-    </div>
-
-
-
-    <div class="grid">
-
-
-        <!-- সোহাগ -->
-
-        <div class="card">
-
-            <img
-                src="sohag.png"
-                class="profile-img"
-                alt="সোহাগ">
-
-            <button
-                class="call-button"
-                onclick="sendCommand('CALL_SOHAG')">
-
-                <span class="phone-icon">
-                    ☎
-                </span>
-
-                <span>
-                    Call সোহাগ
-                </span>
-
-            </button>
-
-        </div>
-
-
-
-        <!-- সাঈদ -->
-
-        <div class="card">
-
-            <img
-                src="sayed.png"
-                class="profile-img"
-                alt="সাঈদ">
-
-            <button
-                class="call-button"
-                onclick="sendCommand('CALL_SAYED')">
-
-                <span class="phone-icon">
-                    ☎
-                </span>
-
-                <span>
-                    Call সাঈদ
-                </span>
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         MESSAGE
-    ====================================== -->
-
-    <div class="message-section">
-
-        <div class="message-title">
-
-            💬 মেসেজ পাঠান
-
-        </div>
-
-    </div>
-
-
-
-    <div class="message-grid">
-
-
-        <!-- FACEBOOK -->
-
-        <button
-            class="
