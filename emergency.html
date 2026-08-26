@@ -592,122 +592,133 @@ body {
 
     </div>
 
-
 </div>
 
 
 
-<script>
+<script type="module">
+
 
 /* =========================================
-   BACK
+   FIREBASE APP
 ========================================= */
 
-function goBack() {
-
-    if (window.history.length > 1) {
-
-        window.history.back();
-
-    } else {
-
-        window.location.href =
-            "home.html";
-
-    }
-
+import {
+    initializeApp
 }
-
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 /* =========================================
-   PHONE NUMBERS
-=========================================
-
-   এখানে তোমার আগের Emergency.html-এর
-   আসল নম্বরগুলো বসাবে।
-
-   আমি কোনো নম্বর অনুমান করে দিইনি।
+   FIREBASE AUTH
 ========================================= */
 
-const PHONE_NUMBERS = {
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    CALL_RIFAT:
-        "+8801859259020",
 
-    CALL_MANJURUL:
-        "+8801618848777",
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
-    CALL_SOHAG:
-        "+8801812646476",
+const firebaseConfig = {
 
-    CALL_SAYED:
-        "+8801897901243"
+    apiKey:
+        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
+
+    authDomain:
+        "al-awn-blood-fighters.firebaseapp.com",
+
+    projectId:
+        "al-awn-blood-fighters",
+
+    storageBucket:
+        "al-awn-blood-fighters.firebasestorage.app",
+
+    messagingSenderId:
+        "299061496611",
+
+    appId:
+        "1:299061496611:web:4762f74dbf311cd57f1a96",
+
+    measurementId:
+        "G-D31EXKJWQ3"
 
 };
 
 
-
 /* =========================================
-   FACEBOOK PAGE
-=========================================
-
-   এখানে তোমার আগের Facebook Page-এর
-   URL বসাবে।
+   INITIALIZE FIREBASE
 ========================================= */
 
-const FACEBOOK_PAGE =
-    "https://www.facebook.com/alawnbloodfighters";
+const app =
+    initializeApp(firebaseConfig);
 
+const auth =
+    getAuth(app);
 
 
 /* =========================================
-   COMMAND
+   ADMIN UID
 ========================================= */
 
-function sendCommand(command) {
+const ADMIN_UIDS = [
+
+    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
+
+    "y3HwNswW8wYIi6GOEbZauIhcyis1"
+
+];
 
 
-    /* ==============================
-       FACEBOOK
-    ============================== */
+/* =========================================
+   CURRENT USER
+========================================= */
 
-    if (
-        command ===
-        "OPEN_FACEBOOK"
-    ) {
+let currentUser = null;
 
-        if (!FACEBOOK_PAGE) {
+let authChecked = false;
 
-            alert(
-                "Facebook Page-এর লিংক সেট করা হয়নি।"
-            );
 
-            return;
+/* =========================================
+   AUTH STATE
+========================================= */
 
-        }
+onAuthStateChanged(
 
-        window.location.href =
-            FACEBOOK_PAGE;
+    auth,
 
-        return;
+    user => {
+
+        currentUser = user;
+
+        authChecked = true;
 
     }
 
+);
 
 
-    /* ==============================
-       CALL
-    ============================== */
+/* =========================================
+   SEND COMMAND TO APP INVENTOR
+========================================= */
 
-    const number =
-        PHONE_NUMBERS[command];
+window.sendCommand =
+function(command) {
 
+    if (
+        window.AppInventor &&
+        typeof window.AppInventor.setWebViewString ===
+        "function"
+    ) {
 
-    if (!number) {
-
-        alert(
-            "এই ব্যক্তির ফোন নম্বর সেট করা হয়নি।"
+        window.AppInventor.setWebViewString(
+            command
         );
 
         return;
@@ -715,23 +726,203 @@ function sendCommand(command) {
     }
 
 
-    window.location.href =
-        "tel:" + number;
+    /*
+     * Browser-এ পরীক্ষা করলে
+     * console-এ command দেখাবে।
+     */
 
-}
+    console.log(
+        "App Inventor Command:",
+        command
+    );
 
+};
 
 
 /* =========================================
-   MESSAGE AABF TEAM
+   OPEN MESSAGE / CHAT LIST
 ========================================= */
 
-function openMessageChat() {
+window.openMessageChat =
+function() {
+
+
+    /*
+     * Auth state এখনও পাওয়া যায়নি
+     */
+
+    if (!authChecked) {
+
+        let attempts = 0;
+
+
+        const timer =
+            setInterval(
+
+                function() {
+
+                    attempts++;
+
+
+                    /*
+                     * Auth পাওয়া গেলে
+                     */
+
+                    if (authChecked) {
+
+                        clearInterval(
+                            timer
+                        );
+
+
+                        openCorrectPage();
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * ৫ সেকেন্ড পরেও না হলে
+                     */
+
+                    if (attempts >= 50) {
+
+                        clearInterval(
+                            timer
+                        );
+
+
+                        alert(
+                            "Login তথ্য লোড হতে সমস্যা হয়েছে। আবার Login করুন।"
+                        );
+
+                    }
+
+                },
+
+                100
+
+            );
+
+
+        return;
+
+    }
+
+
+    openCorrectPage();
+
+};
+
+
+/* =========================================
+   ROUTE USER / ADMIN
+========================================= */
+
+function openCorrectPage() {
+
+
+    /*
+     * Login নেই
+     */
+
+    if (!currentUser) {
+
+        alert(
+            "আপনি Login করেননি।"
+        );
+
+        return;
+
+    }
+
+
+    const uid =
+        currentUser.uid;
+
+
+    /*
+     * ==============================
+     * ADMIN
+     * ==============================
+     *
+     * Admin সরাসরি Chat List-এ যাবে।
+     */
+
+    if (
+        ADMIN_UIDS.includes(uid)
+    ) {
+
+        window.location.href =
+            "chatlist.html";
+
+        return;
+
+    }
+
+
+    /*
+     * ==============================
+     * USER
+     * ==============================
+     *
+     * User নিজের Chat-এ যাবে।
+     */
 
     window.location.href =
-        "message.html";
+        "message.html?uid=" +
+        encodeURIComponent(uid);
 
 }
+
+
+/* =========================================
+   BACK
+========================================= */
+
+window.goBack =
+function() {
+
+
+    /*
+     * App Inventor WebView
+     */
+
+    if (
+        window.AppInventor &&
+        typeof window.AppInventor.setWebViewString ===
+        "function"
+    ) {
+
+        window.AppInventor.setWebViewString(
+            "BACK"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Browser
+     */
+
+    if (
+        window.history.length > 1
+    ) {
+
+        window.history.back();
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "index.html";
+
+};
 
 </script>
 
