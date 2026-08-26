@@ -1,589 +1,511 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html>  <html lang="bn">  <head>  
+<meta charset="UTF-8">  <meta name="viewport"  
+content="width=device-width,  
+initial-scale=1.0,  
+maximum-scale=1.0,  
+user-scalable=no">
 
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
-
-<title>AABF Chat List</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: #eeeae2;
-    font-family: Arial, "Noto Sans Bengali", sans-serif;
-}
-
-.header {
-    height: 58px;
-    background: #086b61;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 21px;
-    font-weight: bold;
-}
-
-#chatList {
-    padding: 12px;
-}
-
-.chat-item {
-    position: relative;
-
-    background: white;
-
-    margin-bottom: 10px;
-    padding: 13px 15px;
-
-    border-radius: 14px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 1px 4px rgba(0,0,0,.08);
-
-    padding-right: 55px;
-}
-
-.chat-item:active {
-    transform: scale(.98);
-}
-
-.name {
-    color: #086b61;
-
-    font-size: 17px;
-    font-weight: bold;
-
-    margin-bottom: 5px;
-}
-
-.last-message {
-    color: #333;
-
-    font-size: 15px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.time {
-    color: #888;
-
-    font-size: 11px;
-
-    text-align: right;
-
-    margin-top: 5px;
-}
-
-.unread {
-    position: absolute;
-
-    top: 12px;
-    right: 14px;
-
-    min-width: 24px;
-    height: 24px;
-
-    padding: 0 6px;
-
-    border-radius: 50px;
-
-    background: #e60000;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.empty {
-    text-align: center;
-
-    color: #888;
-
-    margin-top: 60px;
-}
-
-.error {
-    text-align: center;
-
-    color: #c62828;
-
-    margin: 60px 20px;
-
-    line-height: 1.6;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-    কর্তৃপক্ষের মেসেজ
+<title>AABF Chat List</title>  <style>  
+  
+* {  
+    box-sizing: border-box;  
+    -webkit-tap-highlight-color: transparent;  
+}  
+  
+html,  
+body {  
+    margin: 0;  
+    padding: 0;  
+    width: 100%;  
+    height: 100%;  
+    background: #eeeae2;  
+    font-family: Arial, "Noto Sans Bengali", sans-serif;  
+}  
+  
+.header {  
+    height: 58px;  
+    background: #086b61;  
+    color: white;  
+  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+  
+    font-size: 21px;  
+    font-weight: bold;  
+}  
+  
+#chatList {  
+    padding: 12px;  
+}  
+  
+.chat-item {  
+    background: white;  
+  
+    margin-bottom: 10px;  
+    padding: 13px 15px;  
+  
+    border-radius: 14px;  
+  
+    cursor: pointer;  
+  
+    box-shadow:  
+        0 1px 4px rgba(0,0,0,.08);  
+}  
+  
+.chat-item:active {  
+    transform: scale(.98);  
+}  
+  
+.name {  
+    color: #086b61;  
+  
+    font-size: 17px;  
+    font-weight: bold;  
+  
+    margin-bottom: 5px;  
+}  
+  
+.last-message {  
+    color: #333;  
+  
+    font-size: 15px;  
+  
+    white-space: nowrap;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+}  
+  
+.time {  
+    color: #888;  
+  
+    font-size: 11px;  
+  
+    text-align: right;  
+  
+    margin-top: 5px;  
+}  
+  
+.empty {  
+    text-align: center;  
+  
+    color: #888;  
+  
+    margin-top: 60px;  
+}  
+  
+.error {  
+    text-align: center;  
+  
+    color: #c62828;  
+  
+    margin: 60px 20px;  
+  
+    line-height: 1.6;  
+}  
+  
+</style>  </head>  <body>  <div class="header">  
+    কর্তৃপক্ষের মেসেজ  
+</div>  <div id="chatList">  <div class="empty">  
+    Chat লোড হচ্ছে...  
 </div>
 
-<div id="chatList">
-
-    <div class="empty">
-        Chat লোড হচ্ছে...
-    </div>
-
-</div>
-
-
-<script type="module">
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getAuth,
-    onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-    getDatabase,
-    ref,
-    onValue
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAR3uyMlvGNWZaG_w1zs6IKQ2lXB_Y_9M0",
-
-    authDomain:
-        "al-awn-blood-fighters.firebaseapp.com",
-
-    projectId:
-        "al-awn-blood-fighters",
-
-    storageBucket:
-        "al-awn-blood-fighters.firebasestorage.app",
-
-    messagingSenderId:
-        "299061496611",
-
-    appId:
-        "1:299061496611:web:4762f74dbf311cd57f1a96",
-
-    measurementId:
-        "G-D31EXKJWQ3"
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getDatabase(app);
-
-
-const ADMIN_UIDS = [
-
-    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",
-
-    "y3HwNswW8wYIi6GOEbZauIhcyis1"
-
-];
-
-
-const chatList =
-    document.getElementById("chatList");
-
-
-function formatTime(timestamp) {
-
-    if (!timestamp) {
-        return "";
-    }
-
-    const date =
-        new Date(timestamp);
-
-    let hours =
-        date.getHours();
-
-    const minutes =
-        String(
-            date.getMinutes()
-        ).padStart(2, "0");
-
-    const ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
-
-    hours =
-        hours % 12 || 12;
-
-    return (
-        hours +
-        ":" +
-        minutes +
-        " " +
-        ampm
-    );
-
-}
-
-
-function loadChatList() {
-
-    const chatListRef =
-        ref(
-            db,
-            "chatList"
-        );
-
-
-    const unreadRef =
-        ref(
-            db,
-            "unread"
-        );
-
-
-    onValue(
-
-        chatListRef,
-
-        async snapshot => {
-
-            chatList.innerHTML = "";
-
-
-            const data =
-                snapshot.val();
-
-
-            if (!data) {
-
-                chatList.innerHTML = `
-                    <div class="empty">
-                        এখনো কোনো Chat নেই।
-                    </div>
-                `;
-
-                return;
-            }
-
-
-            const chats =
-                Object.entries(data)
-                .map(
-                    ([uid, chat]) => ({
-                        uid,
-                        ...chat
-                    })
-                )
-                .sort(
-                    (a, b) =>
-                        (b.timestamp || 0) -
-                        (a.timestamp || 0)
-                );
-
-
-            let unreadData = {};
-
-
-            /*
-               unread আলাদাভাবে load
-            */
-
-            await new Promise(
-                resolve => {
-
-                    onValue(
-
-                        unreadRef,
-
-                        snapshot => {
-
-                            unreadData =
-                                snapshot.val() || {};
-
-                            resolve();
-
-                        },
-
-                        {
-                            onlyOnce: true
-                        }
-
-                    );
-
-                }
-            );
-
-
-            for (const chat of chats) {
-
-                let userName =
-                    "User";
-
-
-                try {
-
-                    const userSnapshot =
-                        await new Promise(
-                            resolve => {
-
-                                onValue(
-
-                                    ref(
-                                        db,
-                                        "users/" +
-                                        chat.uid
-                                    ),
-
-                                    resolve,
-
-                                    {
-                                        onlyOnce: true
-                                    }
-
-                                );
-
-                            }
-                        );
-
-
-                    if (
-                        userSnapshot.exists()
-                    ) {
-
-                        const userData =
-                            userSnapshot.val();
-
-
-                        userName =
-                            userData.name ||
-                            userData.phone ||
-                            "User";
-
-                    }
-
-                }
-
-                catch (error) {
-
-                    console.error(
-                        error
-                    );
-
-                }
-
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "chat-item";
-
-
-                const name =
-                    document.createElement(
-                        "div"
-                    );
-
-                name.className =
-                    "name";
-
-                name.textContent =
-                    userName;
-
-
-                const lastMessage =
-                    document.createElement(
-                        "div"
-                    );
-
-                lastMessage.className =
-                    "last-message";
-
-                lastMessage.textContent =
-                    chat.lastMessage ||
-                    "কোনো মেসেজ নেই";
-
-
-                const time =
-                    document.createElement(
-                        "div"
-                    );
-
-                time.className =
-                    "time";
-
-                time.textContent =
-                    formatTime(
-                        chat.timestamp
-                    );
-
-
-                item.appendChild(name);
-
-                item.appendChild(
-                    lastMessage
-                );
-
-                item.appendChild(time);
-
-
-                const unreadCount =
-                    Number(
-                        unreadData[chat.uid] || 0
-                    );
-
-
-                if (
-                    unreadCount > 0
-                ) {
-
-                    const badge =
-                        document.createElement(
-                            "div"
-                        );
-
-                    badge.className =
-                        "unread";
-
-                    badge.textContent =
-                        unreadCount > 99
-                            ? "99+"
-                            : unreadCount;
-
-                    item.appendChild(
-                        badge
-                    );
-
-                }
-
-
-                item.addEventListener(
-                    "click",
-                    () => {
-
-                        window.location.href =
-                            "message.html?uid=" +
-                            encodeURIComponent(
-                                chat.uid
-                            );
-
-                    }
-                );
-
-
-                chatList.appendChild(item);
-
-            }
-
-        },
-
-        error => {
-
-            console.error(
-                error
-            );
-
-            chatList.innerHTML = `
-                <div class="error">
-                    Chat List লোড করা যাচ্ছে না।
-                    <br><br>
-                    Firebase Rules পরীক্ষা করুন।
-                </div>
-            `;
-
-        }
-
-    );
-
-}
-
-
-onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-        if (!user) {
-
-            chatList.innerHTML = `
-                <div class="error">
-                    আগে Login করুন।
-                </div>
-            `;
-
-            return;
-        }
-
-
-        if (
-            !ADMIN_UIDS.includes(
-                user.uid
-            )
-        ) {
-
-            chatList.innerHTML = `
-                <div class="error">
-                    এই পেজ শুধু কর্তৃপক্ষের জন্য।
-                </div>
-            `;
-
-            return;
-        }
-
-
-        loadChatList();
-
-    }
-
-);
-
-</script>
-
-</body>
-
-</html>
+</div>  <script type="module">  
+  
+/* =========================================  
+   FIREBASE  
+========================================= */  
+  
+import {  
+    initializeApp  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";  
+  
+import {  
+    getAuth,  
+    onAuthStateChanged  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";  
+  
+import {  
+    getDatabase,  
+    ref,  
+    onValue  
+}  
+from  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";  
+  
+  
+/* =========================================  
+   CONFIG  
+========================================= */  
+  
+const firebaseConfig = {  
+  
+    apiKey:  
+        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",  
+  
+    authDomain:  
+        "al-awn-blood-fighters.firebaseapp.com",  
+  
+    projectId:  
+        "al-awn-blood-fighters",  
+  
+    storageBucket:  
+        "al-awn-blood-fighters.firebasestorage.app",  
+  
+    messagingSenderId:  
+        "299061496611",  
+  
+    appId:  
+        "1:299061496611:web:4762f74dbf311cd57f1a96",  
+  
+    measurementId:  
+        "G-D31EXKJWQ3"  
+};  
+  
+  
+/* =========================================  
+   INITIALIZE  
+========================================= */  
+  
+const app =  
+    initializeApp(firebaseConfig);  
+  
+const auth =  
+    getAuth(app);  
+  
+const db =  
+    getDatabase(app);  
+  
+  
+/* =========================================  
+   ADMIN UID  
+========================================= */  
+  
+const ADMIN_UIDS = [  
+  
+    "TAWXxissVvXqHVK9gCrdxzM9Qjf2",  
+  
+    "y3HwNswW8wYIi6GOEbZauIhcyis1"  
+  
+];  
+  
+  
+/* =========================================  
+   ELEMENT  
+========================================= */  
+  
+const chatList =  
+    document.getElementById("chatList");  
+  
+  
+/* =========================================  
+   TIME  
+========================================= */  
+  
+function formatTime(timestamp) {  
+  
+    if (!timestamp) {  
+        return "";  
+    }  
+  
+    const date =  
+        new Date(timestamp);  
+  
+    let hours =  
+        date.getHours();  
+  
+    const minutes =  
+        String(  
+            date.getMinutes()  
+        ).padStart(2, "0");  
+  
+    const ampm =  
+        hours >= 12  
+            ? "PM"  
+            : "AM";  
+  
+    hours =  
+        hours % 12 || 12;  
+  
+    return (  
+        hours +  
+        ":" +  
+        minutes +  
+        " " +  
+        ampm  
+    );  
+}  
+  
+  
+/* =========================================  
+   LOAD CHAT LIST  
+========================================= */  
+  
+function loadChatList() {  
+  
+    const chatListRef =  
+        ref(  
+            db,  
+            "chatList"  
+        );  
+  
+  
+    onValue(  
+  
+        chatListRef,  
+  
+        async snapshot => {  
+  
+            chatList.innerHTML = "";  
+  
+  
+            const data =  
+                snapshot.val();  
+  
+  
+            if (!data) {  
+  
+                chatList.innerHTML = `  
+                    <div class="empty">  
+                        এখনো কোনো Chat নেই।  
+                    </div>  
+                `;  
+  
+                return;  
+            }  
+  
+  
+            const chats =  
+                Object.entries(data)  
+                .map(  
+                    ([uid, chat]) => ({  
+                        uid,  
+                        ...chat  
+                    })  
+                )  
+                .sort(  
+                    (a, b) =>  
+                        (b.timestamp || 0) -  
+                        (a.timestamp || 0)  
+                );  
+  
+  
+            /*  
+               প্রতিটি User-এর তথ্য  
+               users থেকে নেওয়া হবে  
+            */  
+  
+            for (const chat of chats) {  
+  
+                let userName =  
+                    "User";  
+  
+  
+                try {  
+  
+                    const userSnapshot =  
+                        await new Promise(  
+                            resolve => {  
+  
+                                onValue(  
+  
+                                    ref(  
+                                        db,  
+                                        "users/" +  
+                                        chat.uid  
+                                    ),  
+  
+                                    resolve,  
+  
+                                    {  
+                                        onlyOnce: true  
+                                    }  
+  
+                                );  
+  
+                            }  
+                        );  
+  
+  
+                    if (  
+                        userSnapshot.exists()  
+                    ) {  
+  
+                        const userData =  
+                            userSnapshot.val();  
+  
+  
+                        userName =  
+                            userData.name ||  
+                            userData.phone ||  
+                            "User";  
+  
+                    }  
+  
+                }  
+  
+                catch (error) {  
+  
+                    console.error(  
+                        error  
+                    );  
+  
+                }  
+  
+  
+                const item =  
+                    document.createElement(  
+                        "div"  
+                    );  
+  
+                item.className =  
+                    "chat-item";  
+  
+  
+                const name =  
+                    document.createElement(  
+                        "div"  
+                    );  
+  
+                name.className =  
+                    "name";  
+  
+                name.textContent =  
+                    userName;  
+  
+  
+                const lastMessage =  
+                    document.createElement(  
+                        "div"  
+                    );  
+  
+                lastMessage.className =  
+                    "last-message";  
+  
+                lastMessage.textContent =  
+                    chat.lastMessage ||  
+                    "কোনো মেসেজ নেই";  
+  
+  
+                const time =  
+                    document.createElement(  
+                        "div"  
+                    );  
+  
+                time.className =  
+                    "time";  
+  
+                time.textContent =  
+                    formatTime(  
+                        chat.timestamp  
+                    );  
+  
+  
+                item.appendChild(name);  
+  
+                item.appendChild(  
+                    lastMessage  
+                );  
+  
+                item.appendChild(time);  
+  
+  
+                /*  
+                   Chat খুললে  
+                   message.html?uid=USER_UID  
+                */  
+  
+                item.addEventListener(  
+                    "click",  
+                    () => {  
+  
+                        window.location.href =  
+                            "message.html?uid=" +  
+                            encodeURIComponent(  
+                                chat.uid  
+                            );  
+  
+                    }  
+                );  
+  
+  
+                chatList.appendChild(item);  
+  
+            }  
+  
+        },  
+  
+        error => {  
+  
+            console.error(  
+                error  
+            );  
+  
+            chatList.innerHTML = `  
+                <div class="error">  
+                    Chat List লোড করা যাচ্ছে না।  
+                    <br><br>  
+                    Firebase Rules পরীক্ষা করুন।  
+                </div>  
+            `;  
+  
+        }  
+  
+    );  
+  
+}  
+  
+  
+/* =========================================  
+   AUTH  
+========================================= */  
+  
+onAuthStateChanged(  
+  
+    auth,  
+  
+    user => {  
+  
+        if (!user) {  
+  
+            chatList.innerHTML = `  
+                <div class="error">  
+                    আগে Login করুন।  
+                </div>  
+            `;  
+  
+            return;  
+        }  
+  
+  
+        /*  
+           শুধু Admin Chat List দেখতে পারবে  
+        */  
+  
+        if (  
+            !ADMIN_UIDS.includes(  
+                user.uid  
+            )  
+        ) {  
+  
+            chatList.innerHTML = `  
+                <div class="error">  
+                    এই পেজ শুধু কর্তৃপক্ষের জন্য।  
+                </div>  
+            `;  
+  
+            return;  
+        }  
+  
+  
+        loadChatList();  
+  
+    }  
+  
+);  
+  
+</script>  </body>  </html>
