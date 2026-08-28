@@ -1,68 +1,23 @@
 // =========================================
-// AABF HOME - FIREBASE PROFILE + NAVIGATION
+// AABF HOME
+// FIREBASE AUTH + PROFILE + NAVIGATION
 // =========================================
 
 import {
-    initializeApp
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    auth,
+    db
+} from "./firebase-config.js";
 
 import {
-    getAuth,
     onAuthStateChanged
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-    getDatabase,
     ref,
     get
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
-// =========================================
-// FIREBASE CONFIGURATION
-// =========================================
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAR3uyMlvGNwZaG_w1zs6IKQ2lXB_Y_9M0",
-
-    authDomain:
-        "al-awn-blood-fighters.firebaseapp.com",
-
-    projectId:
-        "al-awn-blood-fighters",
-
-    storageBucket:
-        "al-awn-blood-fighters.firebasestorage.app",
-
-    messagingSenderId:
-        "299061496611",
-
-    appId:
-        "1:299061496611:web:4762f74dbf311cd57f1a96",
-
-    measurementId:
-        "G-D31EXKJWQ3"
-
-};
-
-
-// =========================================
-// INITIALIZE FIREBASE
-// =========================================
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getDatabase(app);
 
 
 // =========================================
@@ -77,7 +32,7 @@ window.goTo = function(page) {
             "https://sites.google.com/view/alawnbloodfighters/home",
 
         "blood-request.html":
-            "https://alawnbloodfighters-arch.github.io/Blood-Request-/",
+            "https://alawnbloodfighters-arch.github.io/Blood-Request/",
 
         "blood-requests.html":
             "https://alawnbloodfighters-arch.github.io/Blood-Request-/requests.html",
@@ -88,16 +43,42 @@ window.goTo = function(page) {
     };
 
 
-    const url =
-        pages[page];
+    const url = pages[page];
 
 
-    if (url) {
+    if (!url) {
 
-        window.location.href =
-            url;
+        console.error(
+            "Page URL পাওয়া যায়নি:",
+            page
+        );
+
+        return;
 
     }
+
+
+    // =====================================
+    // IMPORTANT
+    // =====================================
+    // URL-এর uid নয়,
+    // Firebase Auth session-ই আসল।
+
+    if (!auth.currentUser) {
+
+        alert(
+            "⚠️ আপনার Login session পাওয়া যায়নি। আবার Login করুন।"
+        );
+
+        window.location.href =
+            "https://alawnbloodfighters-arch.github.io/App-sing-up/login.html";
+
+        return;
+
+    }
+
+
+    window.location.href = url;
 
 };
 
@@ -128,29 +109,12 @@ window.openProfile = function() {
 
 
 // =========================================
-// GET UID FROM URL
-// =========================================
-
-const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const urlUID =
-    urlParams.get("uid");
-
-
-// =========================================
 // LOAD USER PROFILE
 // =========================================
 
 async function loadUserProfile(uid) {
 
     if (!uid) {
-
-        console.log(
-            "UID পাওয়া যায়নি।"
-        );
 
         return;
 
@@ -172,9 +136,9 @@ async function loadUserProfile(uid) {
 
         if (!snapshot.exists()) {
 
-            console.error(
-                "users/" + uid +
-                " এ কোনো profile পাওয়া যায়নি।"
+            console.log(
+                "Profile পাওয়া যায়নি:",
+                uid
             );
 
             return;
@@ -225,24 +189,6 @@ async function loadUserProfile(uid) {
 
         }
 
-
-        const userCard =
-            document.getElementById(
-                "userCard"
-            );
-
-
-        if (userCard) {
-
-            userCard.onclick =
-                function() {
-
-                    openProfile();
-
-                };
-
-        }
-
     }
 
     catch(error) {
@@ -267,21 +213,16 @@ onAuthStateChanged(
 
     function(user) {
 
-        if (urlUID) {
-
-            loadUserProfile(
-                urlUID
-            );
-
-            return;
-
-        }
+        console.log(
+            "HOME AUTH USER:",
+            user
+        );
 
 
-        if (user) {
+        if (!user) {
 
-            loadUserProfile(
-                user.uid
+            console.log(
+                "Home-এ Firebase Login পাওয়া যায়নি।"
             );
 
             return;
@@ -290,7 +231,13 @@ onAuthStateChanged(
 
 
         console.log(
-            "কোনো logged-in user পাওয়া যায়নি।"
+            "Home Login OK. UID:",
+            user.uid
+        );
+
+
+        loadUserProfile(
+            user.uid
         );
 
     }
