@@ -58,6 +58,132 @@
 
         }
 
+
+        /* ==========================================
+           আবেদন দেখুন - UNREAD BADGES
+        ========================================== */
+
+        .requests-action-card {
+
+            position: relative;
+
+        }
+
+
+        .request-notification-area {
+
+            position: absolute;
+
+            top: 9px;
+
+            right: 9px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 5px;
+
+            z-index: 20;
+
+        }
+
+
+        .request-notification-badge {
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 42px;
+
+            height: 28px;
+
+            padding: 0 8px;
+
+            border-radius: 50px;
+
+            background: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            line-height: 1;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,0.15);
+
+            border: 2px solid rgba(255,255,255,0.9);
+
+            white-space: nowrap;
+
+        }
+
+
+        .request-notification-badge.blood {
+
+            color: #d00000;
+
+        }
+
+
+        .request-notification-badge.message {
+
+            color: #087f73;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .request-notification-area {
+
+                top: 8px;
+
+                right: 8px;
+
+                gap: 4px;
+
+            }
+
+
+            .request-notification-badge {
+
+                min-width: 40px;
+
+                height: 27px;
+
+                padding: 0 7px;
+
+                font-size: 14px;
+
+            }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .request-notification-badge {
+
+                min-width: 38px;
+
+                height: 26px;
+
+                padding: 0 6px;
+
+                font-size: 13px;
+
+            }
+
+        }
+
     </style>
 
 </head>
@@ -231,11 +357,44 @@
 
 
 
+        <!-- ==========================================
+             আবেদন দেখুন
+        ========================================== -->
+
         <button
-            class="action-card card-blue"
+            class="action-card card-blue requests-action-card"
             type="button"
-            onclick="goTo('blood-requests.html')"
+            id="viewRequestsButton"
+            onclick="openBloodRequests()"
         >
+
+            <!-- Notification Badges -->
+
+            <div
+                class="request-notification-area"
+            >
+
+                <div
+                    id="newRequestBadge"
+                    class="request-notification-badge blood"
+                >
+
+                    🩸 0
+
+                </div>
+
+
+                <div
+                    id="unreadMessageCardsBadge"
+                    class="request-notification-badge message"
+                >
+
+                    💬 0
+
+                </div>
+
+            </div>
+
 
             <div class="card-icon">
 
@@ -403,6 +562,680 @@
     type="module"
     src="script.js"
 ></script>
+
+
+<!-- ==========================================
+     NOTIFICATION SYSTEM
+========================================== -->
+
+<script type="module">
+
+import {
+
+    auth,
+    db
+
+}
+from "./firebase-config.js";
+
+
+import {
+
+    onAuthStateChanged
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+
+    ref,
+    onValue
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const newRequestBadge =
+
+    document.getElementById(
+        "newRequestBadge"
+    );
+
+
+const unreadMessageCardsBadge =
+
+    document.getElementById(
+        "unreadMessageCardsBadge"
+    );
+
+
+
+/* ==========================================
+   GLOBAL
+========================================== */
+
+let currentUser = null;
+
+let latestRequestCreatedAt = 0;
+
+
+
+/* ==========================================
+   STORAGE KEY
+========================================== */
+
+function getRequestSeenKey(uid) {
+
+    return (
+        "AABF_blood_requests_seen_" +
+        String(uid)
+    );
+
+}
+
+
+
+/* ==========================================
+   SHOW / HIDE BADGE
+========================================== */
+
+function showBadge(
+
+    element,
+    emoji,
+    count
+
+) {
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    const total =
+        Number(count || 0);
+
+
+    if (total > 0) {
+
+        element.style.display =
+            "flex";
+
+
+        element.innerText =
+
+            emoji +
+            " " +
+            (
+                total > 99
+                ?
+                "99+"
+                :
+                String(total)
+            );
+
+    }
+
+    else {
+
+        element.style.display =
+            "none";
+
+        element.innerText =
+            emoji + " 0";
+
+    }
+
+}
+
+
+
+/* ==========================================
+   NEW BLOOD REQUEST COUNT
+========================================== */
+
+function listenForNewRequests(uid) {
+
+    if (!uid) {
+
+        return;
+
+    }
+
+
+    const requestsRef =
+
+        ref(
+            db,
+            "bloodRequests"
+        );
+
+
+    onValue(
+
+        requestsRef,
+
+        function(snapshot) {
+
+            const data =
+                snapshot.val();
+
+
+            if (!data) {
+
+                showBadge(
+
+                    newRequestBadge,
+
+                    "🩸",
+
+                    0
+
+                );
+
+                return;
+
+            }
+
+
+            const requests =
+
+                Object.values(data);
+
+
+            let latestCreatedAt = 0;
+
+
+            requests.forEach(
+
+                function(request) {
+
+                    if (!request) {
+
+                        return;
+
+                    }
+
+
+                    const createdAt =
+
+                        Number(
+                            request.createdAt || 0
+                        );
+
+
+                    if (
+                        createdAt >
+                        latestCreatedAt
+                    ) {
+
+                        latestCreatedAt =
+                            createdAt;
+
+                    }
+
+                }
+
+            );
+
+
+            latestRequestCreatedAt =
+                latestCreatedAt;
+
+
+            const storageKey =
+
+                getRequestSeenKey(uid);
+
+
+            const savedSeenValue =
+
+                localStorage.getItem(
+                    storageKey
+                );
+
+
+            /*
+             * প্রথমবার ব্যবহার করলে
+             * পুরোনো আবেদনগুলোকে নতুন
+             * হিসেবে দেখাবে না।
+             */
+
+            if (
+                savedSeenValue === null
+            ) {
+
+                localStorage.setItem(
+
+                    storageKey,
+
+                    String(
+                        latestCreatedAt
+                    )
+
+                );
+
+
+                showBadge(
+
+                    newRequestBadge,
+
+                    "🩸",
+
+                    0
+
+                );
+
+                return;
+
+            }
+
+
+            const lastSeenAt =
+
+                Number(
+                    savedSeenValue || 0
+                );
+
+
+            let newRequestCount = 0;
+
+
+            requests.forEach(
+
+                function(request) {
+
+                    if (!request) {
+
+                        return;
+
+                    }
+
+
+                    const createdAt =
+
+                        Number(
+                            request.createdAt || 0
+                        );
+
+
+                    if (
+                        createdAt >
+                        lastSeenAt
+                    ) {
+
+                        newRequestCount++;
+
+                    }
+
+                }
+
+            );
+
+
+            showBadge(
+
+                newRequestBadge,
+
+                "🩸",
+
+                newRequestCount
+
+            );
+
+        },
+
+        function(error) {
+
+            console.error(
+
+                "New Request Notification Error:",
+
+                error
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* ==========================================
+   UNREAD MESSAGE CARD COUNT
+========================================== */
+
+function listenForUnreadMessageCards(uid) {
+
+    if (!uid) {
+
+        return;
+
+    }
+
+
+    const publicChatsRef =
+
+        ref(
+            db,
+            "publicChats"
+        );
+
+
+    onValue(
+
+        publicChatsRef,
+
+        function(snapshot) {
+
+            const allChats =
+                snapshot.val();
+
+
+            if (!allChats) {
+
+                showBadge(
+
+                    unreadMessageCardsBadge,
+
+                    "💬",
+
+                    0
+
+                );
+
+                return;
+
+            }
+
+
+            let unreadCardCount = 0;
+
+
+            /*
+             * এখানে message সংখ্যা গোনা হবে না।
+             *
+             * একটি request/card-এ
+             * ১টি message থাকলেও = ১
+             *
+             * ১০টি message থাকলেও = ১
+             *
+             * অর্থাৎ কয়টি আলাদা card-এ
+             * unread message আছে সেটাই count হবে।
+             */
+
+            Object.entries(allChats).forEach(
+
+                function(entry) {
+
+                    const requestId =
+                        entry[0];
+
+
+                    const chatData =
+                        entry[1] || {};
+
+
+                    const messages =
+                        chatData.messages || {};
+
+
+                    const readState =
+                        chatData.readState || {};
+
+
+                    const userReadData =
+
+                        readState[uid] || {};
+
+
+                    const lastReadAt =
+
+                        Number(
+                            userReadData.lastReadAt || 0
+                        );
+
+
+                    let hasUnreadMessage = false;
+
+
+                    Object.values(messages).forEach(
+
+                        function(message) {
+
+                            if (
+                                hasUnreadMessage ||
+                                !message
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            const messageTime =
+
+                                Number(
+                                    message.createdAt || 0
+                                );
+
+
+                            const senderUid =
+
+                                String(
+                                    message.uid || ""
+                                );
+
+
+                            /*
+                             * নিজের পাঠানো message
+                             * unread হিসেবে গণনা হবে না।
+                             */
+
+                            if (
+
+                                senderUid !==
+                                String(uid)
+
+                                &&
+
+                                messageTime >
+                                lastReadAt
+
+                            ) {
+
+                                hasUnreadMessage =
+                                    true;
+
+                            }
+
+                        }
+
+                    );
+
+
+                    /*
+                     * এই card-এ unread থাকলে
+                     * পুরো card = ১
+                     */
+
+                    if (hasUnreadMessage) {
+
+                        unreadCardCount++;
+
+                    }
+
+                }
+
+            );
+
+
+            showBadge(
+
+                unreadMessageCardsBadge,
+
+                "💬",
+
+                unreadCardCount
+
+            );
+
+        },
+
+        function(error) {
+
+            console.error(
+
+                "Unread Message Card Count Error:",
+
+                error
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* ==========================================
+   AUTH
+========================================== */
+
+onAuthStateChanged(
+
+    auth,
+
+    function(user) {
+
+        currentUser =
+            user;
+
+
+        if (!user) {
+
+            showBadge(
+
+                newRequestBadge,
+
+                "🩸",
+
+                0
+
+            );
+
+
+            showBadge(
+
+                unreadMessageCardsBadge,
+
+                "💬",
+
+                0
+
+            );
+
+            return;
+
+        }
+
+
+        listenForNewRequests(
+            user.uid
+        );
+
+
+        listenForUnreadMessageCards(
+            user.uid
+        );
+
+    }
+
+);
+
+
+
+/* ==========================================
+   OPEN BLOOD REQUESTS
+========================================== */
+
+window.openBloodRequests =
+
+    function() {
+
+        /*
+         * আবেদন দেখুন চাপলে বর্তমানে থাকা
+         * সব আবেদনকে দেখা হয়েছে হিসেবে
+         * ধরে নেওয়া হবে।
+         */
+
+        if (currentUser) {
+
+            const storageKey =
+
+                getRequestSeenKey(
+                    currentUser.uid
+                );
+
+
+            if (latestRequestCreatedAt > 0) {
+
+                localStorage.setItem(
+
+                    storageKey,
+
+                    String(
+                        latestRequestCreatedAt
+                    )
+
+                );
+
+            }
+
+        }
+
+
+        /*
+         * শুধু 🩸 নতুন আবেদন badge reset হবে।
+         *
+         * 💬 message badge reset হবে না,
+         * কারণ message read হওয়া conversation
+         * page-এর readState-এর উপর নির্ভর করবে।
+         */
+
+        showBadge(
+
+            newRequestBadge,
+
+            "🩸",
+
+            0
+
+        );
+
+
+        window.location.href =
+            "blood-requests.html";
+
+    };
+
+
+
+</script>
 
 
 </body>
