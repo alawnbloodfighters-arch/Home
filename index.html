@@ -58,6 +58,90 @@
 
         }
 
+
+        /* =========================
+           আবেদন দেখুন UNREAD BADGE
+        ========================= */
+
+        .card-blue {
+
+            position: relative;
+
+        }
+
+
+        .request-unread-badges {
+
+            position: absolute;
+
+            top: 8px;
+
+            right: 8px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 4px;
+
+            z-index: 5;
+
+        }
+
+
+        .request-unread-badge {
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 28px;
+
+            height: 25px;
+
+            padding: 0 7px;
+
+            border-radius: 50px;
+
+            color: white;
+
+            font-family:
+                Arial,
+                "Noto Sans Bengali",
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+            box-shadow:
+                0 2px 6px
+                rgba(0,0,0,0.20);
+
+        }
+
+
+        .request-blood-badge {
+
+            background: #d00000;
+
+        }
+
+
+        .request-message-badge {
+
+            background: #087f73;
+
+        }
+
     </style>
 
 </head>
@@ -231,16 +315,38 @@
 
 
 
-        <!-- =====================================
-             আবেদন দেখুন
-             শুধু এই বাটনের navigation ঠিক করা হয়েছে
-        ====================================== -->
-
         <button
             class="action-card card-blue"
+            id="bloodRequestsButton"
             type="button"
-            onclick="window.location.href='blood-requests.html'"
+            onclick="goTo('blood-requests.html')"
         >
+
+            <!-- =========================
+                 UNREAD BADGES
+            ========================== -->
+
+            <div
+                class="request-unread-badges"
+            >
+
+                <span
+                    id="newRequestBadge"
+                    class="request-unread-badge request-blood-badge"
+                >
+                    🩸 0
+                </span>
+
+
+                <span
+                    id="newMessageCardsBadge"
+                    class="request-unread-badge request-message-badge"
+                >
+                    💬 0
+                </span>
+
+            </div>
+
 
             <div class="card-icon">
 
@@ -408,6 +514,582 @@
     type="module"
     src="script.js"
 ></script>
+
+
+<!-- ==========================================
+     UNREAD COUNT SYSTEM
+========================================== -->
+
+<script type="module">
+
+import {
+
+    auth,
+    db
+
+}
+from "./firebase-config.js";
+
+
+import {
+
+    onAuthStateChanged
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+
+    ref,
+    onValue
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const newRequestBadge =
+    document.getElementById(
+        "newRequestBadge"
+    );
+
+
+const newMessageCardsBadge =
+    document.getElementById(
+        "newMessageCardsBadge"
+    );
+
+
+const bloodRequestsButton =
+    document.getElementById(
+        "bloodRequestsButton"
+    );
+
+
+
+// ==========================================
+// GLOBAL
+// ==========================================
+
+let currentUser = null;
+
+let requestsData = {};
+
+let chatsData = {};
+
+
+
+// ==========================================
+// LOCAL STORAGE KEY
+// ==========================================
+
+const REQUEST_SEEN_KEY =
+    "aabf_blood_requests_seen_at";
+
+
+
+// ==========================================
+// HIDE BADGES
+// ==========================================
+
+function hideBadge(badge) {
+
+    if (!badge) {
+
+        return;
+
+    }
+
+
+    badge.style.display =
+        "none";
+
+}
+
+
+
+// ==========================================
+// SHOW BADGE
+// ==========================================
+
+function showBadge(
+
+    badge,
+
+    emoji,
+
+    count
+
+) {
+
+    if (!badge) {
+
+        return;
+
+    }
+
+
+    const safeCount =
+        Number(count || 0);
+
+
+    if (safeCount <= 0) {
+
+        hideBadge(badge);
+
+        return;
+
+    }
+
+
+    badge.innerText =
+
+        emoji +
+
+        " " +
+
+        (
+            safeCount > 99
+            ?
+            "99+"
+            :
+            String(safeCount)
+        );
+
+
+    badge.style.display =
+        "flex";
+
+}
+
+
+
+// ==========================================
+// NEW BLOOD REQUEST COUNT
+// ==========================================
+
+function updateNewRequestCount() {
+
+    const seenAt =
+        Number(
+            localStorage.getItem(
+                REQUEST_SEEN_KEY
+            ) || 0
+        );
+
+
+    let count = 0;
+
+
+    Object.entries(
+        requestsData || {}
+    ).forEach(
+
+        function(entry) {
+
+            const request =
+                entry[1];
+
+
+            if (!request) {
+
+                return;
+
+            }
+
+
+            const createdAt =
+                Number(
+                    request.createdAt || 0
+                );
+
+
+            if (
+
+                createdAt > 0 &&
+
+                createdAt > seenAt
+
+            ) {
+
+                count++;
+
+            }
+
+        }
+
+    );
+
+
+    showBadge(
+
+        newRequestBadge,
+
+        "🩸",
+
+        count
+
+    );
+
+}
+
+
+
+// ==========================================
+// MESSAGE UNREAD CARD COUNT
+// ==========================================
+
+function updateUnreadMessageCardCount() {
+
+    if (!currentUser) {
+
+        hideBadge(
+            newMessageCardsBadge
+        );
+
+        return;
+
+    }
+
+
+    let unreadCardCount = 0;
+
+
+    Object.entries(
+        chatsData || {}
+    ).forEach(
+
+        function(entry) {
+
+            const requestId =
+                entry[0];
+
+
+            const chat =
+                entry[1];
+
+
+            if (!chat) {
+
+                return;
+
+            }
+
+
+            const messages =
+                chat.messages || {};
+
+
+            const readState =
+                chat.readState || {};
+
+
+            const userReadData =
+                readState[
+                    currentUser.uid
+                ] || {};
+
+
+            const lastReadAt =
+                Number(
+                    userReadData.lastReadAt || 0
+                );
+
+
+            let hasUnreadMessage =
+                false;
+
+
+            Object.values(
+                messages
+            ).forEach(
+
+                function(message) {
+
+                    if (!message) {
+
+                        return;
+
+                    }
+
+
+                    const messageTime =
+                        Number(
+                            message.createdAt || 0
+                        );
+
+
+                    const senderUid =
+                        String(
+                            message.uid || ""
+                        );
+
+
+                    if (
+
+                        senderUid !==
+                        String(
+                            currentUser.uid
+                        )
+
+                        &&
+
+                        messageTime >
+                        lastReadAt
+
+                    ) {
+
+                        hasUnreadMessage =
+                            true;
+
+                    }
+
+                }
+
+            );
+
+
+            /*
+             * এখানে message-এর সংখ্যা
+             * গণনা করা হচ্ছে না।
+             *
+             * একটি card-এ ১০টা unread message
+             * থাকলেও count হবে ১।
+             */
+
+            if (hasUnreadMessage) {
+
+                unreadCardCount++;
+
+            }
+
+        }
+
+    );
+
+
+    showBadge(
+
+        newMessageCardsBadge,
+
+        "💬",
+
+        unreadCardCount
+
+    );
+
+}
+
+
+
+// ==========================================
+// LOAD BLOOD REQUESTS
+// ==========================================
+
+function listenBloodRequests() {
+
+    const requestsRef =
+        ref(
+            db,
+            "bloodRequests"
+        );
+
+
+    onValue(
+
+        requestsRef,
+
+        function(snapshot) {
+
+            requestsData =
+                snapshot.val() || {};
+
+
+            updateNewRequestCount();
+
+        },
+
+        function(error) {
+
+            console.error(
+                "Blood Request Count Error:",
+                error
+            );
+
+        }
+
+    );
+
+}
+
+
+
+// ==========================================
+// LOAD PUBLIC CHATS
+// ==========================================
+
+function listenPublicChats() {
+
+    const chatsRef =
+        ref(
+            db,
+            "publicChats"
+        );
+
+
+    onValue(
+
+        chatsRef,
+
+        function(snapshot) {
+
+            chatsData =
+                snapshot.val() || {};
+
+
+            updateUnreadMessageCardCount();
+
+        },
+
+        function(error) {
+
+            console.error(
+                "Message Count Error:",
+                error
+            );
+
+        }
+
+    );
+
+}
+
+
+
+// ==========================================
+// WHEN CLICK "আবেদন দেখুন"
+// ==========================================
+
+if (bloodRequestsButton) {
+
+    bloodRequestsButton.addEventListener(
+
+        "click",
+
+        function() {
+
+            /*
+             * আবেদন দেখুন চাপলে
+             * বর্তমানে থাকা সব request
+             * seen হিসেবে ধরা হবে।
+             *
+             * goTo() আগের মতোই
+             * কাজ করবে।
+             */
+
+            let latestCreatedAt =
+                0;
+
+
+            Object.values(
+                requestsData || {}
+            ).forEach(
+
+                function(request) {
+
+                    if (!request) {
+
+                        return;
+
+                    }
+
+
+                    const createdAt =
+                        Number(
+                            request.createdAt || 0
+                        );
+
+
+                    if (
+                        createdAt >
+                        latestCreatedAt
+                    ) {
+
+                        latestCreatedAt =
+                            createdAt;
+
+                    }
+
+                }
+
+            );
+
+
+            if (latestCreatedAt > 0) {
+
+                localStorage.setItem(
+
+                    REQUEST_SEEN_KEY,
+
+                    String(
+                        latestCreatedAt
+                    )
+
+                );
+
+            }
+
+
+            hideBadge(
+                newRequestBadge
+            );
+
+        }
+
+    );
+
+}
+
+
+
+// ==========================================
+// AUTH
+// ==========================================
+
+onAuthStateChanged(
+
+    auth,
+
+    function(user) {
+
+        currentUser =
+            user;
+
+
+        updateUnreadMessageCardCount();
+
+    }
+
+);
+
+
+
+// ==========================================
+// START
+// ==========================================
+
+listenBloodRequests();
+
+listenPublicChats();
+
+</script>
 
 
 </body>
